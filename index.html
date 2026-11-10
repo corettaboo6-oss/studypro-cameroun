@@ -1,77 +1,55 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STUDYPRO CAMEROUN</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="STUDYPRO CAMEROUN : cours, fiches, QCM et révisions pour étudiants en soins infirmiers.">
+<title>STUDYPRO CAMEROUN — Soins infirmiers</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;color:#203040;line-height:1.6}
-header{background:#12304a;color:white;padding:20px;text-align:center}
-header h2{margin:0}
-nav{padding:12px;text-align:center;background:#176b87}
-nav a{color:white;text-decoration:none;margin:8px;font-weight:bold}
-.hero{background:linear-gradient(120deg,#eaf4f8,#fff1d6);padding:65px 20px;text-align:center}
-.hero h1{font-size:35px;color:#12304a}
-.btn{background:#176b87;color:white;padding:12px 20px;border-radius:8px;text-decoration:none;display:inline-block}
-section{padding:35px 7%}
-h2{color:#12304a}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-.card{background:#f2f7fa;padding:22px;border-radius:12px}
-.card h3{color:#176b87}
-.quiz{background:#f2f7fa;padding:20px;border-radius:12px}
-button{padding:12px;margin:5px;border:0;border-radius:7px;background:#dceaf0;cursor:pointer}
-footer{background:#12304a;color:white;text-align:center;padding:22px}
+:root{--navy:#12304a;--teal:#176b87;--pale:#eef5f8;--gold:#f3b84b;--ink:#203040}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,sans-serif;color:var(--ink);line-height:1.6;background:#fff}
+header{background:var(--navy);color:#fff;padding:17px 6%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header h2{margin:0;font-size:1.25rem}header p{margin:2px 0 0;color:#dbe9f0;font-size:.9rem}
+nav{background:var(--teal);padding:11px 5%;display:flex;justify-content:center;gap:22px;flex-wrap:wrap}
+nav a{color:#fff;text-decoration:none;font-weight:bold;font-size:.94rem}
+.hero{padding:58px 7%;background:linear-gradient(125deg,#eaf4f8,#fff4df);text-align:center}
+.hero h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.15;color:var(--navy);margin:0 auto 15px;max-width:850px}
+.hero p{max-width:700px;margin:0 auto 22px;font-size:1.05rem}.btn{display:inline-block;background:var(--teal);color:#fff;text-decoration:none;padding:12px 19px;border-radius:8px;font-weight:bold}
+section{padding:36px 7%}h2{color:var(--navy);margin-top:0}.intro{max-width:850px;color:#526574}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:25px}
+.stat{background:#fff;border:1px solid #dce8ee;border-radius:12px;padding:15px;text-align:center}.stat strong{display:block;color:var(--teal);font-size:1.55rem}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.filters input,.filters select{padding:12px;border:1px solid #cbd9e0;border-radius:8px;font:inherit;background:white;min-width:180px;flex:1}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:15px}
+.course{border:1px solid #dce7ed;border-radius:13px;padding:18px;background:#fff;box-shadow:0 3px 12px #12304a0a}
+.course h3{color:var(--teal);margin:7px 0}.tag{display:inline-block;background:#eaf3f7;color:#22536b;border-radius:20px;padding:3px 9px;font-size:.78rem;font-weight:bold}
+.course details{margin-top:10px}.course summary{cursor:pointer;color:var(--navy);font-weight:bold}.course ul{padding-left:20px}.course li{margin:5px 0}
+.objective{background:#f3f7f9;border-left:3px solid var(--gold);padding:10px;margin-top:12px;font-size:.93rem}
+.empty{padding:20px;background:var(--pale);border-radius:10px}
+.panel{background:var(--pale);border-radius:14px;padding:22px}.quiz-q{font-weight:bold;font-size:1.05rem}.answers{display:grid;gap:8px}.answers button{text-align:left;padding:12px;border:1px solid #ccdae1;border-radius:8px;background:#fff;cursor:pointer;font:inherit}.answers button:hover{border-color:var(--teal)}.answers button:disabled{cursor:default}.feedback{font-weight:bold;margin-top:12px}
+.note{font-size:.9rem;color:#586a76}.sources a{color:var(--teal);overflow-wrap:anywhere}
+footer{background:var(--navy);color:white;text-align:center;padding:24px}footer a{color:#d8edf7}
+@media(max-width:560px){header{justify-content:center;text-align:center}.hero{padding:44px 6%}section{padding:30px 5%}nav{gap:13px}}
 </style>
 </head>
 <body>
-<header>
-<h2>📘 STUDYPRO CAMEROUN</h2>
-<p>Apprendre • Réviser • Réussir</p>
-</header>
-<nav>
-<a href="#filieres">Filières</a>
-<a href="#ressources">Ressources</a>
-<a href="#qcm">Mini-QCM</a>
-<a href="#contact">Contact</a>
-</nav>
-<div class="hero">
-<h1>Réussis tes études, un cours à la fois !</h1>
-<p>La plateforme de révision et d'accompagnement des étudiants au Cameroun.</p>
-<a class="btn" href="#ressources">Découvrir les ressources</a>
-</div>
-<section id="filieres">
-<h2>Nos domaines d'étude</h2>
-<div class="cards">
-<div class="card"><h3>🩺 Santé</h3><p>Soins infirmiers, santé publique, nutrition et prévention.</p></div>
-<div class="card"><h3>🦷 Sciences dentaires</h3><p>Anatomie, parodontologie, anesthésiologie et hygiène bucco-dentaire.</p></div>
-<div class="card"><h3>🔬 Sciences et techniques</h3><p>Fiches de cours et exercices pour progresser.</p></div>
-</div>
-</section>
-<section id="ressources">
-<h2>Nos ressources pédagogiques</h2>
-<div class="cards">
-<div class="card"><h3>📚 Fiches de cours</h3><p>Des résumés simples pour faciliter les révisions.</p></div>
-<div class="card"><h3>✍️ QCM et QROC</h3><p>Des exercices pour tester tes connaissances.</p></div>
-<div class="card"><h3>🎓 Annales corrigées</h3><p>Des sujets d'examens pour mieux te préparer.</p></div>
-</div>
-</section>
-<section id="qcm">
-<h2>Teste tes connaissances</h2>
-<div class="quiz">
-<p><strong>Quel est l'objectif de la prévention en santé ?</strong></p>
-<button onclick="document.getElementById('result').textContent='Bonne réponse ! 🎉'">Réduire les risques de maladie</button>
-<button onclick="document.getElementById('result').textContent='Essaie encore !'">Attendre les complications</button>
-<p id="result"></p>
-</div>
-</section>
-<section id="contact">
-<h2>À propos de STUDYPRO CAMEROUN</h2>
-<p>Une initiative éducative pour accompagner les étudiants camerounais dans leur réussite scolaire et universitaire.</p>
-<p>Contact : adresse à ajouter prochainement.</p>
-</section>
-<footer>© 2026 STUDYPRO CAMEROUN - Tous droits réservés</footer>
-</body>
-  </html>
-  
+<header><div><h2>📘 STUDYPRO CAMEROUN</h2><p>Apprendre • Réviser • Réussir</p></div><div>La réussite commence par une bonne préparation.</div></header>
+<nav><a href="#programme">Programme</a><a href="#cours">Cours</a><a href="#evaluation">S'entraîner</a><a href="#sources">Références</a></nav>
+<div class="hero"><h1>Ta bibliothèque de soins infirmiers</h1><p>Des cours structurés, des objectifs d'apprentissage et des exercices pour progresser tout au long de la formation IDE au Cameroun.</p><a class="btn" href="#cours">Explorer les cours</a></div>
+<section id="programme"><h2>Parcours Infirmier Diplômé d'État (IDE)</h2><p class="intro">Un parcours de révision organisé en trois années. Les domaines couvrent les sciences fondamentales, les soins cliniques, la santé publique, la déontologie et le management.</p><div class="stats"><div class="stat"><strong>3 ans</strong>Parcours IDE</div><div class="stat"><strong id="courseCount">—</strong>Fiches de cours</div><div class="stat"><strong>QCM</strong>Entraînement intégré</div></div><p class="note">La progression et les intitulés exacts peuvent varier selon le référentiel de l'établissement et les mises à jour du MINSANTE. Les supports ci-dessous sont une base pédagogique de révision, pas une reproduction certifiée du programme officiel complet.</p></section>
+<section id="cours"><h2>Bibliothèque de cours</h2><p class="intro">Choisis ton année ou recherche directement une matière. Ouvre une fiche pour consulter les chapitres et les objectifs.</p>
+<div class="filters"><input id="search" type="search" placeholder="Rechercher un cours, un thème…"><select id="year"><option value="all">Toutes les années</option><option value="1">1re année</option><option value="2">2e année</option><option value="3">3e année</option></select><select id="domain"><option value="all">Tous les domaines</option></select></div>
+<div id="courseGrid" class="grid" aria-live="polite"></div></section>
+<section id="evaluation"><h2>Mini-QCM de révision</h2><div class="panel"><p class="note">Questions de démonstration sur les notions fondamentales. D'autres évaluations seront ajoutées progressivement.</p><div id="quiz"><p class="quiz-q" id="question"></p><div class="answers" id="answers"></div><p class="feedback" id="feedback" aria-live="polite"></p><button class="btn" id="next" style="display:none;border:0;cursor:pointer">Question suivante</button></div></div></section>
+<section id="sources" class="sources"><h2>Références et méthode</h2><p>Les grands domaines de révision sont notamment recoupés avec les matières infirmières publiées par les autorités camerounaises pour les concours professionnels : pathologie médicale et chirurgicale, santé de la reproduction, santé publique, morale professionnelle, anesthésiologie, santé mentale et management.</p><ul><li><a href="https://www.minfopra.gov.cm/images/2019/concours-pro/SANTE_PUBLIQUE_INFIRMIERS_2019.pdf" target="_blank" rel="noopener">MINFOPRA — Programme du concours professionnel des infirmiers (2019)</a></li><li><a href="https://www.minfopra.gov.cm/images/pdf/concours/ouvertures2017/SANTE_PUBLIQUE_INFIRMIERS_2017.pdf" target="_blank" rel="noopener">MINFOPRA — Matières des concours professionnels infirmiers (2017)</a></li><li><a href="https://www.minfopra.gov.cm/" target="_blank" rel="noopener">MINFOPRA — portail officiel</a></li></ul><p class="note">Les calendriers vaccinaux, protocoles thérapeutiques, posologies et conduites à tenir doivent toujours être vérifiés dans les documents nationaux les plus récents et auprès des encadreurs cliniques. Un support de révision ne remplace ni une prescription, ni un protocole validé, ni la supervision d'un professionnel habilité.</p></section>
+<footer>© 2026 STUDYPRO CAMEROUN · Apprendre • Réviser • Réussir</footer>
+<script src="courses.js"></script>
+<script>
+const grid=document.getElementById('courseGrid'),search=document.getElementById('search'),year=document.getElementById('year'),domain=document.getElementById('domain');
+const domains=[...new Set(COURSES.map(c=>c.domain))];domains.forEach(d=>{const o=document.createElement('option');o.value=d;o.textContent=d;domain.appendChild(o)});
+document.getElementById('courseCount').textContent=COURSES.length;
+function render(){const q=search.value.toLocaleLowerCase('fr'),y=year.value,d=domain.value;const found=COURSES.filter(c=>(y==='all'||String(c.year)===y)&&(d==='all'||c.domain===d)&&(c.title+' '+c.domain+' '+c.topics.join(' ')).toLocaleLowerCase('fr').includes(q));grid.innerHTML='';if(!found.length){grid.innerHTML='<p class="empty">Aucun cours ne correspond à cette recherche.</p>';return}found.forEach(c=>{const card=document.createElement('article');card.className='course';const tag=document.createElement('span');tag.className='tag';tag.textContent=c.year+'e année · '+c.domain;const h=document.createElement('h3');h.textContent=c.title;const details=document.createElement('details');const summary=document.createElement('summary');summary.textContent='Consulter la fiche';const ul=document.createElement('ul');c.topics.forEach(t=>{const li=document.createElement('li');li.textContent=t;ul.appendChild(li)});details.append(summary,ul);const obj=document.createElement('p');obj.className='objective';obj.textContent='Objectif : '+c.objectives;card.append(tag,h,details,obj);grid.appendChild(card)})}
+[search,year,domain].forEach(el=>el.addEventListener('input',render));render();
+const questions=COURSES.flatMap(c=>(c.quiz||[]).map(q=>({text:q[0],choices:q[1],answer:q[2],course:c.title})));let qi=0,locked=false;
+function showQ(){locked=false;const q=questions[qi%questions.length];document.getElementById('question').textContent=q.text;document.getElementById('feedback').textContent='';document.getElementById('next').style.display='none';const box=document.getElementById('answers');box.innerHTML='';q.choices.forEach((choice,i)=>{const b=document.createElement('button');b.textContent=choice;b.onclick=()=>{if(locked)return;locked=true;const ok=i===q.answer;document.getElementById('feedback').textContent=ok?'Bonne réponse ! 🎉':'Pas tout à fait. Relis la fiche « '+q.course+' » puis réessaie.';b.style.borderColor=ok?'#26845b':'#b44';box.querySelectorAll('button').forEach(x=>x.disabled=true);document.getElementById('next').style.display='inline-block'};box.appendChild(b)})}
+document.getElementById('next').onclick=()=>{qi++;showQ()};showQ();
+</script>
+</body></html>
