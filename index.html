@@ -5,30 +5,30 @@
 <meta name="description" content="STUDYPRO CAMEROUN : cours, fiches, QCM et révisions pour étudiants en soins infirmiers.">
 <title>STUDYPRO CAMEROUN — Soins infirmiers</title>
 <style>
-:root{--navy:#12304a;--teal:#176b87;--pale:#eef5f8;--gold:#f3b84b;--ink:#203040}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,sans-serif;color:var(--ink);line-height:1.6;background:#fff}
-header{background:var(--navy);color:#fff;padding:17px 6%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-header h2{margin:0;font-size:1.25rem}header p{margin:2px 0 0;color:#dbe9f0;font-size:.9rem}
-nav{background:var(--teal);padding:11px 5%;display:flex;justify-content:center;gap:22px;flex-wrap:wrap}
-nav a{color:#fff;text-decoration:none;font-weight:bold;font-size:.94rem}
-.hero{padding:58px 7%;background:linear-gradient(125deg,#eaf4f8,#fff4df);text-align:center}
-.hero h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.15;color:var(--navy);margin:0 auto 15px;max-width:850px}
-.hero p{max-width:700px;margin:0 auto 22px;font-size:1.05rem}.btn{display:inline-block;background:var(--teal);color:#fff;text-decoration:none;padding:12px 19px;border-radius:8px;font-weight:bold}
-section{padding:36px 7%}h2{color:var(--navy);margin-top:0}.intro{max-width:850px;color:#526574}
+:root{--navy:#10142f;--teal:#00d4c7;--pale:#111b38;--gold:#ffbf47;--ink:#eaf2ff;--violet:#8b5cf6;--cyan:#24d9ff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,Arial,sans-serif;color:var(--ink);line-height:1.6;background:radial-gradient(ellipse at 15% 0%,#20265a 0%,#10142f 42%,#080c1e 100%);background-attachment:fixed}
+header{background:rgba(8,13,34,.94);color:#fff;padding:17px 6%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid #2c3c70;box-shadow:0 8px 30px #0005}
+header h2{margin:0;font-size:1.3rem;letter-spacing:1px;color:#45e6df}header p{margin:2px 0 0;color:#aebde8;font-size:.9rem}
+nav{background:rgba(22,29,68,.96);padding:12px 5%;display:flex;justify-content:center;gap:22px;flex-wrap:wrap;border-bottom:1px solid #35457b;position:sticky;top:0;z-index:10;backdrop-filter:blur(14px)}
+nav a{color:#e7f4ff;text-decoration:none;font-weight:bold;font-size:.94rem}nav a:hover{color:#45e6df}
+.hero{padding:58px 7%;background:linear-gradient(125deg,#17204a,#26205a 55%,#103b55);text-align:center;border-bottom:1px solid #34477e}
+.hero h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.15;color:#fff;margin:0 auto 15px;max-width:850px;text-shadow:0 0 24px #31d9e766}
+.hero p{max-width:700px;margin:0 auto 22px;font-size:1.05rem;color:#d6e6ff}.btn{display:inline-block;background:linear-gradient(110deg,#00cbbd,#377bff);color:#06152d;text-decoration:none;padding:12px 19px;border-radius:10px;font-weight:800;box-shadow:0 5px 22px #00d4c744;border:1px solid #7dfcf0}
+section{padding:36px 7%}h2{color:#66e8e0;margin-top:0}.intro{max-width:850px;color:#bdcbe9}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:25px}
-.stat{background:#fff;border:1px solid #dce8ee;border-radius:12px;padding:15px;text-align:center}.stat strong{display:block;color:var(--teal);font-size:1.55rem}
-.filters{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.filters input,.filters select{padding:12px;border:1px solid #cbd9e0;border-radius:8px;font:inherit;background:white;min-width:180px;flex:1}
+.stat{background:linear-gradient(145deg,#1c2854,#141d3d);border:1px solid #384a80;border-radius:15px;padding:15px;text-align:center;box-shadow:0 8px 25px #0003}.stat strong{display:block;color:#47e8dd;font-size:1.55rem}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.filters input,.filters select{padding:12px;border:1px solid #45578e;border-radius:10px;font:inherit;background:#151f42;color:#fff;min-width:180px;flex:1}.filters input::placeholder{color:#9caed5}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:15px}
-.course{border:1px solid #dce7ed;border-radius:13px;padding:18px;background:#fff;box-shadow:0 3px 12px #12304a0a}
-.course h3{color:var(--teal);margin:7px 0}.tag{display:inline-block;background:#eaf3f7;color:#22536b;border-radius:20px;padding:3px 9px;font-size:.78rem;font-weight:bold}
-.course details{margin-top:10px}.course summary{cursor:pointer;color:var(--navy);font-weight:bold}.course ul{padding-left:20px}.course li{margin:5px 0}
-.objective{background:#f3f7f9;border-left:3px solid var(--gold);padding:10px;margin-top:12px;font-size:.93rem}
-.empty{padding:20px;background:var(--pale);border-radius:10px}
-.panel{background:var(--pale);border-radius:14px;padding:22px}.quiz-q{font-weight:bold;font-size:1.05rem}.answers{display:grid;gap:8px}.answers button{text-align:left;padding:12px;border:1px solid #ccdae1;border-radius:8px;background:#fff;cursor:pointer;font:inherit}.answers button:hover{border-color:var(--teal)}.answers button:disabled{cursor:default}.feedback{font-weight:bold;margin-top:12px}
-.note{font-size:.9rem;color:#586a76}.sources a{color:var(--teal);overflow-wrap:anywhere}
-footer{background:var(--navy);color:white;text-align:center;padding:24px}footer a{color:#d8edf7}
-@media(max-width:560px){header{justify-content:center;text-align:center}.hero{padding:44px 6%}section{padding:30px 5%}nav{gap:13px}}
-.hero-visual{max-width:980px;margin:28px auto 0;display:grid;grid-template-columns:1.15fr .85fr;gap:14px;text-align:left}.hero-visual img{width:100%;height:210px;object-fit:cover;border-radius:15px}.hero-tip,.reward-panel{background:#fff;border:1px solid #dce8ee;border-radius:14px;padding:18px}.course-photo{width:100%;height:140px;object-fit:cover;border-radius:10px;margin-bottom:10px}.reward-panel{margin-top:18px;background:#fff8e8;border-color:#ead9b4}.reward-points{font-size:1.8rem;font-weight:bold;color:#a66a08}.progress-track{height:10px;background:#e4e8e9;border-radius:20px;overflow:hidden;margin:10px 0}.progress-fill{height:100%;background:#e2a52f;transition:width .2s}.badge-list{display:flex;gap:8px;flex-wrap:wrap}.reward-badge{background:#fff;border:1px solid #e8d7ac;border-radius:20px;padding:5px 10px;font-size:.84rem}.reward-action{margin-top:12px;background:#176b87;color:#fff;border:0;border-radius:8px;padding:10px 14px;font-weight:bold}.reward-action:disabled{background:#6b8b98}@media(max-width:650px){.hero-visual{grid-template-columns:1fr}.hero-visual img{height:180px}}</style>
+.course{border:1px solid #344879;border-radius:16px;padding:18px;background:linear-gradient(150deg,#1a254c,#111a37);box-shadow:0 10px 28px #0004;transition:transform .2s,border-color .2s}.course:hover{transform:translateY(-4px);border-color:#35ddd3}
+.course h3{color:#75e9e3;margin:7px 0}.tag{display:inline-block;background:#263d69;color:#8df5ec;border:1px solid #3d6589;border-radius:20px;padding:3px 9px;font-size:.78rem;font-weight:bold}
+.course details{margin-top:10px}.course summary{cursor:pointer;color:#e8f3ff;font-weight:bold}.course ul{padding-left:20px}.course li{margin:5px 0}
+.objective{background:#1c2d50;border-left:3px solid var(--gold);padding:10px;margin-top:12px;font-size:.93rem;color:#e3eaff}
+.empty{padding:20px;background:#1b2850;border-radius:10px}
+.panel{background:linear-gradient(145deg,#1b2850,#121b39);border:1px solid #344879;border-radius:16px;padding:22px}.quiz-q{font-weight:bold;font-size:1.05rem}.answers{display:grid;gap:8px}.answers button{text-align:left;padding:12px;border:1px solid #45578e;border-radius:10px;background:#172344;color:#f1f6ff;cursor:pointer;font:inherit}.answers button:hover{border-color:var(--teal)}.answers button:disabled{cursor:default}.feedback{font-weight:bold;margin-top:12px}
+.note{font-size:.9rem;color:#aebde0}.sources a{color:#5ce8e0;overflow-wrap:anywhere}
+footer{background:#080d22;color:#dce9ff;text-align:center;padding:24px;border-top:1px solid #354779}footer a{color:#5ce8e0}
+.hero-visual{max-width:980px;margin:28px auto 0;display:grid;grid-template-columns:1.15fr .85fr;gap:14px;text-align:left}.hero-visual img{width:100%;height:210px;object-fit:cover;border-radius:15px;border:1px solid #4c75a2}.hero-tip,.reward-panel{background:linear-gradient(145deg,#1b2850,#111a37);border:1px solid #3c568b;border-radius:15px;padding:18px}.reward-panel{margin-top:18px;background:linear-gradient(120deg,#29244e,#153b50);border-color:#6b62a5}.reward-points{font-size:1.8rem;font-weight:bold;color:#ffcb65}.progress-track{height:10px;background:#0c1430;border-radius:20px;overflow:hidden;margin:10px 0}.progress-fill{height:100%;background:linear-gradient(90deg,#00d4c7,#8b5cf6);transition:width .2s}.badge-list{display:flex;gap:8px;flex-wrap:wrap}.reward-badge{background:#202e55;border:1px solid #8c7cbd;color:#ffe3a0;border-radius:20px;padding:5px 10px;font-size:.84rem}.reward-action{margin-top:12px;background:linear-gradient(110deg,#00cbbd,#377bff);color:#07162d;border:0;border-radius:9px;padding:10px 14px;font-weight:bold}.reward-action:disabled{background:#526782;color:#dce8f5}@media(max-width:650px){.hero-visual{grid-template-columns:1fr}.hero-visual img{height:180px}}
+</style>
 </head>
 <body>
 <header><div><h2>📘 STUDYPRO CAMEROUN</h2><p>Apprendre • Réviser • Réussir</p></div><div>La réussite commence par une bonne préparation.</div></header>
