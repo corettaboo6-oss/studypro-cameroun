@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STUDYPRO CAMEROUN</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;color:#203040;line-height:1.6}
+header{background:#12304a;color:white;padding:20px;text-align:center}
+header h2{margin:0}
+nav{padding:12px;text-align:center;background:#176b87}
+nav a{color:white;text-decoration:none;margin:8px;font-weight:bold}
+.hero{background:linear-gradient(120deg,#eaf4f8,#fff1d6);padding:65px 20px;text-align:center}
+.hero h1{font-size:35px;color:#12304a}
+.btn{background:#176b87;color:white;padding:12px 20px;border-radius:8px;text-decoration:none;display:inline-block}
+section{padding:35px 7%}
+h2{color:#12304a}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:#f2f7fa;padding:22px;border-radius:12px}
+.card h3{color:#176b87}
+.quiz{background:#f2f7fa;padding:20px;border-radius:12px}
+button{padding:12px;margin:5px;border:0;border-radius:7px;background:#dceaf0;cursor:pointer}
+footer{background:#12304a;color:white;text-align:center;padding:22px}
+</style>
+</head>
+<body>
+<header>
+<h2>📘 STUDYPRO CAMEROUN</h2>
+<p>Apprendre • Réviser • Réussir</p>
+</header>
+<nav>
+<a href="#filieres">Filières</a>
+<a href="#ressources">Ressources</a>
+<a href="#qcm">Mini-QCM</a>
+<a href="#contact">Contact</a>
+</nav>
+<div class="hero">
+<h1>Réussis tes études, un cours à la fois !</h1>
+<p>La plateforme de révision et d'accompagnement des étudiants au Cameroun.</p>
+<a class="btn" href="#ressources">Découvrir les ressources</a>
+</div>
+<section id="filieres">
+<h2>Nos domaines d'étude</h2>
+<div class="cards">
+<div class="card"><h3>🩺 Santé</h3><p>Soins infirmiers, santé publique, nutrition et prévention.</p></div>
+<div class="card"><h3>🦷 Sciences dentaires</h3><p>Anatomie, parodontologie, anesthésiologie et hygiène bucco-dentaire.</p></div>
+<div class="card"><h3>🔬 Sciences et techniques</h3><p>Fiches de cours et exercices pour progresser.</p></div>
+</div>
+</section>
+<section id="ressources">
+<h2>Nos ressources pédagogiques</h2>
+<div class="cards">
+<div class="card"><h3>📚 Fiches de cours</h3><p>Des résumés simples pour faciliter les révisions.</p></div>
+<div class="card"><h3>✍️ QCM et QROC</h3><p>Des exercices pour tester tes connaissances.</p></div>
+<div class="card"><h3>🎓 Annales corrigées</h3><p>Des sujets d'examens pour mieux te préparer.</p></div>
+</div>
+</section>
+<section id="qcm">
+<h2>Teste tes connaissances</h2>
+<div class="quiz">
+<p><strong>Quel est l'objectif de la prévention en santé ?</strong></p>
+<button onclick="document.getElementById('result').textContent='Bonne réponse ! 🎉'">Réduire les risques de maladie</button>
+<button onclick="document.getElementById('result').textContent='Essaie encore !'">Attendre les complications</button>
+<p id="result"></p>
+</div>
+</section>
+<section id="contact">
+<h2>À propos de STUDYPRO CAMEROUN</h2>
+<p>Une initiative éducative pour accompagner les étudiants camerounais dans leur réussite scolaire et universitaire.</p>
+<p>Contact : adresse à ajouter prochainement.</p>
+</section>
+<footer>© 2026 STUDYPRO CAMEROUN - Tous droits réservés</footer>
+</body>
+  </html>
+  
