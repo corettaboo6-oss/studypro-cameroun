@@ -16,10 +16,14 @@ Date de vérification documentaire : 11 novembre 2026.
    https://www.minfopra.gov.cm/images/pdf/concours/ouvertures2017/SANTE_PUBLIQUE_INFIRMIERS_2017.pdf
    Référence ancienne utilisée uniquement comme repère complémentaire de domaines professionnels (santé publique, système de santé, management, médecine/chirurgie, santé de la reproduction, santé mentale). Ce document de concours n'est pas le curriculum de formation initiale et ne doit pas être présenté comme tel.
 
+4. **MINESUP — Offre de formation BTS, volume 6 : Études médico-sanitaires, spécialité Sciences infirmières.**
+   https://minesup.gov.cm/DAUQ/Offre%20de%20formation%20BTS-Vol%206.pdf
+   Référentiel officiel publié par le MINESUP, structuré par semestres et unités d'enseignement. Il mentionne notamment anatomie-physiologie, microbiologie, fondements des sciences infirmières, démarche de soins, soins médicaux et chirurgicaux, santé publique, santé de la reproduction, urgences, bloc opératoire, anesthésiologie, santé mentale, recherche et stages. Le parcours de STUDYPRO a été enrichi en prenant ce document comme référence de structuration ; la répartition en trois années de la plateforme ne doit pas être assimilée automatiquement aux semestres du BTS.
+
 ## Règle éditoriale
 
 - Les fichiers `courses.js`, `lessons-year1.js`, `lessons-year2.js` et `lessons-year3.js` constituent des supports pédagogiques de révision, rédigés pour STUDYPRO.
-- Les leçons des années 2 et 3 sont des synthèses de notions infirmières générales, contextualisées au Cameroun lorsque cela est pertinent.
+- Les leçons des années 1 à 3 sont des synthèses de révision. Leur structuration est recoupée avec l'offre officielle BTS Sciences infirmières du MINESUP et les domaines professionnels du MINFOPRA ; cette correspondance thématique ne constitue pas une certification de conformité à chaque école ou à chaque cycle IDE.
 - Elles ne reproduisent pas intégralement un référentiel officiel MINSANTÉ et ne certifient pas la conformité de chaque unité d'enseignement au programme d'une école donnée.
 - Les calendriers vaccinaux, protocoles thérapeutiques, définitions de cas, textes juridiques et procédures doivent être vérifiés dans leur version nationale et institutionnelle en vigueur avant utilisation clinique ou évaluation officielle.
 - Les actes cliniques se pratiquent uniquement dans le cadre de la formation encadrée, des compétences reconnues, prescriptions et protocoles applicables.
