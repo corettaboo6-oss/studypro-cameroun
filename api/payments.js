@@ -177,7 +177,7 @@ export default async function handler(req, res) {
   try {
     const action = String(req.body?.action || "");
     if (action === "create") return await handleCreate(req, res, user);
-    if (action === "status") return await handleStatus(req, res, user);
+    if (action === "status") return await handleStatus(req, res, user);\n    if (action === "subscription") return await handleSubscription(res, user);
     if (action === "admin") return await handleAdmin(res, user);
     return json(res, 400, { error: "Action inconnue." });
   } catch (error) {
