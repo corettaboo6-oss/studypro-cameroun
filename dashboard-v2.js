@@ -46,7 +46,9 @@
     const shell = el('div', 'dash-shell');
     const head = el('div', 'dash-head');
     const heading = el('div');
-    heading.append(el('h2', '', '🎓 Mon espace étudiant'), el('p', 'dash-muted', 'Un aperçu de tes révisions sur cet appareil.'));
+    const title = el('h2', '', '🎓 Mon espace étudiant');
+    title.id = 'dashboard-v2-title';
+    heading.append(title, el('p', 'dash-muted', 'Un aperçu de tes révisions sur cet appareil.'));
     head.append(heading);
     const refresh = el('button', 'dash-secondary', '↻ Actualiser');
     refresh.type = 'button';
@@ -73,8 +75,12 @@
     save.addEventListener('click', () => {
       const value = profileInput.value.trim().slice(0, 40);
       const current = read(STORAGE_KEY, {});
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ name: value, goal: Number(current.goal) || 100 }));
-      status.textContent = value ? 'Profil enregistré sur cet appareil.' : 'Nom effacé.';
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ name: value, goal: Number(current.goal) || 100 }));
+        status.textContent = value ? 'Profil enregistré sur cet appareil.' : 'Nom effacé.';
+      } catch (_) {
+        status.textContent = 'Enregistrement impossible : vérifie les paramètres de stockage du navigateur.';
+      }
     });
     profileCard.append(profileTitle, profileLabel, profileInput, save, status);
     shell.append(profileCard);
@@ -113,8 +119,12 @@
       const next = Math.min(5000, Math.max(10, Number(goalInput.value) || 100));
       goalInput.value = String(next);
       const saved = read(STORAGE_KEY, { name: '' });
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ name: saved.name || '', goal: next }));
-      updateStats();
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ name: saved.name || '', goal: next }));
+        updateStats();
+      } catch (_) {
+        goalText.textContent = 'Impossible d’enregistrer cet objectif sur cet appareil.';
+      }
     });
     goalCard.append(goalLabel, goalInput, progress, goalText);
     shell.append(goalCard);
@@ -171,6 +181,8 @@
       points + ' / ' + goal + ' points · ' + percent + ' % de ton objectif';
   }
 
+  window.addEventListener('studypro:rewards-updated', updateStats);
+  window.addEventListener('storage', updateStats);
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);
   else render();
 })();
