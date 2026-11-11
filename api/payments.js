@@ -60,7 +60,7 @@ async function activateVerifiedOrder(order) {
     apiKey,
     apiPassword
   });
-  if (!verification.ok) return false;
+  if (!verification.ok) return verification;
   await db("/rest/v1/rpc/studypro_activate_subscription", {
     method: "POST",
     body: JSON.stringify({
@@ -72,7 +72,7 @@ async function activateVerifiedOrder(order) {
       p_currency: "XAF"
     })
   });
-  return true;
+  return { ok: true, status: "SUCCESS" };
 }
 function siteOrigin() {
   const configured = env("STUDYPRO_ALLOWED_ORIGIN").replace(/\/+$/, "");
@@ -154,11 +154,11 @@ async function handleStatus(req, res, user) {
   if (order.status === "succeeded") return json(res, 200, { status: "SUCCESS", plan: order.plan });
   if (!order.provider_transaction_id) return json(res, 200, { status: order.status.toUpperCase() });
   const activated = await activateVerifiedOrder(order);
-  if (activated) {
-    if (!activated) return json(res, 409, { error: "La vérification CinetPay ne correspond pas à cette commande." });
-    return json(res, 200, { status: "SUCCESS", plan: order.plan });
+  if (activated.ok) return json(res, 200, { status: "SUCCESS", plan: order.plan });
+  if (activated.status === "SUCCESS") {
+    return json(res, 409, { error: "Le montant, la devise ou les identifiants confirmés par CinetPay ne correspondent pas à cette commande." });
   }
-  return json(res, 200, { status: "PENDING" });
+  return json(res, 200, { status: activated.status || "PENDING" });
 }
 async function handleSubscription(res, user) {
   const rows = await db("/rest/v1/studypro_subscriptions?select=plan,status,current_period_start,current_period_end&user_id=eq." +
