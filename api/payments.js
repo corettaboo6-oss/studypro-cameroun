@@ -143,6 +143,15 @@ async function handleStatus(req, res, user) {
   }
   return json(res, 200, { status: status.status || "PENDING" });
 }
+async function handleSubscription(res, user) {
+  const rows = await db("/rest/v1/studypro_subscriptions?select=plan,status,current_period_start,current_period_end&user_id=eq." +
+    encodeURIComponent(user.id) + "&limit=1");
+  const row = rows[0];
+  if (!row || row.current_period_end && new Date(row.current_period_end) <= new Date()) {
+    return json(res, 200, { subscription: { plan: "free", status: "active", current_period_end: null } });
+  }
+  return json(res, 200, { subscription: row });
+}
 async function handleAdmin(res, user) {
   const allowed = env("STUDYPRO_ADMIN_EMAILS").split(",").map(x => x.trim().toLowerCase()).filter(Boolean);
   if (!allowed.includes(String(user.email || "").toLowerCase())) return json(res, 403, { error: "Accès administrateur réservé." });
