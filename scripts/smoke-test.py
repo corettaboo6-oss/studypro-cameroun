@@ -59,10 +59,11 @@ lesson2 = (ROOT / "lessons-year2.js").read_text(encoding="utf-8")
 assert 'course:"Anesthésiologie et surveillance"' in lesson2, "Module détaillé d'anesthésiologie absent"
 assert lesson2.count('{title:"') >= 22, "Leçons de deuxième année incomplètes"
 course_source = (ROOT / "courses.js").read_text(encoding="utf-8")
-course_titles = re.findall(r'\{year:\\d+,domain:"[^"]+",title:"([^"]+)"', course_source)
-quiz_titles = re.findall(r'\{year:\\d+,domain:"[^"]+",title:"([^"]+)"[^\n]*quiz:\\[', course_source)
+course_titles = re.findall(r'\{year:(\d+),domain:"[^"]+",title:"([^"]+)"', course_source)
+quiz_titles = re.findall(r'\{year:\d+,domain:"[^"]+",title:"([^"]+)"[^\n]*quiz:\[', course_source)
 assert len(course_titles) == 19, f"Nombre de matières inattendu : {len(course_titles)}"
-assert set(course_titles) == set(quiz_titles), "Chaque matière doit disposer d'un QCM"
+assert len(quiz_titles) == 19, f"Chaque matière doit disposer d'un QCM, trouvé : {len(quiz_titles)}"
+assert {title for _, title in course_titles} == set(quiz_titles), "Chaque matière doit disposer d'un QCM"
 assert "Offre de formation BTS" in (ROOT / "SOURCES-PEDAGOGIQUES.md").read_text(encoding="utf-8"), "Référence MINESUP absente"
 
 print("STUDYPRO smoke tests: OK")
