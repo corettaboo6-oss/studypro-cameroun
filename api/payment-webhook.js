@@ -38,6 +38,7 @@ export default async function handler(req, res) {
       apiPassword
     });
     if (!verification.ok) {
+      if (verification.status === "SUCCESS") return res.status(409).send("Provider amount, currency or transaction verification mismatch");
       if (["FAILED", "EXPIRED", "INSUFFICIENT_BALANCE"].includes(verification.status)) {
         await db("/rest/v1/studypro_payment_orders?merchant_transaction_id=eq." + encodeURIComponent(order.merchant_transaction_id), {
           method: "PATCH", headers: { Prefer: "return=minimal" },
@@ -46,7 +47,6 @@ export default async function handler(req, res) {
       }
       return res.status(200).send("Payment not successful");
     }
-    if (!verification.ok) return res.status(409).send("Provider amount, currency or transaction verification mismatch");
     await db("/rest/v1/rpc/studypro_activate_subscription", {
       method: "POST",
       body: JSON.stringify({
