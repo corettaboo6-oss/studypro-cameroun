@@ -26,15 +26,17 @@ missing = required - page.ids
 assert not missing, f"Sections/éléments manquants : {sorted(missing)}"
 
 for src in page.scripts:
-    # Les chemins web absolus (/collective.js) sont relatifs à la racine du site,
-    # pas à la racine du système de fichiers du runner GitHub Actions.
+    # Les scripts hébergés sur un CDN sont externes; seuls les scripts locaux
+    # doivent exister dans le dépôt. Les chemins /... sont relatifs au site.
+    if src.startswith(("https://", "http://")):
+        continue
     local_src = src.split("?", 1)[0].split("#", 1)[0].lstrip("/")
     assert local_src and (ROOT / local_src).is_file(), f"Script référencé introuvable : {src}"
 
 for required_file in ("collective.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js", "supabase/schema.sql", "supabase/monetization.sql", "README-CLASSEMENT.md", "README-MONETISATION.md", "package.json"):
     assert (ROOT / required_file).is_file(), f"Fichier du classement collectif absent : {required_file}"
 
-for filename in ("courses.js", "lessons-year1.js", "lessons-year2.js", "lessons-year3.js", "dashboard-v2.js", "collective.js", "api/chat.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js"):
+for filename in ("courses.js", "lessons-year1.js", "lessons-year2.js", "lessons-year3.js", "dashboard-v2.js", "billing-auth.js", "collective.js", "api/chat.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js"):
     subprocess.run(["node", "--check", str(ROOT / filename)], check=True)
 
 # Vérifie aussi la syntaxe du JavaScript embarqué dans la page.
@@ -60,6 +62,8 @@ for year in (1, 2, 3):
 assert "lessonLibrary[course.year]" in html, "Le chargement des leçons par année est absent"
 assert "lessons-year2.js" in html and "lessons-year3.js" in html, "Scripts des années 2 et 3 non chargés"
 assert "data-buy-plan" in html and "premium_plus" in html, "Offres Premium absentes"
+assert "getAccessToken" in (ROOT / "billing-auth.js").read_text(encoding="utf-8"), "Session Supabase non partagée avec le paiement"
+assert "studypro_subscriptions" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Lecture serveur des abonnements absente"
 assert "1 500 FCFA" in html and "3 000 FCFA" in html, "Tarifs Premium attendus absents"
 assert "2 000 FCFA" not in html and "3 500 FCFA" not in html, "Anciens tarifs encore présents"
 assert "CINETPAY_API_KEY_CM" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Configuration CinetPay côté serveur absente"
