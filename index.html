@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- STUDYPRO build refresh: avatar personalization v2 -->
 <html lang="fr">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -107,7 +108,7 @@ body.theme-light .empty{background:#edf2fa;color:#17233e}
 .avatar-settings{margin-top:18px;background:linear-gradient(145deg,#1b2850,#121b39);border:1px solid #3c568b;border-radius:16px;padding:20px}
 .avatar-dock{position:fixed;right:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px}
 .avatar-launch{width:76px;height:76px;border:3px solid var(--user-accent);border-radius:50%;background:#172344;box-shadow:0 8px 28px #0008;cursor:pointer;padding:3px;overflow:hidden}
-.avatar-launch svg{width:100%;height:100%;display:block}
+.avatar-launch svg{width:100%;height:100%;display:block;border-radius:50%}.avatar-chat-head>div:first-child{width:62px;height:68px;flex:none;overflow:hidden;border-radius:13px;border:1px solid #496397}.avatar-chat-head svg{width:100%;height:100%;display:block}.avatar-chat-head strong{font-size:1.05rem}.avatar-chat .ai-chat-form{align-items:stretch}.avatar-chat .ai-chat-form button{flex:none}.avatar-chat>#avatarClose{margin-top:10px}.avatar-chat>a.btn{margin:10px 0 0 8px}
 .avatar-hint{background:#101a37;color:#fff;border:1px solid #425b8c;border-radius:12px;padding:8px 12px;font-size:.86rem;box-shadow:0 5px 18px #0005}
 .avatar-chat{position:fixed;right:18px;bottom:108px;z-index:31;width:min(340px,calc(100vw - 30px));padding:16px;border-radius:16px;background:#111b38;color:#eef5ff;border:1px solid #496397;box-shadow:0 15px 45px #0009;display:none}
 .avatar-chat.open{display:block}.avatar-chat-head{display:flex;align-items:center;gap:10px}.avatar-chat-head svg{width:54px;height:54px;flex:none}
@@ -117,7 +118,7 @@ body.theme-light .avatar-settings .setting-field label{color:#17233e}
 body.theme-light .avatar-hint{background:#fff;color:#17233e;border-color:#d8e0ef}
 body.theme-light .avatar-chat{background:#fff;color:#17233e;border-color:#d8e0ef}
 body.theme-light .avatar-chat p{color:#40516e}
-@media(max-width:700px){.avatar-dock{right:12px;bottom:12px}.avatar-launch{width:66px;height:66px}.avatar-hint{font-size:.78rem}.avatar-chat{right:12px;bottom:88px}}
+@media(max-width:700px){.avatar-dock{right:12px;bottom:12px}.avatar-launch{width:66px;height:66px}.avatar-hint{font-size:.78rem}.avatar-chat{right:10px;bottom:86px;width:calc(100vw - 20px);max-height:76dvh;padding:12px;overflow-y:auto}.avatar-chat .ai-chat-log{max-height:22dvh}.avatar-chat .ai-chat-form{display:flex;gap:7px}.avatar-chat .ai-chat-form input{width:0;min-width:0;flex:1}.avatar-chat .ai-chat-form button{padding:9px 10px}.avatar-chat>#avatarClose,.avatar-chat>a.btn{min-height:42px}.avatar-chat-head>div:first-child{width:56px;height:62px}}
 
 /* Tuteur IA Studypro */
 .avatar-chat{width:min(410px,calc(100vw - 24px));max-height:min(78vh,720px);overflow:auto}
@@ -147,8 +148,23 @@ body.theme-light .ai-sources,body.theme-light .ai-status{color:#40516e}
 @media(max-width:520px){.leaderboard{font-size:.8rem}.leaderboard th,.leaderboard td{padding:8px 4px}.student-chip{gap:5px}.student-avatar{width:29px;height:29px}}
 body.theme-light .weekly-board{background:#f5f8ff;border-color:#d8e0ef;color:#17233e}.theme-light .weekly-meta,.theme-light .fiction-note{color:#586982}.theme-light .leaderboard th{color:#2454a6}
 
-.weekly-account{margin:16px 0;padding:16px;border:1px solid #5872a5;border-radius:14px;background:#142342}.weekly-account label{display:block;margin:9px 0 5px;font-size:.85rem}.weekly-account input{display:block;width:100%;max-width:440px;padding:11px;border:1px solid #7288aa;border-radius:9px;background:#fff;color:#15233d}.weekly-auth-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.weekly-auth-actions button,.weekly-account button{padding:10px 14px;border:0;border-radius:9px;background:var(--user-accent,#00d4c7);color:#102033;font-weight:700;cursor:pointer}.weekly-account [hidden]{display:none!important}.theme-light .weekly-account{background:#f5f8ff;border-color:#d8e0ef;color:#17233e}</style>
+.weekly-account{margin:16px 0;padding:16px;border:1px solid #5872a5;border-radius:14px;background:#142342}.weekly-account label{display:block;margin:9px 0 5px;font-size:.85rem}.weekly-account input{display:block;width:100%;max-width:440px;padding:11px;border:1px solid #7288aa;border-radius:9px;background:#fff;color:#15233d}.weekly-auth-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.weekly-auth-actions button,.weekly-account button{padding:10px 14px;border:0;border-radius:9px;background:var(--user-accent,#00d4c7);color:#102033;font-weight:700;cursor:pointer}.weekly-account [hidden]{display:none!important}.theme-light .weekly-account{background:#f5f8ff;border-color:#d8e0ef;color:#17233e}
+/* Avatar STUDYPRO — profondeur et micro-animations */
+.avatar-launch{background:linear-gradient(145deg,#5978a9,#14213e);box-shadow:0 9px 28px #0009, inset 0 2px 7px #ffffff40;transition:transform .25s ease,box-shadow .25s ease}
+.avatar-launch:hover{transform:translateY(-3px) scale(1.035);box-shadow:0 14px 34px #000b,0 0 0 5px #7ddbd533}
+.avatar-launch svg,.avatar-chat-head svg{filter:drop-shadow(0 4px 5px #050b1b55);animation:avatarFloat 4.5s ease-in-out infinite}
+.avatar-launch svg{border-radius:50%}
+.avatar-chat-head>div:first-child{background:linear-gradient(145deg,#617eaa,#152344);box-shadow:inset 0 2px 8px #ffffff30,0 4px 12px #0004}
+.avatar-chat-head svg{border-radius:12px}
+.av-eyes{transform-box:fill-box;transform-origin:center;animation:avatarBlink 5.2s infinite}
+@keyframes avatarFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
+@keyframes avatarBlink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.08)}}
+.avatar-chat-head{padding-bottom:9px;border-bottom:1px solid #49639755}
+.avatar-chat-head strong{letter-spacing:.01em}
+.avatar-dock{filter:drop-shadow(0 5px 14px #0003)}
+@media(prefers-reduced-motion:reduce){.avatar-launch svg,.avatar-chat-head svg,.av-eyes{animation:none!important}.avatar-launch{transition:none}}
 
+</style>
 <style>
 .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0}
 .pricing-card{position:relative;border:1px solid #405887;border-radius:16px;padding:20px;background:linear-gradient(150deg,#1a2850,#111a37)}
@@ -168,7 +184,7 @@ body.theme-light .revenue-stat{background:#edf2fa;color:#17233e}
 </head>
 <body>
 <header><div><h2>📘 STUDYPRO CAMEROUN</h2><p>Apprendre • Réviser • Réussir</p></div><div>La réussite commence par une bonne préparation.</div></header>
-<nav><a href="#personnalisation">Personnaliser</a><a href="#programme">Programme</a><a href="#dashboard-v2">Mon espace</a><a href="#cours">Cours</a><a href="#abonnements">Offres</a><a href="#videos">Vidéos YouTube</a><a href="#evaluation">S'entraîner</a><a href="#sources">Références</a></nav>
+<nav><a href="#personnalisation">Personnaliser</a><a href="#programme">Programme</a><a href="#dashboard-v2">Mon espace</a><a href="#cours">Cours</a><a href="#videos">Vidéos YouTube</a><a href="#evaluation">S'entraîner</a><a href="#abonnements">Offres</a><a href="#sources">Références</a></nav>
 <div class="hero"><h1>Ta bibliothèque de soins infirmiers</h1><p>Des cours structurés, des objectifs d'apprentissage et des exercices pour progresser tout au long de la formation IDE au Cameroun.</p><a class="btn" href="#cours">Explorer les cours</a></div>
 
 <section id="personnalisation">
@@ -203,14 +219,48 @@ body.theme-light .revenue-stat{background:#edf2fa;color:#17233e}
  <div style="overflow-x:auto"><table class="leaderboard" aria-label="Classement hebdomadaire"><thead><tr><th>Rang</th><th>Étudiant</th><th>Score</th><th>Meilleur chrono</th></tr></thead><tbody id="leaderboardRows"></tbody></table></div>
  <p class="fiction-note">Les profils illustrés sont fictifs et servent à donner vie à l’espace récompenses. Ton score réel est enregistré uniquement sur cet appareil ; ce classement n’est pas encore partagé entre étudiants.</p>
 </div></div><p class="note">La progression et les intitulés exacts peuvent varier selon le référentiel de l'établissement et les mises à jour du MINSANTE. Les supports ci-dessous sont une base pédagogique de révision, pas une reproduction certifiée du programme officiel complet.</p></section>
+<section id="offres">
+ <h2>💎 Offres STUDYPRO</h2>
+ <p class="intro">Choisis la formule qui correspond à tes objectifs. Les tarifs sont fixés en FCFA pour les étudiants au Cameroun.</p>
+ <div class="panel" id="billing-account" style="margin:18px 0">
+  <h3>🔐 Mon compte STUDYPRO</h3>
+  <p class="intro">Crée ton compte ou connecte-toi pour consulter ton offre et retrouver ton abonnement sur tes appareils.</p>
+  <form id="billingAuthForm">
+   <div id="billingAuthFields">
+    <label for="billingDisplayName">Nom affiché (pour la création du compte)</label>
+    <input id="billingDisplayName" maxlength="40" autocomplete="nickname" placeholder="Ex. Grâce Nguemo">
+    <label for="billingEmail">Adresse e-mail</label>
+    <input id="billingEmail" type="email" autocomplete="email" required placeholder="ton@email.com">
+    <label for="billingPassword">Mot de passe (8 caractères minimum)</label>
+    <input id="billingPassword" type="password" minlength="8" autocomplete="current-password" required placeholder="Mot de passe">
+    <div class="weekly-auth-actions">
+     <button type="submit" value="signup">Créer mon compte</button>
+     <button type="submit" value="login">Se connecter</button>
+    </div>
+   </div>
+  </form>
+  <div id="billingLoggedIn" hidden>
+   <p id="billingWelcome"></p>
+   <p id="billingCurrentPlan">Offre actuelle : Gratuit.</p>
+   <button type="button" id="billingLogout">Se déconnecter</button>
+  </div>
+  <p id="billingAuthStatus" class="note" role="status" aria-live="polite">Initialisation du compte sécurisé…</p>
+ </div>
+ <div class="grid">
+  <article class="course"><span class="tag">Découverte</span><h3>Gratuit</h3><p><strong>0 FCFA</strong> · sans abonnement</p><ul><li>Accès aux ressources gratuites</li><li>QCM et révisions de base</li><li>Suivi local de progression</li></ul><button class="reward-action" type="button" disabled>Offre gratuite</button></article>
+  <article class="course"><span class="tag">Pour progresser</span><h3>Premium</h3><p><strong>1 500 FCFA / mois</strong></p><ul><li>Contenus pédagogiques Premium</li><li>QCM et entraînements avancés</li><li>Outils de révision supplémentaires</li></ul><button class="reward-action" type="button" disabled aria-disabled="true">Paiement bientôt disponible</button></article>
+  <article class="course"><span class="tag">Accès complet</span><h3>Premium Plus</h3><p><strong>3 000 FCFA / mois</strong></p><ul><li>Tous les avantages Premium</li><li>Assistant IA et outils avancés, après activation</li><li>Fonctionnalités exclusives à venir</li></ul><button class="reward-action" type="button" disabled aria-disabled="true">Paiement bientôt disponible</button></article>
+ </div>
+ <p class="note" role="status">Les tarifs sont affichés à titre de préparation. Aucun paiement n’est actuellement activé : ne transfère pas d’argent et ne communique aucun code secret ou OTP sur cette page. Les accès Premium seront ouverts uniquement après confirmation serveur d’un paiement réel.</p>
+</section>
 
 <section id="abonnements">
  <h2>💎 Choisis ton abonnement STUDYPRO</h2>
  <p class="intro">Commence gratuitement, puis active un abonnement lorsque tu souhaites accéder aux services Premium. Paiement sécurisé via CinetPay : MTN Mobile Money ou Orange Money au Cameroun.</p>
  <div class="pricing-grid">
   <article class="pricing-card"><h3>Gratuit</h3><div class="pricing-price">0 FCFA <small>/ toujours</small></div><ul><li>Bibliothèque publique de cours</li><li>Fiches et exercices disponibles</li><li>Classement hebdomadaire</li></ul><button type="button" disabled>Formule actuelle de base</button></article>
-  <article class="pricing-card featured"><h3>Premium</h3><div class="pricing-price">2 000 FCFA <small>/ 30 jours</small></div><ul><li>Accès aux contenus Premium publiés</li><li>Ressources et parcours exclusifs</li><li>Progression et suivi enrichis</li></ul><button type="button" data-buy-plan="premium">Choisir Premium</button></article>
-  <article class="pricing-card"><h3>Premium Plus</h3><div class="pricing-price">3 500 FCFA <small>/ 30 jours</small></div><ul><li>Tous les avantages Premium</li><li>Parcours approfondis Premium Plus</li><li>Accompagnement et outils avancés</li></ul><button type="button" data-buy-plan="premium_plus">Choisir Premium Plus</button></article>
+  <article class="pricing-card featured"><h3>Premium</h3><div class="pricing-price">1 500 FCFA <small>/ 30 jours</small></div><ul><li>Accès aux contenus Premium publiés</li><li>Ressources et parcours exclusifs</li><li>Progression et suivi enrichis</li></ul><button type="button" data-buy-plan="premium">Choisir Premium</button></article>
+  <article class="pricing-card"><h3>Premium Plus</h3><div class="pricing-price">3 000 FCFA <small>/ 30 jours</small></div><ul><li>Tous les avantages Premium</li><li>Parcours approfondis Premium Plus</li><li>Accompagnement et outils avancés</li></ul><button type="button" data-buy-plan="premium_plus">Choisir Premium Plus</button></article>
  </div>
  <p class="payment-note">Les abonnements sont renouvelés manuellement. Aucun prélèvement automatique n'est effectué. Les paiements réels seront disponibles après configuration du compte marchand CinetPay et de Supabase.</p>
  <div class="billing-status" id="billingStatus" role="status" aria-live="polite">Connecte-toi à ton compte étudiant pour consulter ou activer un abonnement.</div>
@@ -226,7 +276,7 @@ body.theme-light .revenue-stat{background:#edf2fa;color:#17233e}
   <div style="overflow-x:auto"><table class="leaderboard"><thead><tr><th>Référence</th><th>Offre</th><th>Montant</th><th>État</th><th>Date</th></tr></thead><tbody id="revenueRows"></tbody></table></div>
  </div>
 </section>
-\n<section id="cours"><h2>Bibliothèque de cours</h2><p class="intro">Choisis ton année ou recherche directement une matière. Ouvre une fiche pour consulter les chapitres et les objectifs.</p>
+<section id="cours"><h2>Bibliothèque de cours</h2><p class="intro">Choisis ton année ou recherche directement une matière. Ouvre une fiche pour consulter les chapitres et les objectifs.</p>
 <div class="filters"><input id="search" type="search" placeholder="Rechercher un cours, un thème…"><select id="year"><option value="all">Toutes les années</option><option value="1">1re année</option><option value="2">2e année</option><option value="3">3e année</option></select><select id="domain"><option value="all">Tous les domaines</option></select></div>
 <div id="courseGrid" class="grid" aria-live="polite"></div><div id="lessonReader" class="panel" style="display:none;margin-top:22px"><button id="closeLesson" type="button">← Retour aux cours</button><div id="lessonContent"></div></div></section>
 <section id="videos"><h2>🎥 Vidéos explicatives sur YouTube</h2><p class="intro">Accède directement aux recherches vidéo liées à tes matières et à chaque leçon. Privilégie les contenus de facultés, écoles de santé, organismes de santé reconnus et formateurs qualifiés. Vérifie toujours les protocoles camerounais en vigueur.</p><div class="grid"><article class="course"><h3>🩺 Soins infirmiers</h3><p>Techniques de soins, surveillance et démarche infirmière.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=cours+soins+infirmiers+techniques+de+soins">Voir les vidéos</a></article><article class="course"><h3>🧬 Anatomie et physiologie</h3><p>Comprendre les organes, les appareils et leurs fonctions.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=cours+anatomie+physiologie+humaine">Voir les vidéos</a></article><article class="course"><h3>🦠 Microbiologie et hygiène</h3><p>Micro-organismes, infections et prévention.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=microbiologie+hygi%C3%A8ne+hospitali%C3%A8re+cours">Voir les vidéos</a></article><article class="course"><h3>💊 Pharmacologie</h3><p>Principes des médicaments et sécurité du circuit.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=pharmacologie+g%C3%A9n%C3%A9rale+cours+infirmier">Voir les vidéos</a></article><article class="course"><h3>🚑 Premiers secours</h3><p>Gestes de secours et reconnaissance des urgences.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=premiers+secours+formation+gestes+urgence">Voir les vidéos</a></article><article class="course"><h3>🤰 Santé maternelle et infantile</h3><p>Suivi de grossesse, nouveau-né et santé de l’enfant.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=sant%C3%A9+maternelle+infantile+cours+infirmier">Voir les vidéos</a></article></div></section><section id="evaluation"><h2>Mini-QCM de révision</h2><div class="panel"><p class="note">Banque de questions de révision réparties dans les matières des trois années. Les QCM servent à l'autoévaluation et ne remplacent pas les évaluations officielles.</p><div id="quiz"><p class="quiz-q" id="question"></p><div class="answers" id="answers"></div><p class="feedback" id="feedback" aria-live="polite"></p><button class="btn" id="next" style="display:none;border:0;cursor:pointer">Question suivante</button></div></div></section>
@@ -245,18 +295,73 @@ body.theme-light .revenue-stat{background:#edf2fa;color:#17233e}
 </aside>
 
 <footer>© 2026 STUDYPRO CAMEROUN · Apprendre • Réviser • Réussir</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="billing-auth.js"></script>
 <script src="courses.js"></script><script src="lessons-year1.js"></script><script src="lessons-year2.js"></script><script src="lessons-year3.js"></script><script src="dashboard-v2.js"></script>
 <script>
 
 
-/* Profil visuel de l'avatar : choix conservés localement */
+/* Avatar STUDYPRO : portrait vectoriel enrichi, personnalisable et sans dépendance externe */
 (function(){
  const sex=document.getElementById('avatarSex'),age=document.getElementById('avatarAge');
  if(!sex||!age)return;
- const portrait=(female,older)=>'<svg viewBox="0 0 120 140" role="img" aria-label="Avatar étudiant africain en blouse blanche"><defs><linearGradient id="coat" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#cbd8eb"/></linearGradient></defs><rect width="120" height="140" rx="18" fill="#16264a"/><path d="M14 140 Q18 91 43 86 L60 99 77 86 Q102 91 106 140" fill="url(#coat)" stroke="#9eb3d2" stroke-width="2"/><path d="M44 88 L60 111 76 88 70 140 50 140Z" fill="#e8f0fb"/><path d="M43 38 Q40 10 61 10 Q87 10 81 46 L77 62 45 62Z" fill="#17131a"/>'+(female?'<path d="M39 40 Q23 53 31 92 L43 88 45 54 M80 39 Q98 56 89 92 L77 88 76 53" fill="#17131a"/>':'<path d="M43 48 Q47 29 60 29 Q75 29 80 48 L77 57 44 57Z" fill="#17131a"/>')+'<ellipse cx="60" cy="52" rx="21" ry="27" fill="#8b573c"/><path d="M48 49h7 M66 49h7" stroke="#211b1b" stroke-width="3" stroke-linecap="round"/><path d="M56 65 Q60 69 65 65" fill="none" stroke="#542d29" stroke-width="2" stroke-linecap="round"/>'+(older?'<path d="M44 57 Q60 61 76 57" stroke="#704331" stroke-width="1" opacity=".6" fill="none"/>':'')+'<path d="M48 88 L60 103 72 88" fill="none" stroke="#c5d4e9" stroke-width="2"/><path d="M82 97l9 5-9 5" fill="none" stroke="#1d4778" stroke-width="3"/><circle cx="89" cy="107" r="4" fill="#1d4778"/></svg>';
+ const portrait=(female,ageGroup)=> {
+  const senior=ageGroup==='45+';
+  const mature=ageGroup==='35-44'||senior;
+  const hair=female
+   ? (senior
+      ? '<path d="M63 126 Q48 48 91 25 Q121 2 153 24 Q194 48 177 132 L169 170 Q157 184 151 145 L154 86 Q143 62 120 61 Q94 62 86 91 L89 151 Q77 181 66 165Z" fill="url(#av-hair)"/><path d="M72 61 Q94 14 126 20 Q153 18 169 63" fill="none" stroke="#b9b9bd" stroke-width="5" opacity=".8"/>'
+      : '<path d="M62 126 Q48 48 91 25 Q121 2 153 24 Q194 48 178 132 L169 170 Q157 184 151 145 L154 86 Q143 62 120 61 Q94 62 86 91 L89 151 Q77 181 66 165Z" fill="url(#av-hair)"/>')
+   : '<path d="M75 112 Q67 42 103 25 Q128 12 151 29 Q178 49 165 116 L151 125 87 125Z" fill="url(#av-hair)"/>';
+  const curls=female
+   ? '<g fill="#21171b" stroke="#49302a" stroke-width="1.2"><circle cx="70" cy="69" r="14"/><circle cx="84" cy="43" r="15"/><circle cx="106" cy="27" r="14"/><circle cx="129" cy="25" r="15"/><circle cx="151" cy="39" r="15"/><circle cx="169" cy="66" r="14"/><circle cx="77" cy="94" r="12"/><circle cx="163" cy="94" r="12"/></g>'
+   : '<g fill="#20171a" stroke="#49302a" stroke-width="1"><circle cx="83" cy="49" r="10"/><circle cx="99" cy="31" r="11"/><circle cx="118" cy="25" r="11"/><circle cx="139" cy="29" r="11"/><circle cx="155" cy="48" r="10"/><circle cx="73" cy="75" r="9"/><circle cx="165" cy="75" r="9"/></g>';
+  const ageDetails=senior
+   ? '<path d="M91 136 Q101 139 109 136 M132 136 Q141 139 149 136 M96 153 Q120 158 144 153" fill="none" stroke="#704332" stroke-width="1.2" opacity=".48"/><path d="M90 118 Q94 121 98 118 M142 118 Q146 121 150 118" fill="none" stroke="#704332" stroke-width="1" opacity=".35"/>'
+   : mature?'<path d="M92 137 Q100 139 107 137 M134 137 Q141 139 148 137" fill="none" stroke="#704332" stroke-width="1" opacity=".25"/>':'';
+  const beard=!female&&mature?'<path d="M81 128 Q84 166 120 173 Q156 166 159 128 Q151 154 140 155 Q120 166 100 155 Q89 153 81 128Z" fill="#241b1a" opacity=".9"/>':'';
+  return `<svg viewBox="0 0 240 260" role="img" aria-label="${female?'Étudiante':'Étudiant'} africain, ${ageGroup}, en blouse blanche" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="av-bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#49658f"/><stop offset=".48" stop-color="#263c64"/><stop offset="1" stop-color="#101b34"/></linearGradient>
+  <radialGradient id="av-skin" cx=".34" cy=".22" r=".9"><stop stop-color="#e0ad85"/><stop offset=".28" stop-color="#c98b65"/><stop offset=".68" stop-color="#995b40"/><stop offset="1" stop-color="#603727"/></radialGradient>
+  <linearGradient id="av-face-light" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#603727" stop-opacity=".35"/><stop offset=".35" stop-color="#fff" stop-opacity=".08"/><stop offset=".7" stop-color="#fff" stop-opacity=".02"/><stop offset="1" stop-color="#3a211c" stop-opacity=".35"/></linearGradient>
+  <linearGradient id="av-coat" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".48" stop-color="#f7faff"/><stop offset="1" stop-color="#b9cbe0"/></linearGradient>
+  <linearGradient id="av-hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#554039"/><stop offset=".35" stop-color="#21171a"/><stop offset=".8" stop-color="#100e14"/><stop offset="1" stop-color="#49302a"/></linearGradient>
+  <linearGradient id="av-lips" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#a95e58"/><stop offset="1" stop-color="#713b3b"/></linearGradient>
+  <filter id="av-shadow" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur stdDeviation="5"/></filter>
+  <filter id="av-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter>
+ </defs>
+ <rect width="240" height="260" rx="28" fill="url(#av-bg)"/>
+ <circle cx="120" cy="103" r="82" fill="#8ce6df" opacity=".10" filter="url(#av-glow)"/>
+ <ellipse cx="120" cy="251" rx="78" ry="9" fill="#050b1b" opacity=".4" filter="url(#av-shadow)"/>
+ <path d="M18 260 Q27 183 75 166 L120 190 165 166 Q213 183 222 260Z" fill="url(#av-coat)" stroke="#dce7f3" stroke-width="2"/>
+ <path d="M75 168 L120 207 165 168 153 260 87 260Z" fill="#fff"/>
+ <path d="M99 178 L120 202 141 178 132 260 108 260Z" fill="#dce7f5"/>
+ <path d="M75 169 L120 209 165 169" fill="none" stroke="#c5d5e8" stroke-width="3"/>
+ <path d="M91 180 L69 204 85 220 105 189 M149 180 L171 204 155 220 135 189" fill="#fff" stroke="#c8d8e9" stroke-width="2"/>
+ <path d="M151 190 l13 5 -8 8 10 5 -13 6 -8 -9Z" fill="#28578a"/><circle cx="158" cy="202" r="3" fill="#e8c56e"/>
+ <path d="M101 151 Q101 177 120 184 Q139 177 139 151 L139 137 101 137Z" fill="url(#av-skin)"/>
+ ${hair}${curls}
+ <path d="M77 111 Q75 69 92 53 Q104 43 120 43 Q139 43 151 54 Q166 70 163 112 Q160 151 143 165 Q132 174 120 174 Q108 174 97 165 Q80 151 77 111Z" fill="url(#av-skin)"/>
+ <path d="M77 111 Q75 69 92 53 Q104 43 120 43 Q139 43 151 54 Q166 70 163 112 Q160 151 143 165 Q132 174 120 174 Q108 174 97 165 Q80 151 77 111Z" fill="url(#av-face-light)"/>
+ <ellipse cx="76" cy="112" rx="7" ry="12" fill="#a96849"/><ellipse cx="164" cy="112" rx="7" ry="12" fill="#a96849"/>
+ ${female?'<circle cx="72" cy="127" r="4" fill="#e8c36c"/><circle cx="168" cy="127" r="4" fill="#e8c36c"/>':''}
+ <path d="M88 96 Q100 87 112 95 M128 95 Q141 87 153 96" fill="none" stroke="#38231f" stroke-width="4.5" stroke-linecap="round"/>
+ <path class="av-eyes" d="M88 108 Q100 99 113 108 Q101 118 88 108Z M127 108 Q140 99 153 108 Q140 118 127 108Z" fill="#fff9f1"/>
+ <ellipse cx="101" cy="108" rx="4.6" ry="5.6" fill="#30201c"/><ellipse cx="140" cy="108" rx="4.6" ry="5.6" fill="#30201c"/>
+ <circle cx="102.5" cy="106.5" r="1.7" fill="#fff"/><circle cx="141.5" cy="106.5" r="1.7" fill="#fff"/>
+ <path d="M85 105 Q100 97 114 105 M126 105 Q141 97 156 105" fill="none" stroke="#6d4537" stroke-width="1" opacity=".3"/>
+ <path d="M120 111 Q116 124 111 132 Q120 137 129 132" fill="none" stroke="#744632" stroke-width="2.3" stroke-linecap="round"/>
+ <path d="M111 132 Q120 135 129 132" fill="none" stroke="#e6b08c" stroke-width="1.5" stroke-linecap="round"/>
+ <ellipse cx="96" cy="132" rx="8" ry="4" fill="#d68f70" opacity=".16"/><ellipse cx="144" cy="132" rx="8" ry="4" fill="#d68f70" opacity=".16"/>
+ <path d="M106 146 Q120 138 134 146 Q120 159 106 146Z" fill="url(#av-lips)"/><path d="M110 145 Q120 147 130 145" fill="none" stroke="#f1b6a4" stroke-width="1.5" stroke-linecap="round"/>
+ ${ageDetails}${beard}
+ <path d="M84 260 Q88 218 99 197 L112 208 120 260Z" fill="#fff" opacity=".48"/><path d="M156 260 Q152 218 141 197 L128 208 120 260Z" fill="#b8cbe0" opacity=".48"/>
+ <path d="M29 246 Q36 211 54 194" fill="none" stroke="#fff" stroke-width="2" opacity=".35"/>
+ </svg>`;
+ };
  function render(){
-  const female=sex.value==='femme',older=age.value==='35-44'||age.value==='45+';
-  const svg=portrait(female,older);
+  const female=sex.value==='femme';
+  const svg=portrait(female,age.value);
   document.getElementById('avatarLaunch').innerHTML=svg;
   document.getElementById('avatarChatPortrait').innerHTML=svg;
   const label=(female?'Étudiante':'Étudiant')+' · '+age.options[age.selectedIndex].text;
@@ -444,7 +549,6 @@ const questions=COURSES.flatMap(c=>(c.quiz||[]).map(q=>({text:q[0],choices:q[1],
 function showQ(){locked=false;questionStartedAt=Date.now();const q=questions[qi%questions.length];document.getElementById('question').textContent=q.text;document.getElementById('feedback').textContent='';document.getElementById('next').style.display='none';const box=document.getElementById('answers');box.innerHTML='';q.choices.forEach((choice,i)=>{const b=document.createElement('button');b.textContent=choice;b.onclick=()=>{if(locked)return;locked=true;const ok=i===q.answer;document.getElementById('feedback').textContent=ok?'Bonne réponse ! 🎉 +5 points':'Pas tout à fait. Relis la fiche « '+q.course+' » puis réessaie.';if(ok){const qid=qi%questions.length;recordWeeklyAnswer(true,(Date.now()-questionStartedAt)/1000,qid);const d=getRewardData();if(!d.quizDone.includes(qid)){d.quizDone.push(qid);d.points+=5;saveRewardData(d)}}b.style.borderColor=ok?'#26845b':'#b44';box.querySelectorAll('button').forEach(x=>x.disabled=true);document.getElementById('next').style.display='inline-block'};box.appendChild(b)})}
 document.getElementById('next').onclick=()=>{qi++;showQ()};showQ();
 </script>
-
 <script>
 document.addEventListener('DOMContentLoaded',function(){
 (function(){
