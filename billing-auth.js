@@ -4,7 +4,7 @@
  */
 (function () {
   'use strict';
-  const config = window.STUDYPRO_SUPABASE_CONFIG || {};
+  let config = window.STUDYPRO_SUPABASE_CONFIG || {};
   const statusEl = document.getElementById('billingAuthStatus');
   const form = document.getElementById('billingAuthForm');
   const fields = document.getElementById('billingAuthFields');
@@ -66,6 +66,16 @@
   }
 
   async function init() {
+    // La configuration publique peut être injectée par Vercel sans commiter de clés.
+    try {
+      const response = await fetch('/api/config', { cache: 'no-store' });
+      if (response.ok) {
+        const remote = await response.json();
+        if (remote && typeof remote.url === 'string' && typeof remote.anonKey === 'string') {
+          config = { url: remote.url, anonKey: remote.anonKey };
+        }
+      }
+    } catch (_) { /* GitHub Pages / hors ligne : conserver la configuration locale */ }
     if (!config.url || !config.anonKey) {
       say('Connexion Supabase en attente : ajoute l’URL du projet et la clé publique anon dans supabase-config.js.');
       form.querySelectorAll('input,button').forEach(node => { node.disabled = true; });
