@@ -45,6 +45,8 @@ for script in inline_scripts:
 years = {int(y) for y in re.findall(r"\{year:(\d+),", (ROOT / "courses.js").read_text(encoding="utf-8"))}
 assert years == {1, 2, 3}, f"Années IDE attendues 1, 2 et 3, trouvées : {years}"
 assert "studypro:rewards-updated" in html, "Événement de mise à jour des récompenses absent"
+assert "Array.isArray(raw.completed)" in html and "Array.isArray(raw.quizDone)" in html, "Validation des données locales de récompenses absente"
+assert "localStorage.setItem('studyproRewards'" in html, "Sauvegarde des récompenses absente"
 assert "dashboard-v2-title" in (ROOT / "dashboard-v2.js").read_text(encoding="utf-8")
 for year in (1, 2, 3):
     lesson_source = (ROOT / f"lessons-year{year}.js").read_text(encoding="utf-8")
