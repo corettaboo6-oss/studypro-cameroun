@@ -81,7 +81,8 @@ async function handleCreate(req, res, user) {
   const reference = "SP" + randomUUID().replace(/-/g, "").slice(0, 28);
   const displayName = String(user.user_metadata?.display_name || "Étudiant").trim().slice(0, 32);
   const names = displayName.split(/\s+/);
-  const firstNameRaw = (names.shift() || "Etudiant").slice(0, 80);\n  const firstName = firstNameRaw.length >= 2 ? firstNameRaw : "Etudiant";
+  const firstNameRaw = (names.shift() || "Etudiant").slice(0, 80);
+  const firstName = firstNameRaw.length >= 2 ? firstNameRaw : "Etudiant";
   const lastName = (names.join(" ") || "Studypro").slice(0, 80);
   await db("/rest/v1/studypro_payment_orders", {
     method: "POST",
