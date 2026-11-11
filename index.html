@@ -107,7 +107,7 @@ body.theme-light .empty{background:#edf2fa;color:#17233e}
 .avatar-settings{margin-top:18px;background:linear-gradient(145deg,#1b2850,#121b39);border:1px solid #3c568b;border-radius:16px;padding:20px}
 .avatar-dock{position:fixed;right:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px}
 .avatar-launch{width:76px;height:76px;border:3px solid var(--user-accent);border-radius:50%;background:#172344;box-shadow:0 8px 28px #0008;cursor:pointer;padding:3px;overflow:hidden}
-.avatar-launch svg{width:100%;height:100%;display:block}
+.avatar-launch svg{width:100%;height:100%;display:block;border-radius:50%}.avatar-chat-head>div:first-child{width:62px;height:68px;flex:none;overflow:hidden;border-radius:13px;border:1px solid #496397}.avatar-chat-head svg{width:100%;height:100%;display:block}.avatar-chat-head strong{font-size:1.05rem}.avatar-chat .ai-chat-form{align-items:stretch}.avatar-chat .ai-chat-form button{flex:none}.avatar-chat>#avatarClose{margin-top:10px}.avatar-chat>a.btn{margin:10px 0 0 8px}
 .avatar-hint{background:#101a37;color:#fff;border:1px solid #425b8c;border-radius:12px;padding:8px 12px;font-size:.86rem;box-shadow:0 5px 18px #0005}
 .avatar-chat{position:fixed;right:18px;bottom:108px;z-index:31;width:min(340px,calc(100vw - 30px));padding:16px;border-radius:16px;background:#111b38;color:#eef5ff;border:1px solid #496397;box-shadow:0 15px 45px #0009;display:none}
 .avatar-chat.open{display:block}.avatar-chat-head{display:flex;align-items:center;gap:10px}.avatar-chat-head svg{width:54px;height:54px;flex:none}
@@ -117,7 +117,7 @@ body.theme-light .avatar-settings .setting-field label{color:#17233e}
 body.theme-light .avatar-hint{background:#fff;color:#17233e;border-color:#d8e0ef}
 body.theme-light .avatar-chat{background:#fff;color:#17233e;border-color:#d8e0ef}
 body.theme-light .avatar-chat p{color:#40516e}
-@media(max-width:700px){.avatar-dock{right:12px;bottom:12px}.avatar-launch{width:66px;height:66px}.avatar-hint{font-size:.78rem}.avatar-chat{right:12px;bottom:88px}}
+@media(max-width:700px){.avatar-dock{right:12px;bottom:12px}.avatar-launch{width:66px;height:66px}.avatar-hint{font-size:.78rem}.avatar-chat{right:10px;bottom:86px;width:calc(100vw - 20px);max-height:76dvh;padding:12px;overflow-y:auto}.avatar-chat .ai-chat-log{max-height:22dvh}.avatar-chat .ai-chat-form{display:flex;gap:7px}.avatar-chat .ai-chat-form input{width:0;min-width:0;flex:1}.avatar-chat .ai-chat-form button{padding:9px 10px}.avatar-chat>#avatarClose,.avatar-chat>a.btn{min-height:42px}.avatar-chat-head>div:first-child{width:56px;height:62px}}
 
 /* Tuteur IA Studypro */
 .avatar-chat{width:min(410px,calc(100vw - 24px));max-height:min(78vh,720px);overflow:auto}
@@ -209,11 +209,41 @@ body.theme-light .weekly-board{background:#f5f8ff;border-color:#d8e0ef;color:#17
 <script>
 
 
-/* Profil visuel de l'avatar : choix conservés localement */
+/* Avatar STUDYPRO : portrait vectoriel enrichi, personnalisable et sans dépendance externe */
 (function(){
  const sex=document.getElementById('avatarSex'),age=document.getElementById('avatarAge');
  if(!sex||!age)return;
- const portrait=(female,older)=>'<svg viewBox="0 0 120 140" role="img" aria-label="Avatar étudiant africain en blouse blanche"><defs><linearGradient id="coat" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#cbd8eb"/></linearGradient></defs><rect width="120" height="140" rx="18" fill="#16264a"/><path d="M14 140 Q18 91 43 86 L60 99 77 86 Q102 91 106 140" fill="url(#coat)" stroke="#9eb3d2" stroke-width="2"/><path d="M44 88 L60 111 76 88 70 140 50 140Z" fill="#e8f0fb"/><path d="M43 38 Q40 10 61 10 Q87 10 81 46 L77 62 45 62Z" fill="#17131a"/>'+(female?'<path d="M39 40 Q23 53 31 92 L43 88 45 54 M80 39 Q98 56 89 92 L77 88 76 53" fill="#17131a"/>':'<path d="M43 48 Q47 29 60 29 Q75 29 80 48 L77 57 44 57Z" fill="#17131a"/>')+'<ellipse cx="60" cy="52" rx="21" ry="27" fill="#8b573c"/><path d="M48 49h7 M66 49h7" stroke="#211b1b" stroke-width="3" stroke-linecap="round"/><path d="M56 65 Q60 69 65 65" fill="none" stroke="#542d29" stroke-width="2" stroke-linecap="round"/>'+(older?'<path d="M44 57 Q60 61 76 57" stroke="#704331" stroke-width="1" opacity=".6" fill="none"/>':'')+'<path d="M48 88 L60 103 72 88" fill="none" stroke="#c5d4e9" stroke-width="2"/><path d="M82 97l9 5-9 5" fill="none" stroke="#1d4778" stroke-width="3"/><circle cx="89" cy="107" r="4" fill="#1d4778"/></svg>';
+ const portrait=(female,older)=>`<svg viewBox="0 0 240 260" role="img" aria-label="${female?'Étudiante':'Étudiant'} africain en blouse blanche" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="av-bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#263e70"/><stop offset="1" stop-color="#101a38"/></linearGradient>
+  <radialGradient id="av-skin" cx=".38" cy=".28" r=".8"><stop stop-color="#bd805b"/><stop offset=".62" stop-color="#925333"/><stop offset="1" stop-color="#61331f"/></radialGradient>
+  <linearGradient id="av-coat" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".55" stop-color="#edf4ff"/><stop offset="1" stop-color="#aebfd8"/></linearGradient>
+  <linearGradient id="av-hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#29202a"/><stop offset=".5" stop-color="#090d18"/><stop offset="1" stop-color="#49302a"/></linearGradient>
+  <filter id="av-shadow" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur stdDeviation="5"/></filter>
+ </defs>
+ <rect width="240" height="260" rx="28" fill="url(#av-bg)"/>
+ <circle cx="120" cy="98" r="78" fill="#6ce9e0" opacity=".08"/>
+ <ellipse cx="120" cy="251" rx="78" ry="9" fill="#050b1b" opacity=".45" filter="url(#av-shadow)"/>
+ <path d="M28 260 Q34 174 78 163 L120 190 162 163 Q207 174 212 260Z" fill="url(#av-coat)" stroke="#c4d5eb" stroke-width="2"/>
+ <path d="M78 164 L120 204 162 164 151 260 89 260Z" fill="#f8fbff"/>
+ <path d="M102 174 L120 198 138 174 130 260 110 260Z" fill="#dce8f7"/>
+ <path d="M88 169 L120 203 152 169" fill="none" stroke="#c4d4e8" stroke-width="3"/>
+ <path d="M93 177 L74 195 86 208 102 184 M147 177 L166 195 154 208 138 184" fill="#fff" stroke="#c7d6e9" stroke-width="2"/>
+ <path d="M150 188 l12 5 -8 7 10 5 -12 5 -8 -8Z" fill="#24558b"/>
+ <circle cx="157" cy="201" r="3" fill="#f4cf75"/>
+ <path d="M92 151 Q91 172 120 179 Q149 172 148 151 L145 132 95 132Z" fill="url(#av-skin)"/>
+ <path d="${female?'M76 102 Q68 25 120 23 Q174 23 164 111 L172 173 Q156 187 148 155 L150 93 Q138 68 119 70 Q96 69 88 94 L91 158 Q79 183 67 168Z':'M79 91 Q72 26 120 25 Q169 25 162 100 L153 124 87 124Z'}" fill="url(#av-hair)"/>
+ <ellipse cx="120" cy="105" rx="43" ry="55" fill="url(#av-skin)"/>
+ <path d="${female?'M78 91 Q79 43 119 42 Q160 43 162 91 Q149 68 131 65 Q103 61 84 91Z':'M79 91 Q83 39 120 38 Q155 39 162 91 L151 76 Q132 62 111 67 Q94 70 84 91Z'}" fill="url(#av-hair)"/>
+ <path d="M86 104 Q94 99 103 104 M137 104 Q146 99 154 104" stroke="#33201d" stroke-width="4" stroke-linecap="round" fill="none"/>
+ <ellipse cx="100" cy="111" rx="3.5" ry="4.5" fill="#17151a"/><ellipse cx="140" cy="111" rx="3.5" ry="4.5" fill="#17151a"/>
+ <path d="M119 112 Q114 127 120 129" fill="none" stroke="#70402e" stroke-width="2.5" stroke-linecap="round"/>
+ <path d="M107 142 Q120 151 134 141" fill="none" stroke="#5a2928" stroke-width="3" stroke-linecap="round"/>
+ <path d="M94 127 Q102 132 109 128 M132 128 Q140 132 147 127" stroke="#d58e70" stroke-width="2" opacity=".65" fill="none"/>
+ ${older?'<path d="M91 121 Q120 127 149 121" stroke="#704331" stroke-width="1.5" opacity=".55" fill="none"/>':''}
+ <path d="M78 260 Q82 214 95 195 L111 209 120 260Z" fill="#fff" opacity=".65"/>
+ <path d="M162 260 Q158 214 145 195 L129 209 120 260Z" fill="#d8e4f4" opacity=".65"/>
+ </svg>`;
  function render(){
   const female=sex.value==='femme',older=age.value==='35-44'||age.value==='45+';
   const svg=portrait(female,older);
