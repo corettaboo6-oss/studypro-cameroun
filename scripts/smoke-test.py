@@ -36,7 +36,7 @@ for src in page.scripts:
 for required_file in ("collective.js", "api/config.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js", "api/cinetpay-verification.js", "supabase/schema.sql", "supabase/monetization.sql", "README-CLASSEMENT.md", "README-MONETISATION.md", "package.json"):
     assert (ROOT / required_file).is_file(), f"Fichier du classement collectif absent : {required_file}"
 
-for filename in ("courses.js", "premium-content-client.js", "lessons-year1.js", "lessons-year2.js", "lessons-year3.js", "dashboard-v2.js", "billing-auth.js", "collective.js", "api/chat.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js", "api/cinetpay-verification.js"):
+for filename in ("api/config.js", "courses.js", "premium-content-client.js", "lessons-year1.js", "lessons-year2.js", "lessons-year3.js", "dashboard-v2.js", "billing-auth.js", "collective.js", "api/chat.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js", "api/cinetpay-verification.js"):
     subprocess.run(["node", "--check", str(ROOT / filename)], check=True)
 
 # Vérifie aussi la syntaxe du JavaScript embarqué dans la page.
