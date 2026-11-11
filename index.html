@@ -168,7 +168,7 @@ body.theme-light .weekly-board{background:#f5f8ff;border-color:#d8e0ef;color:#17
 </head>
 <body>
 <header><div><h2>📘 STUDYPRO CAMEROUN</h2><p>Apprendre • Réviser • Réussir</p></div><div>La réussite commence par une bonne préparation.</div></header>
-<nav><a href="#personnalisation">Personnaliser</a><a href="#programme">Programme</a><a href="#dashboard-v2">Mon espace</a><a href="#cours">Cours</a><a href="#videos">Vidéos YouTube</a><a href="#evaluation">S'entraîner</a><a href="#sources">Références</a></nav>
+<nav><a href="#personnalisation">Personnaliser</a><a href="#programme">Programme</a><a href="#dashboard-v2">Mon espace</a><a href="#cours">Cours</a><a href="#videos">Vidéos YouTube</a><a href="#evaluation">S'entraîner</a><a href="#offres">Offres</a><a href="#sources">Références</a></nav>
 <div class="hero"><h1>Ta bibliothèque de soins infirmiers</h1><p>Des cours structurés, des objectifs d'apprentissage et des exercices pour progresser tout au long de la formation IDE au Cameroun.</p><a class="btn" href="#cours">Explorer les cours</a></div>
 
 <section id="personnalisation">
@@ -203,6 +203,17 @@ body.theme-light .weekly-board{background:#f5f8ff;border-color:#d8e0ef;color:#17
  <div style="overflow-x:auto"><table class="leaderboard" aria-label="Classement hebdomadaire"><thead><tr><th>Rang</th><th>Étudiant</th><th>Score</th><th>Meilleur chrono</th></tr></thead><tbody id="leaderboardRows"></tbody></table></div>
  <p class="fiction-note">Les profils illustrés sont fictifs et servent à donner vie à l’espace récompenses. Ton score réel est enregistré uniquement sur cet appareil ; ce classement n’est pas encore partagé entre étudiants.</p>
 </div></div><p class="note">La progression et les intitulés exacts peuvent varier selon le référentiel de l'établissement et les mises à jour du MINSANTE. Les supports ci-dessous sont une base pédagogique de révision, pas une reproduction certifiée du programme officiel complet.</p></section>
+<section id="offres">
+ <h2>💎 Offres STUDYPRO</h2>
+ <p class="intro">Choisis la formule qui correspond à tes objectifs. Les tarifs sont fixés en FCFA pour les étudiants au Cameroun.</p>
+ <div class="grid">
+  <article class="course"><span class="tag">Découverte</span><h3>Gratuit</h3><p><strong>0 FCFA</strong> · sans abonnement</p><ul><li>Accès aux ressources gratuites</li><li>QCM et révisions de base</li><li>Suivi local de progression</li></ul><button class="reward-action" type="button" disabled>Offre gratuite</button></article>
+  <article class="course"><span class="tag">Pour progresser</span><h3>Premium</h3><p><strong>1 500 FCFA / mois</strong></p><ul><li>Contenus pédagogiques Premium</li><li>QCM et entraînements avancés</li><li>Outils de révision supplémentaires</li></ul><button class="reward-action" type="button" disabled aria-disabled="true">Paiement bientôt disponible</button></article>
+  <article class="course"><span class="tag">Accès complet</span><h3>Premium Plus</h3><p><strong>3 000 FCFA / mois</strong></p><ul><li>Tous les avantages Premium</li><li>Assistant IA et outils avancés, après activation</li><li>Fonctionnalités exclusives à venir</li></ul><button class="reward-action" type="button" disabled aria-disabled="true">Paiement bientôt disponible</button></article>
+ </div>
+ <p class="note" role="status">Les tarifs sont affichés à titre de préparation. Aucun paiement n’est actuellement activé : ne transfère pas d’argent et ne communique aucun code secret ou OTP sur cette page. Les accès Premium seront ouverts uniquement après confirmation serveur d’un paiement réel.</p>
+</section>
+
 <section id="cours"><h2>Bibliothèque de cours</h2><p class="intro">Choisis ton année ou recherche directement une matière. Ouvre une fiche pour consulter les chapitres et les objectifs.</p>
 <div class="filters"><input id="search" type="search" placeholder="Rechercher un cours, un thème…"><select id="year"><option value="all">Toutes les années</option><option value="1">1re année</option><option value="2">2e année</option><option value="3">3e année</option></select><select id="domain"><option value="all">Tous les domaines</option></select></div>
 <div id="courseGrid" class="grid" aria-live="polite"></div><div id="lessonReader" class="panel" style="display:none;margin-top:22px"><button id="closeLesson" type="button">← Retour aux cours</button><div id="lessonContent"></div></div></section>
