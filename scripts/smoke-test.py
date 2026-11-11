@@ -33,10 +33,10 @@ for src in page.scripts:
     local_src = src.split("?", 1)[0].split("#", 1)[0].lstrip("/")
     assert local_src and (ROOT / local_src).is_file(), f"Script référencé introuvable : {src}"
 
-for required_file in ("collective.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js", "supabase/schema.sql", "supabase/monetization.sql", "README-CLASSEMENT.md", "README-MONETISATION.md", "package.json"):
+for required_file in ("collective.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js", "api/cinetpay-verification.js", "supabase/schema.sql", "supabase/monetization.sql", "README-CLASSEMENT.md", "README-MONETISATION.md", "package.json"):
     assert (ROOT / required_file).is_file(), f"Fichier du classement collectif absent : {required_file}"
 
-for filename in ("courses.js", "lessons-year1.js", "lessons-year2.js", "lessons-year3.js", "dashboard-v2.js", "billing-auth.js", "collective.js", "api/chat.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js"):
+for filename in ("courses.js", "lessons-year1.js", "lessons-year2.js", "lessons-year3.js", "dashboard-v2.js", "billing-auth.js", "collective.js", "api/chat.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js", "api/cinetpay-verification.js"):
     subprocess.run(["node", "--check", str(ROOT / filename)], check=True)
 
 # Vérifie aussi la syntaxe du JavaScript embarqué dans la page.
@@ -67,6 +67,10 @@ assert "studypro_subscriptions" in (ROOT / "api/payments.js").read_text(encoding
 assert "1 500 FCFA" in html and "3 000 FCFA" in html, "Tarifs Premium attendus absents"
 assert "2 000 FCFA" not in html and "3 500 FCFA" not in html, "Anciens tarifs encore présents"
 assert "CINETPAY_API_KEY_CM" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Configuration CinetPay côté serveur absente"
+assert "verifyCinetPayPayment" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Vérification CinetPay stricte absente"
+assert "verifyCinetPayPayment" in (ROOT / "api/payment-webhook.js").read_text(encoding="utf-8"), "Vérification stricte du webhook absente"
+assert "status.amount" in (ROOT / "api/cinetpay-verification.js").read_text(encoding="utf-8"), "Contrôle du montant brut CinetPay absent"
+assert "status.currency" in (ROOT / "api/cinetpay-verification.js").read_text(encoding="utf-8"), "Contrôle de la devise brute CinetPay absent"
 assert "verifyNotification" in (ROOT / "api/payment-webhook.js").read_text(encoding="utf-8"), "Vérification du webhook CinetPay absente"
 assert "studypro_activate_subscription" in (ROOT / "supabase/monetization.sql").read_text(encoding="utf-8"), "Activation idempotente des abonnements absente"
 assert "SUPABASE_SERVICE_ROLE_KEY" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Clé serveur Supabase absente du backend"
