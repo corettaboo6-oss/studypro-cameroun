@@ -64,18 +64,23 @@ async function activateVerifiedOrder(order, providerStatus) {
   });
   return true;
 }
-function siteOrigin(req) {
-  const configured = env("STUDYPRO_ALLOWED_ORIGIN");
-  if (configured) return configured;
-  const host = String(req.headers["x-forwarded-host"] || req.headers.host || "");
-  return host ? "https://" + host : "";
+function siteOrigin() {
+  const configured = env("STUDYPRO_ALLOWED_ORIGIN").replace(/\/+$/, "");
+  if (!configured) return "";
+  try {
+    const parsed = new URL(configured);
+    if (parsed.protocol !== "https:" || parsed.origin !== configured) return "";
+    return parsed.origin;
+  } catch {
+    return "";
+  }
 }
 async function handleCreate(req, res, user) {
   const planId = String(req.body?.plan || "");
   const plan = PLANS[planId];
   if (!plan) return json(res, 400, { error: "Formule inconnue." });
-  const origin = siteOrigin(req);
-  if (!origin.startsWith("https://")) return json(res, 503, { error: "URL publique HTTPS non configurée." });
+  const origin = siteOrigin();
+  if (!origin) return json(res, 503, { error: "URL publique HTTPS non configurée." });
   const email = String(user.email || "");
   if (!email) return json(res, 400, { error: "Adresse e-mail du compte introuvable." });
   const reference = "SP" + randomUUID().replace(/-/g, "").slice(0, 28);
@@ -140,7 +145,8 @@ async function handleStatus(req, res, user) {
   if (!order.provider_transaction_id) return json(res, 200, { status: order.status.toUpperCase() });
   const status = await cinetpay().payment.getStatus(order.provider_transaction_id, "CM");
   if (status.status === "SUCCESS") {
-    await activateVerifiedOrder(order, status);
+    const activated = await activateVerifiedOrder(order, status);
+    if (!activated) return json(res, 409, { error: "La vérification CinetPay ne correspond pas à cette commande." });
     return json(res, 200, { status: "SUCCESS", plan: order.plan });
   }
   return json(res, 200, { status: status.status || "PENDING" });
