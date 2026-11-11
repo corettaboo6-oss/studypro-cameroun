@@ -267,6 +267,15 @@ body.theme-light .revenue-stat{background:#edf2fa;color:#17233e}
   <div style="overflow-x:auto"><table class="leaderboard"><thead><tr><th>Référence</th><th>Offre</th><th>Montant</th><th>État</th><th>Date</th></tr></thead><tbody id="revenueRows"></tbody></table></div>
  </div>
 </section>
+<section id="examens-blancs">
+ <h2>📝 Examens blancs Premium Plus</h2>
+ <p class="intro">Les examens blancs sont réservés aux abonnés Premium Plus (3 000 FCFA / 30 jours). Les questions sont chargées depuis l'espace privé après vérification de ton abonnement.</p>
+ <div class="panel">
+  <p id="mockExamStatus" role="status" aria-live="polite">Connecte-toi avec un compte Premium Plus pour charger les examens blancs.</p>
+  <button type="button" id="loadMockExams">Accéder aux examens blancs</button>
+  <div id="mockExamList"></div>
+ </div>
+</section>
 <section id="cours"><h2>Bibliothèque de cours</h2><p class="intro">Choisis ton année ou recherche directement une matière. Ouvre une fiche pour consulter les chapitres et les objectifs.</p>
 <div class="filters"><input id="search" type="search" placeholder="Rechercher un cours, un thème…"><select id="year"><option value="all">Toutes les années</option><option value="1">1re année</option><option value="2">2e année</option><option value="3">3e année</option></select><select id="domain"><option value="all">Tous les domaines</option></select></div>
 <div id="courseGrid" class="grid" aria-live="polite"></div><div id="lessonReader" class="panel" style="display:none;margin-top:22px"><button id="closeLesson" type="button">← Retour aux cours</button><div id="lessonContent"></div></div></section>
