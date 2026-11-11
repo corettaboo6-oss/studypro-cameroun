@@ -77,7 +77,7 @@
       }
     } catch (_) { /* GitHub Pages / hors ligne : conserver la configuration locale */ }
     if (!config.url || !config.anonKey) {
-      say('Connexion Supabase en attente : ajoute l’URL du projet et la clé publique anon dans supabase-config.js.');
+      say('Connexion Supabase en attente : configure SUPABASE_URL et SUPABASE_ANON_KEY dans les variables Vercel.');
       form.querySelectorAll('input,button').forEach(node => { node.disabled = true; });
       return;
     }
