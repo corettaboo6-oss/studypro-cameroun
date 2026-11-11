@@ -34,5 +34,8 @@ Configurer sur Vercel :
 
 Commencer avec les identifiants sandbox. Les paiements réels restent inactifs tant que le compte marchand, les secrets, la base, le domaine HTTPS et les tests de bout en bout ne sont pas validés.
 
+## Import et bascule des cours privés
+Exécuter `node scripts/import-private-content.mjs --apply` depuis une copie locale de la branche après création des tables Supabase et configuration temporaire des deux variables serveur dans le terminal. Le script importe les leçons IDE avec le plan requis `premium`. Les examens blancs optionnels doivent être fournis dans `private-content-source/mock-exams.json` et reçoivent le plan `premium_plus`. Vérifier les lignes importées avant de retirer les anciens fichiers source de la publication statique. Ne jamais commiter les secrets ou le dossier local des examens.
+
 ## Limites connues
 Les cours déjà livrés dans `courses.js` et `lessons-year*.js` restent publics. Les futurs contenus Premium doivent être enregistrés dans `studypro_premium_content` et servis par l'API après contrôle de l'abonnement. L'abonnement est renouvelé manuellement; aucun prélèvement récurrent automatique n'est activé.
