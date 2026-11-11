@@ -32,7 +32,6 @@ create table if not exists public.billing_payments (
   currency text not null default 'XAF' check (currency = 'XAF'),
   status text not null default 'pending' check (status in ('pending','processing','succeeded','failed','cancelled','refunded','expired')),
   idempotency_key uuid not null unique default gen_random_uuid(),
-  provider_payload jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   confirmed_at timestamptz,
@@ -80,3 +79,11 @@ create policy "Users read own subscriptions"
 
 -- Service role operations must run only in trusted server functions.
 -- Never expose SUPABASE_SERVICE_ROLE_KEY to the browser.
+
+-- Explicit client privileges: read-only from the browser.
+grant select on public.billing_plans to anon, authenticated;
+grant select on public.billing_payments to authenticated;
+grant select on public.billing_subscriptions to authenticated;
+
+-- No INSERT, UPDATE or DELETE grants are given to anon/authenticated.
+-- Trusted server functions use the service role after verifying the user's JWT.
