@@ -10,7 +10,7 @@
 ## Architecture retenue
 - CinetPay pour le checkout hébergé au Cameroun, avec MTN Mobile Money et Orange Money selon les canaux activés sur le compte marchand.
 - Supabase Auth pour les comptes étudiants et PostgreSQL pour les commandes, abonnements et contenus Premium privés.
-- API Vercel côté serveur pour créer les paiements, vérifier les statuts CinetPay, traiter les webhooks et servir les contenus protégés.
+- Fonctions Netlify côté serveur pour créer les paiements, vérifier les statuts CinetPay, traiter les webhooks et servir les contenus protégés.
 - Les secrets CinetPay et la clé Supabase service-role restent exclusivement dans les variables d'environnement serveur.
 
 ## Installation
@@ -35,7 +35,7 @@ Configurer sur Vercel :
 Commencer avec les identifiants sandbox. Les paiements réels restent inactifs tant que le compte marchand, les secrets, la base, le domaine HTTPS et les tests de bout en bout ne sont pas validés.
 
 ## Import et bascule des cours privés
-Exécuter `node scripts/import-private-content.mjs --apply` depuis une copie locale de la branche après création des tables Supabase et configuration temporaire des deux variables serveur dans le terminal. Le script importe les leçons IDE avec le plan requis `premium`. Les examens blancs optionnels doivent être fournis dans `private-content-source/mock-exams.json` et reçoivent le plan `premium_plus`. Vérifier les lignes importées avant de retirer les anciens fichiers source de la publication statique. Ne jamais commiter les secrets ou le dossier local des examens.
+Le build Netlify exécute automatiquement `node scripts/import-private-content.mjs --apply` après configuration de `SUPABASE_URL` et `SUPABASE_SERVICE_ROLE_KEY` dans l'environnement de build. Le script importe les leçons IDE avec le plan requis `premium`. Les examens blancs optionnels doivent être fournis dans `private-content-source/mock-exams.json` et reçoivent le plan `premium_plus`. Vérifier les lignes importées avant de retirer les anciens fichiers source de la publication statique. Ne jamais commiter les secrets ou le dossier local des examens.
 
 ## Limites connues
-Les cours déjà livrés dans `courses.js` et `lessons-year*.js` restent publics. Les futurs contenus Premium doivent être enregistrés dans `studypro_premium_content` et servis par l'API après contrôle de l'abonnement. L'abonnement est renouvelé manuellement; aucun prélèvement récurrent automatique n'est activé.
+Les fiches synthétiques de `courses.js` restent publiques. Les sources détaillées `lessons-year*.js` sont conservées dans Git pour l'import, mais Netlify doit les bloquer en HTTP 404 grâce aux redirections forcées définies dans `netlify.toml`. Les leçons importées sont ensuite servies uniquement depuis `studypro_premium_content` après contrôle de l'abonnement. Vérifier les 404 sur le déploiement avant publication. L'abonnement est renouvelé manuellement; aucun prélèvement récurrent automatique n'est activé.
