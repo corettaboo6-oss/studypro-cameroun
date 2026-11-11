@@ -24,12 +24,13 @@
   function displayPlan(row) {
     activeSubscription = row || null;
     if (!planEl) return;
-    if (!row) {
+    const plan = row && (row.plan || row.plan_code);
+    if (!row || plan === 'free' || row.status !== 'active') {
       planEl.textContent = 'Offre actuelle : Gratuit. Aucun abonnement payant confirmé.';
       return;
     }
-    const label = row.plan_code === 'premium_plus' ? 'Premium Plus' : 'Premium';
-    const date = new Date(row.ends_at);
+    const label = plan === 'premium_plus' ? 'Premium Plus' : 'Premium';
+    const date = new Date(row.current_period_end || row.ends_at);
     planEl.textContent = 'Offre actuelle : ' + label + ' · échéance ' +
       (Number.isNaN(date.getTime()) ? 'à confirmer' : date.toLocaleDateString('fr-FR'));
   }
@@ -48,20 +49,20 @@
   }
 
   async function refreshPlan() {
-    const { data: { user }, error: userError } = await client.auth.getUser();
-    if (userError) throw userError;
+    const { data, error: sessionError } = await client.auth.getSession();
+    if (sessionError) throw sessionError;
+    const session = data && data.session;
+    const user = session && session.user;
     if (!user) { setSignedIn(null); return; }
     setSignedIn(user);
-    const { data, error } = await client
-      .from('billing_subscriptions')
-      .select('plan_code,status,starts_at,ends_at')
-      .eq('user_id', user.id)
-      .eq('status', 'active')
-      .gt('ends_at', new Date().toISOString())
-      .order('ends_at', { ascending: false })
-      .limit(1);
-    if (error) throw error;
-    displayPlan(data && data.length ? data[0] : null);
+    const response = await fetch('/api/payments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + session.access_token },
+      body: JSON.stringify({ action: 'subscription' })
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(payload.error || 'Lecture de l’abonnement impossible.');
+    displayPlan(payload.subscription || null);
   }
 
   async function init() {
@@ -137,6 +138,12 @@
 
   window.studyproBilling = Object.freeze({
     refresh: () => client ? refreshPlan() : Promise.reject(new Error('Supabase non configuré')),
+    getAccessToken: async () => {
+      if (!client) return null;
+      const { data, error } = await client.auth.getSession();
+      if (error) throw error;
+      return data && data.session ? data.session.access_token : null;
+    },
     get currentSubscription() { return activeSubscription; }
   });
   init();
