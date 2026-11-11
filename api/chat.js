@@ -5,7 +5,7 @@ const MAX_REQUESTS = 12;
 const requests = new Map();
 
 function allowedOrigin(origin) {
-  if (!origin) return true;
+  if (!origin) return false;
   const configured = process.env.STUDYPRO_ALLOWED_ORIGIN;
   if (configured) return origin === configured;
   return origin === "https://corettaboo6-oss.github.io" || /^https:\/\/[a-z0-9-]+\.vercel\.app$/.test(origin);
