@@ -219,10 +219,12 @@ body.theme-light .revenue-stat{background:#edf2fa;color:#17233e}
  <div style="overflow-x:auto"><table class="leaderboard" aria-label="Classement hebdomadaire"><thead><tr><th>Rang</th><th>Étudiant</th><th>Score</th><th>Meilleur chrono</th></tr></thead><tbody id="leaderboardRows"></tbody></table></div>
  <p class="fiction-note">Les profils illustrés sont fictifs et servent à donner vie à l’espace récompenses. Ton score réel est enregistré uniquement sur cet appareil ; ce classement n’est pas encore partagé entre étudiants.</p>
 </div></div><p class="note">La progression et les intitulés exacts peuvent varier selon le référentiel de l'établissement et les mises à jour du MINSANTE. Les supports ci-dessous sont une base pédagogique de révision, pas une reproduction certifiée du programme officiel complet.</p></section>
-<section id="offres">
- <h2>💎 Offres STUDYPRO</h2>
- <p class="intro">Choisis la formule qui correspond à tes objectifs. Les tarifs sont fixés en FCFA pour les étudiants au Cameroun.</p>
- <div class="panel" id="billing-account" style="margin:18px 0">
+
+
+<section id="abonnements">
+ <h2>💎 Choisis ton abonnement STUDYPRO</h2>
+ <p class="intro">Commence gratuitement, puis active un abonnement lorsque tu souhaites accéder aux services Premium. Paiement sécurisé via CinetPay : MTN Mobile Money ou Orange Money au Cameroun.</p>
+<div class="panel" id="billing-account" style="margin:18px 0">
   <h3>🔐 Mon compte STUDYPRO</h3>
   <p class="intro">Crée ton compte ou connecte-toi pour consulter ton offre et retrouver ton abonnement sur tes appareils.</p>
   <form id="billingAuthForm">
@@ -246,17 +248,6 @@ body.theme-light .revenue-stat{background:#edf2fa;color:#17233e}
   </div>
   <p id="billingAuthStatus" class="note" role="status" aria-live="polite">Initialisation du compte sécurisé…</p>
  </div>
- <div class="grid">
-  <article class="course"><span class="tag">Découverte</span><h3>Gratuit</h3><p><strong>0 FCFA</strong> · sans abonnement</p><ul><li>Accès aux ressources gratuites</li><li>QCM et révisions de base</li><li>Suivi local de progression</li></ul><button class="reward-action" type="button" disabled>Offre gratuite</button></article>
-  <article class="course"><span class="tag">Pour progresser</span><h3>Premium</h3><p><strong>1 500 FCFA / mois</strong></p><ul><li>Contenus pédagogiques Premium</li><li>QCM et entraînements avancés</li><li>Outils de révision supplémentaires</li></ul><button class="reward-action" type="button" disabled aria-disabled="true">Paiement bientôt disponible</button></article>
-  <article class="course"><span class="tag">Accès complet</span><h3>Premium Plus</h3><p><strong>3 000 FCFA / mois</strong></p><ul><li>Tous les avantages Premium</li><li>Assistant IA et outils avancés, après activation</li><li>Fonctionnalités exclusives à venir</li></ul><button class="reward-action" type="button" disabled aria-disabled="true">Paiement bientôt disponible</button></article>
- </div>
- <p class="note" role="status">Les tarifs sont affichés à titre de préparation. Aucun paiement n’est actuellement activé : ne transfère pas d’argent et ne communique aucun code secret ou OTP sur cette page. Les accès Premium seront ouverts uniquement après confirmation serveur d’un paiement réel.</p>
-</section>
-
-<section id="abonnements">
- <h2>💎 Choisis ton abonnement STUDYPRO</h2>
- <p class="intro">Commence gratuitement, puis active un abonnement lorsque tu souhaites accéder aux services Premium. Paiement sécurisé via CinetPay : MTN Mobile Money ou Orange Money au Cameroun.</p>
  <div class="pricing-grid">
   <article class="pricing-card"><h3>Gratuit</h3><div class="pricing-price">0 FCFA <small>/ toujours</small></div><ul><li>Bibliothèque publique de cours</li><li>Fiches et exercices disponibles</li><li>Classement hebdomadaire</li></ul><button type="button" disabled>Formule actuelle de base</button></article>
   <article class="pricing-card featured"><h3>Premium</h3><div class="pricing-price">1 500 FCFA <small>/ 30 jours</small></div><ul><li>Accès aux contenus Premium publiés</li><li>Ressources et parcours exclusifs</li><li>Progression et suivi enrichis</li></ul><button type="button" data-buy-plan="premium">Choisir Premium</button></article>
@@ -554,11 +545,14 @@ document.addEventListener('DOMContentLoaded',function(){
 (function(){
  const status=document.getElementById('billingStatus');
  const buyButtons=[...document.querySelectorAll('[data-buy-plan]')];
- const session=()=>{try{return JSON.parse(sessionStorage.getItem('studyproCollectiveSession')||'null')}catch(e){return null}};
+ const fallbackSession=()=>{try{return JSON.parse(sessionStorage.getItem('studyproCollectiveSession')||'null')}catch(e){return null}};
  let pendingReference=new URLSearchParams(location.search).get('reference')||'';
  async function api(action,extra={}){
-  const s=session();if(!s||!s.access_token)throw new Error('Connecte-toi à ton compte étudiant avant de continuer.');
-  const r=await fetch('/api/payments',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+s.access_token},body:JSON.stringify({action,...extra})});
+  const token=window.studyproBilling&&typeof window.studyproBilling.getAccessToken==='function'
+   ? await window.studyproBilling.getAccessToken()
+   : (fallbackSession()||{}).access_token;
+  if(!token)throw new Error('Connecte-toi à ton compte étudiant avant de continuer.');
+  const r=await fetch('/api/payments',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({action,...extra})});
   const data=await r.json().catch(()=>({}));
   if(!r.ok)throw new Error(data.error||'Service de paiement indisponible.');
   return data;
