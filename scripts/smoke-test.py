@@ -33,7 +33,7 @@ for src in page.scripts:
     local_src = src.split("?", 1)[0].split("#", 1)[0].lstrip("/")
     assert local_src and (ROOT / local_src).is_file(), f"Script référencé introuvable : {src}"
 
-for required_file in ("collective.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js", "api/cinetpay-verification.js", "supabase/schema.sql", "supabase/monetization.sql", "README-CLASSEMENT.md", "README-MONETISATION.md", "package.json"):
+for required_file in ("collective.js", "api/config.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js", "api/cinetpay-verification.js", "supabase/schema.sql", "supabase/monetization.sql", "README-CLASSEMENT.md", "README-MONETISATION.md", "package.json"):
     assert (ROOT / required_file).is_file(), f"Fichier du classement collectif absent : {required_file}"
 
 for filename in ("courses.js", "premium-content-client.js", "lessons-year1.js", "lessons-year2.js", "lessons-year3.js", "dashboard-v2.js", "billing-auth.js", "collective.js", "api/chat.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js", "api/cinetpay-verification.js"):
@@ -62,6 +62,7 @@ for year in (1, 2, 3):
 assert "lessonLibrary[course.year]" in html, "Le chargement des leçons par année est absent"
 assert "premium-content-client.js" in html, "Client de contenus privés non chargé"
 assert "data-buy-plan" in html and "premium_plus" in html, "Offres Premium absentes"
+assert "fetch('/api/config'" in (ROOT / "billing-auth.js").read_text(encoding="utf-8"), "Configuration Supabase runtime absente"
 assert "getAccessToken" in (ROOT / "billing-auth.js").read_text(encoding="utf-8"), "Session Supabase non partagée avec le paiement"
 assert "studypro_subscriptions" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Lecture serveur des abonnements absente"
 assert "1 500 FCFA" in html and "3 000 FCFA" in html, "Tarifs Premium attendus absents"
