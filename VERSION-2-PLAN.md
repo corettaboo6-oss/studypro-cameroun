@@ -37,7 +37,7 @@
 
 1. Vérifier manuellement le rendu sur téléphone et ordinateur, puis corriger les éventuels problèmes d'affichage.
 2. Ajouter des tests de fumée pour le chargement des cours, le filtrage, les QCM et les récompenses.
-3. Compléter les leçons détaillées des années 2 et 3 à partir de documents camerounais vérifiables et datés.
+3. Faire relire les leçons des années 2 et 3 par un formateur IDE et les comparer aux curricula détaillés applicables à chaque école.
 4. Définir une vraie architecture de comptes et de sauvegarde avant de promettre une synchronisation ou un espace personnel multi-appareils.
 5. Ne jamais stocker de mot de passe, clé API ou secret dans le dépôt public ou dans le JavaScript livré au navigateur.
 6. Ne pas transformer les points locaux en certificats officiels ou en preuves de compétence clinique.
@@ -50,3 +50,12 @@
 - [ ] Répondre à un QCM et confirmer que les points ne sont attribués qu'une fois par question.
 - [ ] Tester l'enregistrement du profil, l'objectif et l'export des données.
 - [ ] Confirmer que `main` n'a pas été modifiée avant validation.
+
+
+## Enrichissement pédagogique réalisé dans V2
+
+- Ajout de leçons détaillées pour les modules de deuxième et troisième années.
+- Le bouton « Ouvrir le cours détaillé » ouvre désormais la bibliothèque correspondant à l'année du cours.
+- Ajout de vérifications automatiques pour les scripts pédagogiques des trois années.
+- Ajout de `SOURCES-PEDAGOGIQUES.md` pour distinguer références institutionnelles, repères professionnels et synthèses pédagogiques internes.
+- Réserve importante : le communiqué MINSANTÉ du 15 juin 2023 confirme l'harmonisation et la révision des curricula, mais ne constitue pas à lui seul le référentiel détaillé des unités IDE. Une validation pédagogique par une école/formateur reste nécessaire.
