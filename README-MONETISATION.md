@@ -3,9 +3,9 @@
 Cette version ajoute une base technique de paiement et d'abonnement via CinetPay pour le Cameroun (MTN Mobile Money et Orange Money). Les clés restent côté serveur. L'activation d'un abonnement dépend d'un webhook authentifié puis d'une vérification du statut directement auprès de CinetPay.
 
 ## Offres prévues
-- Gratuit : accès aux ressources publiques.
-- Premium : 1 500 FCFA / 30 jours.
-- Premium Plus : 3 000 FCFA / 30 jours.
+- Gratuit : matières, présentations et QCM classiques.
+- Premium : 1 500 FCFA / 30 jours ; accès à toutes les leçons détaillées des trois années IDE.
+- Premium Plus : 3 000 FCFA / 30 jours ; inclut Premium et les examens blancs.
 
 Les montants sont fixés côté serveur dans `api/payments.js`. Le navigateur ne peut pas choisir ni modifier le montant. Le backend utilise le SDK officiel `cinetpay-js` (version publiée 0.1.1).
 
@@ -42,7 +42,7 @@ Définir `STUDYPRO_ADMIN_EMAILS` dans Vercel avec une liste séparée par des vi
 - L'activation SQL est transactionnelle et idempotente : un webhook rejoué ne prolonge pas deux fois un abonnement.
 - La clé service-role n'est jamais envoyée au navigateur.
 - Le tableau de bord des revenus vérifie l'adresse administrateur côté serveur.
-- La table `studypro_premium_content` est initialement vide : les contenus Premium devront être insérés côté administrateur dans Supabase avant d’être proposés aux abonnés. Les ressources pédagogiques actuellement publiées dans `courses.js` et `lessons-year*.js` restent publiques car elles sont livrées par le site statique. Ce premier lot ne prétend donc pas verrouiller ces fichiers. La protection réelle des leçons déjà livrées dans ces fichiers n'est pas encore terminée. Tant que leur contenu n'a pas été migré vers `studypro_premium_content` et que les références statiques ne sont pas retirées du site, ces leçons restent publiques. Ne pas considérer cette PR comme prête à fusionner avant cette migration.
+- La table `studypro_premium_content` est initialement vide : les leçons détaillées IDE doivent y être importées avec `required_plan=premium`; chaque examen blanc doit être importé avec `required_plan=premium_plus`. Le contrôle serveur refuse les plans inconnus, les abonnements expirés et les examens blancs pour les comptes Premium. Les ressources pédagogiques actuellement publiées dans `courses.js` et `lessons-year*.js` restent publiques car elles sont livrées par le site statique. Ce premier lot ne prétend donc pas verrouiller ces fichiers. La protection réelle des leçons déjà livrées dans ces fichiers n'est pas encore terminée. Tant que leur contenu n'a pas été migré vers `studypro_premium_content` et que les références statiques ne sont pas retirées du site, ces leçons restent publiques. Ne pas considérer cette PR comme prête à fusionner avant cette migration.
 - L'abonnement est à renouvellement manuel : aucun prélèvement automatique récurrent n'est activé.
 - Les paiements réels ne sont pas activés tant que les identifiants CinetPay, la migration Supabase et le domaine Vercel ne sont pas configurés et testés.
 
