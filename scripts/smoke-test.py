@@ -71,6 +71,8 @@ assert "verifyNotification" in (ROOT / "api/payment-webhook.js").read_text(encod
 assert "studypro_activate_subscription" in (ROOT / "supabase/monetization.sql").read_text(encoding="utf-8"), "Activation idempotente des abonnements absente"
 assert "SUPABASE_SERVICE_ROLE_KEY" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Clé serveur Supabase absente du backend"
 assert "STUDYPRO_ADMIN_EMAILS" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Protection du tableau de bord administrateur absente"
+assert "function siteOrigin()" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Origine HTTPS autorisée non configurée côté serveur"
+assert "if (!activated) return json(res, 409" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Une vérification CinetPay incohérente ne doit pas annoncer un succès"
 
 
 lesson2 = (ROOT / "lessons-year2.js").read_text(encoding="utf-8")
