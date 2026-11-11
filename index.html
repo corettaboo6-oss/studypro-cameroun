@@ -206,6 +206,30 @@ body.theme-light .weekly-board{background:#f5f8ff;border-color:#d8e0ef;color:#17
 <section id="offres">
  <h2>💎 Offres STUDYPRO</h2>
  <p class="intro">Choisis la formule qui correspond à tes objectifs. Les tarifs sont fixés en FCFA pour les étudiants au Cameroun.</p>
+ <div class="panel" id="billing-account" style="margin:18px 0">
+  <h3>🔐 Mon compte STUDYPRO</h3>
+  <p class="intro">Crée ton compte ou connecte-toi pour consulter ton offre et retrouver ton abonnement sur tes appareils.</p>
+  <form id="billingAuthForm">
+   <div id="billingAuthFields">
+    <label for="billingDisplayName">Nom affiché (pour la création du compte)</label>
+    <input id="billingDisplayName" maxlength="40" autocomplete="nickname" placeholder="Ex. Grâce Nguemo">
+    <label for="billingEmail">Adresse e-mail</label>
+    <input id="billingEmail" type="email" autocomplete="email" required placeholder="ton@email.com">
+    <label for="billingPassword">Mot de passe (8 caractères minimum)</label>
+    <input id="billingPassword" type="password" minlength="8" autocomplete="current-password" required placeholder="Mot de passe">
+    <div class="weekly-auth-actions">
+     <button type="submit" value="signup">Créer mon compte</button>
+     <button type="submit" value="login">Se connecter</button>
+    </div>
+   </div>
+  </form>
+  <div id="billingLoggedIn" hidden>
+   <p id="billingWelcome"></p>
+   <p id="billingCurrentPlan">Offre actuelle : Gratuit.</p>
+   <button type="button" id="billingLogout">Se déconnecter</button>
+  </div>
+  <p id="billingAuthStatus" class="note" role="status" aria-live="polite">Initialisation du compte sécurisé…</p>
+ </div>
  <div class="grid">
   <article class="course"><span class="tag">Découverte</span><h3>Gratuit</h3><p><strong>0 FCFA</strong> · sans abonnement</p><ul><li>Accès aux ressources gratuites</li><li>QCM et révisions de base</li><li>Suivi local de progression</li></ul><button class="reward-action" type="button" disabled>Offre gratuite</button></article>
   <article class="course"><span class="tag">Pour progresser</span><h3>Premium</h3><p><strong>1 500 FCFA / mois</strong></p><ul><li>Contenus pédagogiques Premium</li><li>QCM et entraînements avancés</li><li>Outils de révision supplémentaires</li></ul><button class="reward-action" type="button" disabled aria-disabled="true">Paiement bientôt disponible</button></article>
@@ -233,6 +257,7 @@ body.theme-light .weekly-board{background:#f5f8ff;border-color:#d8e0ef;color:#17
 </aside>
 
 <footer>© 2026 STUDYPRO CAMEROUN · Apprendre • Réviser • Réussir</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="billing-auth.js"></script>
 <script src="courses.js"></script><script src="lessons-year1.js"></script><script src="lessons-year2.js"></script><script src="lessons-year3.js"></script><script src="dashboard-v2.js"></script>
 <script>
 
