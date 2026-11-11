@@ -8,7 +8,7 @@ create table if not exists public.studypro_payment_orders (
   notify_token text,
   user_id uuid not null references auth.users(id) on delete cascade,
   plan text not null check (plan in ('premium','premium_plus')),
-  amount integer not null check (amount in (2000,3500)),
+  amount integer not null check (amount in (1500,3000)),
   currency text not null default 'XAF' check (currency = 'XAF'),
   status text not null default 'pending' check (status in ('pending','succeeded','failed')),
   created_at timestamptz not null default now(),
