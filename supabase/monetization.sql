@@ -14,6 +14,15 @@ create table if not exists public.studypro_payment_orders (
   created_at timestamptz not null default now(),
   paid_at timestamptz
 );
+
+alter table public.studypro_payment_orders
+  drop constraint if exists studypro_payment_orders_plan_amount_check;
+alter table public.studypro_payment_orders
+  add constraint studypro_payment_orders_plan_amount_check
+  check (
+    (plan = 'premium' and amount = 1500) or
+    (plan = 'premium_plus' and amount = 3000)
+  );
 create table if not exists public.studypro_subscriptions (
   user_id uuid primary key references auth.users(id) on delete cascade,
   plan text not null check (plan in ('free','premium','premium_plus')),
