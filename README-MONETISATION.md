@@ -20,7 +20,7 @@ Les montants sont fixés côté serveur dans `api/payments.js`. Le navigateur ne
 4. Utiliser d'abord les identifiants sandbox CinetPay. Les identifiants live ne doivent être ajoutés qu'après les tests de bout en bout.
 
 ### Supabase
-1. Conserver les variables existantes `SUPABASE_URL`, `SUPABASE_ANON_KEY` et `STUDYPRO_ALLOWED_ORIGIN`.
+1. Ajouter `SUPABASE_URL`, `SUPABASE_ANON_KEY` et `STUDYPRO_ALLOWED_ORIGIN` dans les variables d'environnement Vercel. L'API publique `/api/config` transmet uniquement l'URL et la clé anon au navigateur; aucune clé privée n'est exposée.
    - Définir `STUDYPRO_ALLOWED_ORIGIN` comme l’origine HTTPS exacte du site, par exemple `https://votre-domaine.vercel.app`, sans chemin ni barre oblique finale.
 2. Ajouter `SUPABASE_SERVICE_ROLE_KEY` dans les variables d'environnement Vercel uniquement. Ne jamais l'ajouter au navigateur ou à Git.
 3. Dans Supabase SQL Editor, exécuter d'abord `supabase/schema.sql`, puis `supabase/monetization.sql`.
