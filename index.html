@@ -148,10 +148,27 @@ body.theme-light .ai-sources,body.theme-light .ai-status{color:#40516e}
 body.theme-light .weekly-board{background:#f5f8ff;border-color:#d8e0ef;color:#17233e}.theme-light .weekly-meta,.theme-light .fiction-note{color:#586982}.theme-light .leaderboard th{color:#2454a6}
 
 .weekly-account{margin:16px 0;padding:16px;border:1px solid #5872a5;border-radius:14px;background:#142342}.weekly-account label{display:block;margin:9px 0 5px;font-size:.85rem}.weekly-account input{display:block;width:100%;max-width:440px;padding:11px;border:1px solid #7288aa;border-radius:9px;background:#fff;color:#15233d}.weekly-auth-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.weekly-auth-actions button,.weekly-account button{padding:10px 14px;border:0;border-radius:9px;background:var(--user-accent,#00d4c7);color:#102033;font-weight:700;cursor:pointer}.weekly-account [hidden]{display:none!important}.theme-light .weekly-account{background:#f5f8ff;border-color:#d8e0ef;color:#17233e}</style>
+
+<style>
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0}
+.pricing-card{position:relative;border:1px solid #405887;border-radius:16px;padding:20px;background:linear-gradient(150deg,#1a2850,#111a37)}
+.pricing-card.featured{border-color:#4de4d7;box-shadow:0 0 0 1px #4de4d733}
+.pricing-card h3{color:#75e9e3;margin:0 0 8px}.pricing-price{font-size:1.8rem;font-weight:900;color:#ffcf70}.pricing-price small{font-size:.8rem;color:#b9cbea;font-weight:500}
+.pricing-card ul{padding-left:19px;min-height:92px}.pricing-card button{width:100%;padding:12px;border:0;border-radius:10px;background:linear-gradient(110deg,#00cbbd,#377bff);color:#07162d;font-weight:800;cursor:pointer}
+.pricing-card button:disabled{opacity:.55;cursor:not-allowed}.billing-status,.revenue-panel{margin:14px 0;padding:16px;border:1px solid #405887;border-radius:14px;background:#142342}
+.billing-status[hidden],.revenue-panel[hidden]{display:none!important}.revenue-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.revenue-stat{padding:13px;border-radius:11px;background:#1d315b}.revenue-stat strong{display:block;color:#60e6dc;font-size:1.35rem}
+.payment-note{font-size:.88rem;color:#b9cbea}.billing-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+.billing-actions button{padding:10px 13px;border:1px solid #5872a5;border-radius:9px;background:#1d315b;color:#fff;font-weight:700}
+body.theme-light .pricing-card,body.theme-light .billing-status,body.theme-light .revenue-panel{background:#fff;color:#17233e;border-color:#d8e0ef}
+body.theme-light .pricing-card h3{color:#2454a6}body.theme-light .pricing-price{color:#805b08}body.theme-light .pricing-price small,body.theme-light .payment-note{color:#586982}
+body.theme-light .revenue-stat{background:#edf2fa;color:#17233e}
+@media(max-width:700px){.pricing-grid{grid-template-columns:1fr}.pricing-card ul{min-height:0}}
+</style>
 </head>
 <body>
 <header><div><h2>📘 STUDYPRO CAMEROUN</h2><p>Apprendre • Réviser • Réussir</p></div><div>La réussite commence par une bonne préparation.</div></header>
-<nav><a href="#personnalisation">Personnaliser</a><a href="#programme">Programme</a><a href="#dashboard-v2">Mon espace</a><a href="#cours">Cours</a><a href="#videos">Vidéos YouTube</a><a href="#evaluation">S'entraîner</a><a href="#sources">Références</a></nav>
+<nav><a href="#personnalisation">Personnaliser</a><a href="#programme">Programme</a><a href="#dashboard-v2">Mon espace</a><a href="#cours">Cours</a><a href="#abonnements">Offres</a><a href="#videos">Vidéos YouTube</a><a href="#evaluation">S'entraîner</a><a href="#sources">Références</a></nav>
 <div class="hero"><h1>Ta bibliothèque de soins infirmiers</h1><p>Des cours structurés, des objectifs d'apprentissage et des exercices pour progresser tout au long de la formation IDE au Cameroun.</p><a class="btn" href="#cours">Explorer les cours</a></div>
 
 <section id="personnalisation">
@@ -186,7 +203,30 @@ body.theme-light .weekly-board{background:#f5f8ff;border-color:#d8e0ef;color:#17
  <div style="overflow-x:auto"><table class="leaderboard" aria-label="Classement hebdomadaire"><thead><tr><th>Rang</th><th>Étudiant</th><th>Score</th><th>Meilleur chrono</th></tr></thead><tbody id="leaderboardRows"></tbody></table></div>
  <p class="fiction-note">Les profils illustrés sont fictifs et servent à donner vie à l’espace récompenses. Ton score réel est enregistré uniquement sur cet appareil ; ce classement n’est pas encore partagé entre étudiants.</p>
 </div></div><p class="note">La progression et les intitulés exacts peuvent varier selon le référentiel de l'établissement et les mises à jour du MINSANTE. Les supports ci-dessous sont une base pédagogique de révision, pas une reproduction certifiée du programme officiel complet.</p></section>
-<section id="cours"><h2>Bibliothèque de cours</h2><p class="intro">Choisis ton année ou recherche directement une matière. Ouvre une fiche pour consulter les chapitres et les objectifs.</p>
+
+<section id="abonnements">
+ <h2>💎 Choisis ton abonnement STUDYPRO</h2>
+ <p class="intro">Commence gratuitement, puis active un abonnement lorsque tu souhaites accéder aux services Premium. Paiement sécurisé via CinetPay : MTN Mobile Money ou Orange Money au Cameroun.</p>
+ <div class="pricing-grid">
+  <article class="pricing-card"><h3>Gratuit</h3><div class="pricing-price">0 FCFA <small>/ toujours</small></div><ul><li>Bibliothèque publique de cours</li><li>Fiches et exercices disponibles</li><li>Classement hebdomadaire</li></ul><button type="button" disabled>Formule actuelle de base</button></article>
+  <article class="pricing-card featured"><h3>Premium</h3><div class="pricing-price">2 000 FCFA <small>/ 30 jours</small></div><ul><li>Accès aux contenus Premium publiés</li><li>Ressources et parcours exclusifs</li><li>Progression et suivi enrichis</li></ul><button type="button" data-buy-plan="premium">Choisir Premium</button></article>
+  <article class="pricing-card"><h3>Premium Plus</h3><div class="pricing-price">3 500 FCFA <small>/ 30 jours</small></div><ul><li>Tous les avantages Premium</li><li>Parcours approfondis Premium Plus</li><li>Accompagnement et outils avancés</li></ul><button type="button" data-buy-plan="premium_plus">Choisir Premium Plus</button></article>
+ </div>
+ <p class="payment-note">Les abonnements sont renouvelés manuellement. Aucun prélèvement automatique n'est effectué. Les paiements réels seront disponibles après configuration du compte marchand CinetPay et de Supabase.</p>
+ <div class="billing-status" id="billingStatus" role="status" aria-live="polite">Connecte-toi à ton compte étudiant pour consulter ou activer un abonnement.</div>
+ <div class="billing-actions"><button type="button" id="checkPayment" hidden>Vérifier mon paiement</button><button type="button" id="refreshSubscription">Actualiser mon abonnement</button></div>
+ <div class="revenue-panel" id="revenuePanel" hidden>
+  <h3>📊 Tableau de bord des revenus — administrateur</h3>
+  <div class="revenue-stats">
+   <div class="revenue-stat"><strong id="revenueTotal">—</strong><span>Revenus encaissés (FCFA)</span></div>
+   <div class="revenue-stat"><strong id="revenueCount">—</strong><span>Paiements confirmés</span></div>
+   <div class="revenue-stat"><strong id="revenuePending">—</strong><span>Paiements en attente</span></div>
+  </div>
+  <p id="revenuePlans" class="payment-note"></p>
+  <div style="overflow-x:auto"><table class="leaderboard"><thead><tr><th>Référence</th><th>Offre</th><th>Montant</th><th>État</th><th>Date</th></tr></thead><tbody id="revenueRows"></tbody></table></div>
+ </div>
+</section>
+\n<section id="cours"><h2>Bibliothèque de cours</h2><p class="intro">Choisis ton année ou recherche directement une matière. Ouvre une fiche pour consulter les chapitres et les objectifs.</p>
 <div class="filters"><input id="search" type="search" placeholder="Rechercher un cours, un thème…"><select id="year"><option value="all">Toutes les années</option><option value="1">1re année</option><option value="2">2e année</option><option value="3">3e année</option></select><select id="domain"><option value="all">Tous les domaines</option></select></div>
 <div id="courseGrid" class="grid" aria-live="polite"></div><div id="lessonReader" class="panel" style="display:none;margin-top:22px"><button id="closeLesson" type="button">← Retour aux cours</button><div id="lessonContent"></div></div></section>
 <section id="videos"><h2>🎥 Vidéos explicatives sur YouTube</h2><p class="intro">Accède directement aux recherches vidéo liées à tes matières et à chaque leçon. Privilégie les contenus de facultés, écoles de santé, organismes de santé reconnus et formateurs qualifiés. Vérifie toujours les protocoles camerounais en vigueur.</p><div class="grid"><article class="course"><h3>🩺 Soins infirmiers</h3><p>Techniques de soins, surveillance et démarche infirmière.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=cours+soins+infirmiers+techniques+de+soins">Voir les vidéos</a></article><article class="course"><h3>🧬 Anatomie et physiologie</h3><p>Comprendre les organes, les appareils et leurs fonctions.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=cours+anatomie+physiologie+humaine">Voir les vidéos</a></article><article class="course"><h3>🦠 Microbiologie et hygiène</h3><p>Micro-organismes, infections et prévention.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=microbiologie+hygi%C3%A8ne+hospitali%C3%A8re+cours">Voir les vidéos</a></article><article class="course"><h3>💊 Pharmacologie</h3><p>Principes des médicaments et sécurité du circuit.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=pharmacologie+g%C3%A9n%C3%A9rale+cours+infirmier">Voir les vidéos</a></article><article class="course"><h3>🚑 Premiers secours</h3><p>Gestes de secours et reconnaissance des urgences.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=premiers+secours+formation+gestes+urgence">Voir les vidéos</a></article><article class="course"><h3>🤰 Santé maternelle et infantile</h3><p>Suivi de grossesse, nouveau-né et santé de l’enfant.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=sant%C3%A9+maternelle+infantile+cours+infirmier">Voir les vidéos</a></article></div></section><section id="evaluation"><h2>Mini-QCM de révision</h2><div class="panel"><p class="note">Banque de questions de révision réparties dans les matières des trois années. Les QCM servent à l'autoévaluation et ne remplacent pas les évaluations officielles.</p><div id="quiz"><p class="quiz-q" id="question"></p><div class="answers" id="answers"></div><p class="feedback" id="feedback" aria-live="polite"></p><button class="btn" id="next" style="display:none;border:0;cursor:pointer">Question suivante</button></div></div></section>
@@ -404,5 +444,64 @@ const questions=COURSES.flatMap(c=>(c.quiz||[]).map(q=>({text:q[0],choices:q[1],
 function showQ(){locked=false;questionStartedAt=Date.now();const q=questions[qi%questions.length];document.getElementById('question').textContent=q.text;document.getElementById('feedback').textContent='';document.getElementById('next').style.display='none';const box=document.getElementById('answers');box.innerHTML='';q.choices.forEach((choice,i)=>{const b=document.createElement('button');b.textContent=choice;b.onclick=()=>{if(locked)return;locked=true;const ok=i===q.answer;document.getElementById('feedback').textContent=ok?'Bonne réponse ! 🎉 +5 points':'Pas tout à fait. Relis la fiche « '+q.course+' » puis réessaie.';if(ok){const qid=qi%questions.length;recordWeeklyAnswer(true,(Date.now()-questionStartedAt)/1000,qid);const d=getRewardData();if(!d.quizDone.includes(qid)){d.quizDone.push(qid);d.points+=5;saveRewardData(d)}}b.style.borderColor=ok?'#26845b':'#b44';box.querySelectorAll('button').forEach(x=>x.disabled=true);document.getElementById('next').style.display='inline-block'};box.appendChild(b)})}
 document.getElementById('next').onclick=()=>{qi++;showQ()};showQ();
 </script>
-<script src="/collective.js" defer></script>
+
+<script>
+(function(){
+ const status=document.getElementById('billingStatus');
+ const buyButtons=[...document.querySelectorAll('[data-buy-plan]')];
+ const session=()=>{try{return JSON.parse(sessionStorage.getItem('studyproCollectiveSession')||'null')}catch(e){return null}};
+ let pendingReference=new URLSearchParams(location.search).get('reference')||'';
+ async function api(action,extra={}){
+  const s=session();if(!s||!s.access_token)throw new Error('Connecte-toi à ton compte étudiant avant de continuer.');
+  const r=await fetch('/api/payments',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+s.access_token},body:JSON.stringify({action,...extra})});
+  const data=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(data.error||'Service de paiement indisponible.');
+  return data;
+ }
+ function say(message){status.textContent=message}
+ async function refresh(){
+  const s=session();if(!s||!s.access_token){say('Connecte-toi à ton compte étudiant pour gérer ton abonnement.');return}
+  try{
+   const data=await api('subscription');
+   if(data.subscription&&data.subscription.plan!=='free'&&data.subscription.status==='active'){
+    say('Abonnement actif : '+(data.subscription.plan==='premium_plus'?'Premium Plus':'Premium')+' jusqu’au '+new Date(data.subscription.current_period_end).toLocaleDateString('fr-FR')+'.');
+   }else say('Formule Gratuit active. Choisis Premium ou Premium Plus pour activer un abonnement de 30 jours.');
+  }catch(e){say(e.message)}
+ }
+ async function buy(plan){
+  buyButtons.forEach(b=>b.disabled=true);say('Création sécurisée de ta demande de paiement…');
+  try{
+   const data=await api('create',{plan});
+   pendingReference=data.reference;
+   document.getElementById('checkPayment').hidden=false;
+   say('Demande créée. Tu vas être redirigé vers CinetPay pour payer avec MTN Mobile Money ou Orange Money.');
+   location.href=data.checkout_url;
+  }catch(e){say(e.message);buyButtons.forEach(b=>b.disabled=false)}
+ }
+ async function check(){
+  if(!pendingReference){say('Aucun paiement en attente à vérifier.');return}
+  say('Vérification du paiement auprès de CinetPay…');
+  try{
+   const data=await api('status',{reference:pendingReference});
+   if(data.status==='SUCCESS'){say('Paiement confirmé ! Ton abonnement '+(data.plan==='premium_plus'?'Premium Plus':'Premium')+' est maintenant actif.');pendingReference='';document.getElementById('checkPayment').hidden=true;history.replaceState({},'',location.pathname);await refresh()}
+   else say('Paiement actuellement : '+data.status+'. Si tu viens de valider sur ton téléphone, patiente puis réessaie.');
+  }catch(e){say(e.message)}
+ }
+ buyButtons.forEach(b=>b.addEventListener('click',()=>buy(b.dataset.buyPlan)));
+ document.getElementById('checkPayment').addEventListener('click',check);
+ document.getElementById('refreshSubscription').addEventListener('click',refresh);
+ if(pendingReference){document.getElementById('checkPayment').hidden=false;say('Retour de la passerelle de paiement. Vérifie le statut de la transaction.')}
+ refresh();
+ // Tableau de bord de revenus : l'autorisation est contrôlée côté serveur, pas par l'interface.
+ api('admin').then(data=>{
+  document.getElementById('revenuePanel').hidden=false;
+  document.getElementById('revenueTotal').textContent=Number(data.total_xaf||0).toLocaleString('fr-FR');
+  document.getElementById('revenueCount').textContent=data.successful_payments||0;
+  document.getElementById('revenuePending').textContent=data.pending_payments||0;
+  document.getElementById('revenuePlans').textContent='Ventes confirmées par formule : '+Object.entries(data.by_plan||{}).map(([k,v])=>k+' : '+v).join(' · ');
+  document.getElementById('revenueRows').innerHTML=(data.recent||[]).map(x=>'<tr><td>'+String(x.reference).replace(/[&<>"]/g,'')+'</td><td>'+x.plan+'</td><td>'+Number(x.amount).toLocaleString('fr-FR')+' '+x.currency+'</td><td>'+x.status+'</td><td>'+new Date(x.created_at).toLocaleDateString('fr-FR')+'</td></tr>').join('');
+ }).catch(()=>{});
+})();
+</script>
+\n<script src="/collective.js" defer></script>
 </body></html>
