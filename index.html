@@ -148,7 +148,23 @@ body.theme-light .ai-sources,body.theme-light .ai-status{color:#40516e}
 @media(max-width:520px){.leaderboard{font-size:.8rem}.leaderboard th,.leaderboard td{padding:8px 4px}.student-chip{gap:5px}.student-avatar{width:29px;height:29px}}
 body.theme-light .weekly-board{background:#f5f8ff;border-color:#d8e0ef;color:#17233e}.theme-light .weekly-meta,.theme-light .fiction-note{color:#586982}.theme-light .leaderboard th{color:#2454a6}
 
-.weekly-account{margin:16px 0;padding:16px;border:1px solid #5872a5;border-radius:14px;background:#142342}.weekly-account label{display:block;margin:9px 0 5px;font-size:.85rem}.weekly-account input{display:block;width:100%;max-width:440px;padding:11px;border:1px solid #7288aa;border-radius:9px;background:#fff;color:#15233d}.weekly-auth-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.weekly-auth-actions button,.weekly-account button{padding:10px 14px;border:0;border-radius:9px;background:var(--user-accent,#00d4c7);color:#102033;font-weight:700;cursor:pointer}.weekly-account [hidden]{display:none!important}.theme-light .weekly-account{background:#f5f8ff;border-color:#d8e0ef;color:#17233e}</style>
+.weekly-account{margin:16px 0;padding:16px;border:1px solid #5872a5;border-radius:14px;background:#142342}.weekly-account label{display:block;margin:9px 0 5px;font-size:.85rem}.weekly-account input{display:block;width:100%;max-width:440px;padding:11px;border:1px solid #7288aa;border-radius:9px;background:#fff;color:#15233d}.weekly-auth-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.weekly-auth-actions button,.weekly-account button{padding:10px 14px;border:0;border-radius:9px;background:var(--user-accent,#00d4c7);color:#102033;font-weight:700;cursor:pointer}.weekly-account [hidden]{display:none!important}.theme-light .weekly-account{background:#f5f8ff;border-color:#d8e0ef;color:#17233e}
+/* Avatar STUDYPRO — profondeur et micro-animations */
+.avatar-launch{background:linear-gradient(145deg,#5978a9,#14213e);box-shadow:0 9px 28px #0009, inset 0 2px 7px #ffffff40;transition:transform .25s ease,box-shadow .25s ease}
+.avatar-launch:hover{transform:translateY(-3px) scale(1.035);box-shadow:0 14px 34px #000b,0 0 0 5px #7ddbd533}
+.avatar-launch svg,.avatar-chat-head svg{filter:drop-shadow(0 4px 5px #050b1b55);animation:avatarFloat 4.5s ease-in-out infinite}
+.avatar-launch svg{border-radius:50%}
+.avatar-chat-head>div:first-child{background:linear-gradient(145deg,#617eaa,#152344);box-shadow:inset 0 2px 8px #ffffff30,0 4px 12px #0004}
+.avatar-chat-head svg{border-radius:12px}
+.av-eyes{transform-box:fill-box;transform-origin:center;animation:avatarBlink 5.2s infinite}
+@keyframes avatarFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
+@keyframes avatarBlink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.08)}}
+.avatar-chat-head{padding-bottom:9px;border-bottom:1px solid #49639755}
+.avatar-chat-head strong{letter-spacing:.01em}
+.avatar-dock{filter:drop-shadow(0 5px 14px #0003)}
+@media(prefers-reduced-motion:reduce){.avatar-launch svg,.avatar-chat-head svg,.av-eyes{animation:none!important}.avatar-launch{transition:none}}
+
+</style>
 </head>
 <body>
 <header><div><h2>📘 STUDYPRO CAMEROUN</h2><p>Apprendre • Réviser • Réussir</p></div><div>La réussite commence par une bonne préparation.</div></header>
@@ -256,7 +272,7 @@ body.theme-light .weekly-board{background:#f5f8ff;border-color:#d8e0ef;color:#17
  <ellipse cx="76" cy="112" rx="7" ry="12" fill="#a96849"/><ellipse cx="164" cy="112" rx="7" ry="12" fill="#a96849"/>
  ${female?'<circle cx="72" cy="127" r="4" fill="#e8c36c"/><circle cx="168" cy="127" r="4" fill="#e8c36c"/>':''}
  <path d="M88 96 Q100 87 112 95 M128 95 Q141 87 153 96" fill="none" stroke="#38231f" stroke-width="4.5" stroke-linecap="round"/>
- <path d="M88 108 Q100 99 113 108 Q101 118 88 108Z M127 108 Q140 99 153 108 Q140 118 127 108Z" fill="#fff9f1"/>
+ <path class="av-eyes" d="M88 108 Q100 99 113 108 Q101 118 88 108Z M127 108 Q140 99 153 108 Q140 118 127 108Z" fill="#fff9f1"/>
  <ellipse cx="101" cy="108" rx="4.6" ry="5.6" fill="#30201c"/><ellipse cx="140" cy="108" rx="4.6" ry="5.6" fill="#30201c"/>
  <circle cx="102.5" cy="106.5" r="1.7" fill="#fff"/><circle cx="141.5" cy="106.5" r="1.7" fill="#fff"/>
  <path d="M85 105 Q100 97 114 105 M126 105 Q141 97 156 105" fill="none" stroke="#6d4537" stroke-width="1" opacity=".3"/>
