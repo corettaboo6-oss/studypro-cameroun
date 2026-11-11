@@ -503,6 +503,7 @@ document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('revenueRows').innerHTML=(data.recent||[]).map(x=>'<tr><td>'+String(x.reference).replace(/[&<>"]/g,'')+'</td><td>'+x.plan+'</td><td>'+Number(x.amount).toLocaleString('fr-FR')+' '+x.currency+'</td><td>'+x.status+'</td><td>'+new Date(x.created_at).toLocaleDateString('fr-FR')+'</td></tr>').join('');
  }).catch(()=>{});
 })();
+});
 </script>
 
 <script src="/collective.js" defer></script>
