@@ -26,7 +26,13 @@ missing = required - page.ids
 assert not missing, f"Sections/éléments manquants : {sorted(missing)}"
 
 for src in page.scripts:
-    assert (ROOT / src).is_file(), f"Script référencé introuvable : {src}"
+    # Les chemins web absolus (/collective.js) sont relatifs à la racine du site,
+    # pas à la racine du système de fichiers du runner GitHub Actions.
+    local_src = src.split("?", 1)[0].split("#", 1)[0].lstrip("/")
+    assert local_src and (ROOT / local_src).is_file(), f"Script référencé introuvable : {src}"
+
+for required_file in ("collective.js", "api/leaderboard.js", "supabase/schema.sql", "README-CLASSEMENT.md"):
+    assert (ROOT / required_file).is_file(), f"Fichier du classement collectif absent : {required_file}"
 
 for filename in ("courses.js", "lessons-year1.js", "lessons-year2.js", "lessons-year3.js", "dashboard-v2.js"):
     subprocess.run(["node", "--check", str(ROOT / filename)], check=True)
