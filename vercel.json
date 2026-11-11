@@ -5,6 +5,12 @@
     },
     "api/leaderboard.js": {
       "maxDuration": 15
+    },
+    "api/payments.js": {
+      "maxDuration": 30
+    },
+    "api/payment-webhook.js": {
+      "maxDuration": 30
     }
   }
 }
