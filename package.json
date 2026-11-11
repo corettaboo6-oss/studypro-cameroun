@@ -4,6 +4,6 @@
   "type": "module",
   "engines": { "node": ">=18" },
   "dependencies": {
-    "cinetpay-js": "0.1.0"
+    "cinetpay-js": "0.1.1"
   }
 }
