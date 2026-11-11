@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { CinetPayClient, verifyNotification, parseNotification } from "cinetpay-js";
 
 const PLANS = {
@@ -77,7 +78,7 @@ async function handleCreate(req, res, user) {
   if (!origin.startsWith("https://")) return json(res, 503, { error: "URL publique HTTPS non configurée." });
   const email = String(user.email || "");
   if (!email) return json(res, 400, { error: "Adresse e-mail du compte introuvable." });
-  const reference = "SP" + crypto.randomUUID().replace(/-/g, "").slice(0, 28);
+  const reference = "SP" + randomUUID().replace(/-/g, "").slice(0, 28);
   const displayName = String(user.user_metadata?.display_name || "Étudiant").trim().slice(0, 32);
   const names = displayName.split(/\s+/);
   const firstName = (names.shift() || "Etudiant").slice(0, 80);
@@ -155,18 +156,15 @@ async function handleSubscription(res, user) {
 async function handleAdmin(res, user) {
   const allowed = env("STUDYPRO_ADMIN_EMAILS").split(",").map(x => x.trim().toLowerCase()).filter(Boolean);
   if (!allowed.includes(String(user.email || "").toLowerCase())) return json(res, 403, { error: "Accès administrateur réservé." });
-  const rows = await db("/rest/v1/studypro_payment_orders?select=merchant_transaction_id,user_id,plan,amount,currency,status,created_at,paid_at&order=created_at.desc&limit=1000");
-  const succeeded = rows.filter(x => x.status === "succeeded");
-  const total = succeeded.reduce((sum, x) => sum + Number(x.amount || 0), 0);
-  const byPlan = {};
-  for (const row of succeeded) byPlan[row.plan] = (byPlan[row.plan] || 0) + 1;
+  const summary = await db("/rest/v1/rpc/studypro_admin_revenue_summary", { method: "POST", body: "{}" });
+  const rows = await db("/rest/v1/studypro_payment_orders?select=merchant_transaction_id,plan,amount,currency,status,created_at,paid_at&order=created_at.desc&limit=100");
   return json(res, 200, {
-    total_xaf: total,
-    successful_payments: succeeded.length,
-    pending_payments: rows.filter(x => x.status === "pending").length,
-    by_plan: byPlan,
-    recent: rows.slice(0, 100).map(({ merchant_transaction_id, user_id, plan, amount, currency, status, created_at, paid_at }) =>
-      ({ reference: merchant_transaction_id, user_id, plan, amount, currency, status, created_at, paid_at }))
+    total_xaf: Number(summary.total_xaf || 0),
+    successful_payments: Number(summary.successful_payments || 0),
+    pending_payments: Number(summary.pending_payments || 0),
+    by_plan: summary.by_plan || {},
+    recent: rows.map(({ merchant_transaction_id, plan, amount, currency, status, created_at, paid_at }) =>
+      ({ reference: merchant_transaction_id, plan, amount, currency, status, created_at, paid_at }))
   });
 }
 export default async function handler(req, res) {
