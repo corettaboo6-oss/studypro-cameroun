@@ -21,14 +21,22 @@ class Page(HTMLParser):
 
 page = Page()
 page.feed(html)
-required = {"programme", "cours", "videos", "evaluation", "sources", "courseGrid", "lessonReader", "quiz"}
+required = {"programme", "cours", "videos", "evaluation", "sources", "courseGrid", "lessonReader", "quiz", "abonnements", "billingStatus", "revenuePanel"}
 missing = required - page.ids
 assert not missing, f"Sections/éléments manquants : {sorted(missing)}"
 
 for src in page.scripts:
-    assert (ROOT / src).is_file(), f"Script référencé introuvable : {src}"
+    # Les scripts hébergés sur un CDN sont externes; seuls les scripts locaux
+    # doivent exister dans le dépôt. Les chemins /... sont relatifs au site.
+    if src.startswith(("https://", "http://")):
+        continue
+    local_src = src.split("?", 1)[0].split("#", 1)[0].lstrip("/")
+    assert local_src and (ROOT / local_src).is_file(), f"Script référencé introuvable : {src}"
 
-for filename in ("courses.js", "lessons-year1.js", "lessons-year2.js", "lessons-year3.js", "dashboard-v2.js"):
+for required_file in ("collective.js", "api/config.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js", "api/cinetpay-verification.js", "supabase/schema.sql", "supabase/monetization.sql", "README-CLASSEMENT.md", "README-MONETISATION.md", "package.json"):
+    assert (ROOT / required_file).is_file(), f"Fichier du classement collectif absent : {required_file}"
+
+for filename in ("api/config.js", "courses.js", "premium-content-client.js", "lessons-year1.js", "lessons-year2.js", "lessons-year3.js", "dashboard-v2.js", "billing-auth.js", "collective.js", "api/chat.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js", "api/cinetpay-verification.js", "scripts/import-private-content.mjs"):
     subprocess.run(["node", "--check", str(ROOT / filename)], check=True)
 
 # Vérifie aussi la syntaxe du JavaScript embarqué dans la page.
@@ -52,7 +60,25 @@ for year in (1, 2, 3):
     lesson_source = (ROOT / f"lessons-year{year}.js").read_text(encoding="utf-8")
     assert f"window.LESSONS_Y{year}" in lesson_source, f"Leçons de l’année {year} absentes"
 assert "lessonLibrary[course.year]" in html, "Le chargement des leçons par année est absent"
-assert "lessons-year2.js" in html and "lessons-year3.js" in html, "Scripts des années 2 et 3 non chargés"
+assert "premium-content-client.js" in html, "Client de contenus privés non chargé"
+assert "data-buy-plan" in html and "premium_plus" in html, "Offres Premium absentes"
+assert "fetch('/api/config'" in (ROOT / "billing-auth.js").read_text(encoding="utf-8"), "Configuration Supabase runtime absente"
+assert "getAccessToken" in (ROOT / "billing-auth.js").read_text(encoding="utf-8"), "Session Supabase non partagée avec le paiement"
+assert "studypro_subscriptions" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Lecture serveur des abonnements absente"
+assert "1 500 FCFA" in html and "3 000 FCFA" in html, "Tarifs Premium attendus absents"
+assert "2 000 FCFA" not in html and "3 500 FCFA" not in html, "Anciens tarifs encore présents"
+assert "CINETPAY_API_KEY_CM" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Configuration CinetPay côté serveur absente"
+assert "verifyCinetPayPayment" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Vérification CinetPay stricte absente"
+assert "verifyCinetPayPayment" in (ROOT / "api/payment-webhook.js").read_text(encoding="utf-8"), "Vérification stricte du webhook absente"
+assert "status.amount" in (ROOT / "api/cinetpay-verification.js").read_text(encoding="utf-8"), "Contrôle du montant brut CinetPay absent"
+assert "status.currency" in (ROOT / "api/cinetpay-verification.js").read_text(encoding="utf-8"), "Contrôle de la devise brute CinetPay absent"
+assert "verifyNotification" in (ROOT / "api/payment-webhook.js").read_text(encoding="utf-8"), "Vérification du webhook CinetPay absente"
+assert "studypro_activate_subscription" in (ROOT / "supabase/monetization.sql").read_text(encoding="utf-8"), "Activation idempotente des abonnements absente"
+assert "SUPABASE_SERVICE_ROLE_KEY" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Clé serveur Supabase absente du backend"
+assert "STUDYPRO_ADMIN_EMAILS" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Protection du tableau de bord administrateur absente"
+assert "function siteOrigin()" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Origine HTTPS autorisée non configurée côté serveur"
+assert 'if (activated.status === "SUCCESS")' in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Un paiement SUCCESS incohérent doit être refusé"
+assert 'Provider amount, currency or transaction verification mismatch' in (ROOT / "api/payment-webhook.js").read_text(encoding="utf-8"), "Un webhook avec montant/devise incohérents doit être refusé"
 
 
 lesson2 = (ROOT / "lessons-year2.js").read_text(encoding="utf-8")

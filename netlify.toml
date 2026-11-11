@@ -1,0 +1,42 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+  # Import idempotent des cours privés avant publication. Le build échoue volontairement
+  # si Supabase n'est pas configuré : ne jamais publier un site sans migration des contenus.
+  command = "node scripts/import-private-content.mjs --apply"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Les sources détaillées restent dans Git pour l'import, mais ne doivent jamais être servies
+# comme fichiers statiques. Les redirections forcées bloquent aussi les URL directes.
+[[redirects]]
+  from = "/lessons-year1.js"
+  to = "/index.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/lessons-year2.js"
+  to = "/index.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/lessons-year3.js"
+  to = "/index.html"
+  status = 404
+  force = true
+
+# Preserve the existing frontend API paths while executing Netlify Functions.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+# Single-page application fallback (API rewrites above take precedence).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
