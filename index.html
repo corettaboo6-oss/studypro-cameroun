@@ -363,12 +363,12 @@ function currentWeekKey(date=new Date()){
 }
 function getWeeklyData(){
  const key=currentWeekKey();
- try{const raw=JSON.parse(localStorage.getItem("studyproWeekly")||"{}");return raw.week===key?{week:key,score:Math.max(0,Number(raw.score)||0),bestTime:Number.isFinite(Number(raw.bestTime))&&Number(raw.bestTime)>0?Number(raw.bestTime):null,answers:Math.max(0,Number(raw.answers)||0)}:{week:key,score:0,bestTime:null,answers:0}}
+ try{const raw=JSON.parse(localStorage.getItem("studyproWeekly")||"{}");return raw.week===key?{week:key,score:Math.max(0,Number(raw.score)||0),bestTime:Number.isFinite(Number(raw.bestTime))&&Number(raw.bestTime)>0?Number(raw.bestTime):null,answers:Math.max(0,Number(raw.answers)||0),answered:Array.isArray(raw.answered)?raw.answered.filter(Number.isInteger):[]}:{week:key,score:0,bestTime:null,answers:0,answered:[]}}
  catch(e){return {week:key,score:0,bestTime:null,answers:0}}
 }
-function recordWeeklyAnswer(correct,seconds){
+function recordWeeklyAnswer(correct,seconds,questionId){
  if(!correct)return;
- const d=getWeeklyData();d.score+=5;d.answers+=1;
+ const d=getWeeklyData();if(d.answered.includes(questionId))return;d.answered.push(questionId);d.score+=5;d.answers+=1;
  if(d.bestTime===null||seconds<d.bestTime)d.bestTime=seconds;
  try{localStorage.setItem("studyproWeekly",JSON.stringify(d))}catch(e){}
  renderWeeklyBoard();
@@ -396,7 +396,7 @@ function renderRewards(){const d=getRewardData(),level=Math.floor(d.points/50)+1
 function awardReview(id){const d=getRewardData();if(d.completed.includes(id))return;d.completed.push(id);d.points+=10;saveRewardData(d)}
 renderRewards();renderWeeklyBoard();
 const questions=COURSES.flatMap(c=>(c.quiz||[]).map(q=>({text:q[0],choices:q[1],answer:q[2],course:c.title})));let qi=0,locked=false,questionStartedAt=Date.now();
-function showQ(){locked=false;questionStartedAt=Date.now();const q=questions[qi%questions.length];document.getElementById('question').textContent=q.text;document.getElementById('feedback').textContent='';document.getElementById('next').style.display='none';const box=document.getElementById('answers');box.innerHTML='';q.choices.forEach((choice,i)=>{const b=document.createElement('button');b.textContent=choice;b.onclick=()=>{if(locked)return;locked=true;const ok=i===q.answer;document.getElementById('feedback').textContent=ok?'Bonne réponse ! 🎉 +5 points':'Pas tout à fait. Relis la fiche « '+q.course+' » puis réessaie.';if(ok){recordWeeklyAnswer(true,(Date.now()-questionStartedAt)/1000);const d=getRewardData(),qid=qi%questions.length;if(!d.quizDone.includes(qid)){d.quizDone.push(qid);d.points+=5;saveRewardData(d)}}b.style.borderColor=ok?'#26845b':'#b44';box.querySelectorAll('button').forEach(x=>x.disabled=true);document.getElementById('next').style.display='inline-block'};box.appendChild(b)})}
+function showQ(){locked=false;questionStartedAt=Date.now();const q=questions[qi%questions.length];document.getElementById('question').textContent=q.text;document.getElementById('feedback').textContent='';document.getElementById('next').style.display='none';const box=document.getElementById('answers');box.innerHTML='';q.choices.forEach((choice,i)=>{const b=document.createElement('button');b.textContent=choice;b.onclick=()=>{if(locked)return;locked=true;const ok=i===q.answer;document.getElementById('feedback').textContent=ok?'Bonne réponse ! 🎉 +5 points':'Pas tout à fait. Relis la fiche « '+q.course+' » puis réessaie.';if(ok){const qid=qi%questions.length;recordWeeklyAnswer(true,(Date.now()-questionStartedAt)/1000,qid);const d=getRewardData();if(!d.quizDone.includes(qid)){d.quizDone.push(qid);d.points+=5;saveRewardData(d)}}b.style.borderColor=ok?'#26845b':'#b44';box.querySelectorAll('button').forEach(x=>x.disabled=true);document.getElementById('next').style.display='inline-block'};box.appendChild(b)})}
 document.getElementById('next').onclick=()=>{qi++;showQ()};showQ();
 </script>
 </body></html>
