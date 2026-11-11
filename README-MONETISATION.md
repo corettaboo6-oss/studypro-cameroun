@@ -7,7 +7,7 @@ Cette version ajoute une base technique de paiement et d'abonnement via CinetPay
 - Premium : 2 000 FCFA / 30 jours.
 - Premium Plus : 3 500 FCFA / 30 jours.
 
-Les montants sont fixés côté serveur dans `api/payments.js`. Le navigateur ne peut pas choisir ni modifier le montant.
+Les montants sont fixés côté serveur dans `api/payments.js`. Le navigateur ne peut pas choisir ni modifier le montant. Le backend utilise le SDK officiel `cinetpay-js` (version publiée 0.1.1).
 
 ## Configuration obligatoire avant les vrais paiements
 
@@ -40,7 +40,7 @@ Définir `STUDYPRO_ADMIN_EMAILS` dans Vercel avec une liste séparée par des vi
 - L'activation SQL est transactionnelle et idempotente : un webhook rejoué ne prolonge pas deux fois un abonnement.
 - La clé service-role n'est jamais envoyée au navigateur.
 - Le tableau de bord des revenus vérifie l'adresse administrateur côté serveur.
-- Les ressources pédagogiques actuellement publiées dans `courses.js` et `lessons-year*.js` restent publiques car elles sont livrées par le site statique. Ce premier lot ne prétend donc pas verrouiller ces fichiers. Pour une protection réelle des futurs cours Premium, il faudra déplacer leur contenu dans une table privée ou un stockage privé Supabase et ne les servir qu'après contrôle de l'abonnement côté serveur.
+- La table `studypro_premium_content` est initialement vide : les contenus Premium devront être insérés côté administrateur dans Supabase avant d’être proposés aux abonnés. Les ressources pédagogiques actuellement publiées dans `courses.js` et `lessons-year*.js` restent publiques car elles sont livrées par le site statique. Ce premier lot ne prétend donc pas verrouiller ces fichiers. Pour une protection réelle des futurs cours Premium, il faudra déplacer leur contenu dans une table privée ou un stockage privé Supabase et ne les servir qu'après contrôle de l'abonnement côté serveur.
 - L'abonnement est à renouvellement manuel : aucun prélèvement automatique récurrent n'est activé.
 - Les paiements réels ne sont pas activés tant que les identifiants CinetPay, la migration Supabase et le domaine Vercel ne sont pas configurés et testés.
 
