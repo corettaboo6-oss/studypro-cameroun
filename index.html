@@ -287,7 +287,7 @@ body.theme-light .revenue-stat{background:#edf2fa;color:#17233e}
 
 <footer>© 2026 STUDYPRO CAMEROUN · Apprendre • Réviser • Réussir</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="billing-auth.js"></script>
-<script src="courses.js"></script><script src="lessons-year1.js"></script><script src="lessons-year2.js"></script><script src="lessons-year3.js"></script><script src="dashboard-v2.js"></script>
+<script src="courses.js"></script><script src="premium-content-client.js"></script><script src="dashboard-v2.js"></script>
 <script>
 
 
@@ -468,9 +468,11 @@ function buildLessonIllustration(lesson,course){
 function showLessonZoom(markup){
  const dlg=document.getElementById('lessonZoomDialog'),body=document.getElementById('lessonZoomBody');body.innerHTML=markup.replace('class="lesson-visual"','class="lesson-visual"').replace('class="lesson-zoom-trigger"','class="lesson-zoom-trigger"');dlg.showModal();
 }
-function openLesson(course){
+async function openLesson(course){
  const reader=document.getElementById('lessonReader'),target=document.getElementById('lessonContent');target.innerHTML='';
+ const hasAccess=window.studyproPremiumContent?await window.studyproPremiumContent.load():false;
  const title=document.createElement('h2');title.textContent=course.title;target.appendChild(title);
+ if(!hasAccess){const p=document.createElement('p');p.className='note';p.textContent='Cette leçon détaillée est réservée aux abonnés Premium et Premium Plus. Connecte-toi puis active ton abonnement pour y accéder.';target.appendChild(p);reader.style.display='block';reader.scrollIntoView({behavior:'smooth',block:'start'});return;}
  const lessonLibrary={1:window.LESSONS_Y1||[],2:window.LESSONS_Y2||[],3:window.LESSONS_Y3||[]};
  const item=lessonLibrary[course.year]?.find(x=>x.course===course.title);
  if(!item){const p=document.createElement('p');p.textContent='La leçon détaillée sera ajoutée dans une prochaine mise à jour. Consulte les chapitres et objectifs disponibles dans la fiche.';target.appendChild(p)}
