@@ -34,7 +34,7 @@ Définir `OPENAI_API_KEY` dans Netlify pour activer l'assistant IA. `OPENAI_MODE
 Définir `STUDYPRO_ADMIN_EMAILS` dans Netlify avec une liste séparée par des virgules des adresses e-mail administratrices exactes. Le tableau de bord de revenus est refusé côté serveur à toute autre adresse.
 
 ### Déploiement
-- Déployer le projet sur Netlify : `netlify.toml` configure les fonctions et les routes `/api/*`. GitHub Pages seul ne peut pas exécuter ces API serveur.
+- Déployer le projet sur Netlify : `netlify.toml` configure les fonctions et les routes `/api/*`, importe les contenus privés à chaque build et bloque l'accès direct aux fichiers `lessons-year*.js`. GitHub Pages seul ne peut pas exécuter ces API serveur.
 - Le domaine public doit être HTTPS et correspondre à `STUDYPRO_ALLOWED_ORIGIN`.
 - Le webhook doit être accessible à `https://VOTRE-DOMAINE/api/payment-webhook`; le configurer dans le service marchand CinetPay si le back-office exige une URL de notification dédiée.
 - Redéployer après chaque changement de variable.
@@ -53,12 +53,12 @@ Définir `STUDYPRO_ADMIN_EMAILS` dans Netlify avec une liste séparée par des v
 ### Importer les contenus pédagogiques privés
 
 Après avoir exécuté les deux scripts SQL ci-dessus et avant de retirer les fichiers pédagogiques de la zone publique :
-1. Depuis une copie locale de cette branche, définir temporairement `SUPABASE_URL` et `SUPABASE_SERVICE_ROLE_KEY` dans l'environnement du terminal (ne jamais les commiter).
+1. Le build Netlify importe automatiquement les leçons IDE si `SUPABASE_URL` et `SUPABASE_SERVICE_ROLE_KEY` sont configurées dans l'environnement de build. Pour un import manuel, définir ces variables temporairement dans le terminal (ne jamais les commiter).
 2. Exécuter `node scripts/import-private-content.mjs --apply`. Le script transforme les bibliothèques IDE des trois années en lignes `required_plan=premium` et les importe par clé stable dans `studypro_premium_content`.
 3. Pour les examens blancs, créer localement `private-content-source/mock-exams.json` (tableau JSON avec `title` et `questions`) ; ils seront importés en `premium_plus`. Ce dossier est ignoré par Git.
 4. Vérifier dans Supabase le nombre de contenus, les années, les clés et les droits avant de supprimer les anciens fichiers source de la publication statique.
 
-L'importeur refuse de s'exécuter sans le drapeau explicite `--apply`. Il effectue un upsert idempotent. **La PR ne doit pas être fusionnée ni publiée tant que l'import n'a pas été exécuté et vérifié et que les fichiers source publics n'ont pas été retirés du déploiement.** Les secrets Supabase ne doivent jamais être transmis dans une conversation ni ajoutés à Git.
+L'importeur refuse de s'exécuter sans le drapeau explicite `--apply`. Il effectue un upsert idempotent. **La PR ne doit pas être fusionnée ni publiée tant que l'import n'a pas été exécuté et vérifié et que les routes directes des fichiers source n'ont pas été testées en HTTP 404 sur le déploiement Netlify.** Les secrets Supabase ne doivent jamais être transmis dans une conversation ni ajoutés à Git.
 
 ## Vérifications après configuration
 1. Tester les deux opérateurs en sandbox.
