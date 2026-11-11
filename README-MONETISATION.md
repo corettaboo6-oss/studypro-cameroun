@@ -14,24 +14,27 @@ Les montants sont fixés côté serveur dans `api/payments.js`. Le navigateur ne
 ### CinetPay
 1. Créer et valider un compte marchand CinetPay et un service marchand pour le Cameroun.
 2. Récupérer les identifiants API Cameroun et activer les canaux MTN Mobile Money et Orange Money.
-3. Ajouter dans Vercel (Production et Preview de test si nécessaire) :
+3. Ajouter dans Netlify (Site configuration → Environment variables, pour les contextes nécessaires) :
    - `CINETPAY_API_KEY_CM`
    - `CINETPAY_API_PASSWORD_CM`
 4. Utiliser d'abord les identifiants sandbox CinetPay. Les identifiants live ne doivent être ajoutés qu'après les tests de bout en bout.
 
 ### Supabase
-1. Ajouter `SUPABASE_URL`, `SUPABASE_ANON_KEY` et `STUDYPRO_ALLOWED_ORIGIN` dans les variables d'environnement Vercel. L'API publique `/api/config` transmet uniquement l'URL et la clé anon au navigateur; aucune clé privée n'est exposée.
-   - Définir `STUDYPRO_ALLOWED_ORIGIN` comme l’origine HTTPS exacte du site, par exemple `https://votre-domaine.vercel.app`, sans chemin ni barre oblique finale.
-2. Ajouter `SUPABASE_SERVICE_ROLE_KEY` dans les variables d'environnement Vercel uniquement. Ne jamais l'ajouter au navigateur ou à Git.
+1. Ajouter `SUPABASE_URL`, `SUPABASE_ANON_KEY` et `STUDYPRO_ALLOWED_ORIGIN` dans les variables d'environnement Netlify. L'API publique `/api/config` transmet uniquement l'URL et la clé anon au navigateur; aucune clé privée n'est exposée.
+   - Définir `STUDYPRO_ALLOWED_ORIGIN` comme l’origine HTTPS exacte du site, par exemple `https://votre-site.netlify.app`, sans chemin ni barre oblique finale.
+2. Ajouter `SUPABASE_SERVICE_ROLE_KEY` dans les variables d'environnement Netlify uniquement. Ne jamais l'ajouter au navigateur ou à Git.
 3. Dans Supabase SQL Editor, exécuter d'abord `supabase/schema.sql`, puis `supabase/monetization.sql`.
    - Ne pas exécuter l'ancienne migration `supabase/migrations/202611110001_billing.sql` pour CinetPay; elle est conservée à titre historique et n'est plus utilisée.
 4. Vérifier que les tables `studypro_payment_orders` et `studypro_subscriptions` et les fonctions RPC sont créées.
 
+### Assistant IA
+Définir `OPENAI_API_KEY` dans Netlify pour activer l'assistant IA. `OPENAI_MODEL` est facultatif (valeur par défaut : `gpt-4.1-mini`).
+
 ### Administrateur
-Définir `STUDYPRO_ADMIN_EMAILS` dans Vercel avec une liste séparée par des virgules des adresses e-mail administratrices exactes. Le tableau de bord de revenus est refusé côté serveur à toute autre adresse.
+Définir `STUDYPRO_ADMIN_EMAILS` dans Netlify avec une liste séparée par des virgules des adresses e-mail administratrices exactes. Le tableau de bord de revenus est refusé côté serveur à toute autre adresse.
 
 ### Déploiement
-- Déployer le projet sur Vercel (les API serverless ne fonctionnent pas sur GitHub Pages seul).
+- Déployer le projet sur Netlify : `netlify.toml` configure les fonctions et les routes `/api/*`. GitHub Pages seul ne peut pas exécuter ces API serveur.
 - Le domaine public doit être HTTPS et correspondre à `STUDYPRO_ALLOWED_ORIGIN`.
 - Le webhook doit être accessible à `https://VOTRE-DOMAINE/api/payment-webhook`; le configurer dans le service marchand CinetPay si le back-office exige une URL de notification dédiée.
 - Redéployer après chaque changement de variable.
@@ -44,7 +47,7 @@ Définir `STUDYPRO_ADMIN_EMAILS` dans Vercel avec une liste séparée par des vi
 - Le tableau de bord des revenus vérifie l'adresse administrateur côté serveur.
 - La table `studypro_premium_content` est initialement vide : les leçons détaillées IDE doivent y être importées avec `required_plan=premium`; chaque examen blanc doit être importé avec `required_plan=premium_plus`. Le contrôle serveur refuse les plans inconnus, les abonnements expirés et les examens blancs pour les comptes Premium. Les ressources pédagogiques actuellement publiées dans `courses.js` et `lessons-year*.js` restent publiques car elles sont livrées par le site statique. Ce premier lot ne prétend donc pas verrouiller ces fichiers. La protection réelle des leçons déjà livrées dans ces fichiers n'est pas encore terminée. Tant que leur contenu n'a pas été migré vers `studypro_premium_content` et que les références statiques ne sont pas retirées du site, ces leçons restent publiques. Ne pas considérer cette PR comme prête à fusionner avant cette migration.
 - L'abonnement est à renouvellement manuel : aucun prélèvement automatique récurrent n'est activé.
-- Les paiements réels ne sont pas activés tant que les identifiants CinetPay, la migration Supabase et le domaine Vercel ne sont pas configurés et testés.
+- Les paiements réels ne sont pas activés tant que les identifiants CinetPay, la migration Supabase et le domaine Netlify ne sont pas configurés et testés.
 
 
 ### Importer les contenus pédagogiques privés
