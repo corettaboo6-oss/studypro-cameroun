@@ -1,0 +1,18 @@
+[build]
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Preserve the existing frontend API paths while executing Netlify Functions.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+# Single-page application fallback (API rewrites above take precedence).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
