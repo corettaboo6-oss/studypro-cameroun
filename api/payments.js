@@ -2,8 +2,8 @@ import { randomUUID } from "node:crypto";
 import { CinetPayClient, verifyNotification, parseNotification } from "cinetpay-js";
 
 const PLANS = {
-  premium: { name: "Premium", amount: 2000, days: 30 },
-  premium_plus: { name: "Premium Plus", amount: 3500, days: 30 }
+  premium: { name: "Premium", amount: 1500, days: 30 },
+  premium_plus: { name: "Premium Plus", amount: 3000, days: 30 }
 };
 const json = (res, status, data) => res.status(status).json(data);
 const env = name => String(process.env[name] || "").trim();
