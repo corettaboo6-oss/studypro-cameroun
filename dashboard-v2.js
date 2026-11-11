@@ -72,7 +72,8 @@
     profileInput.value = typeof profile.name === 'string' ? profile.name : '';
     save.addEventListener('click', () => {
       const value = profileInput.value.trim().slice(0, 40);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ name: value }));
+      const current = read(STORAGE_KEY, {});
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ name: value, goal: Number(current.goal) || 100 }));
       status.textContent = value ? 'Profil enregistré sur cet appareil.' : 'Nom effacé.';
     });
     profileCard.append(profileTitle, profileLabel, profileInput, save, status);
