@@ -54,4 +54,15 @@ for year in (1, 2, 3):
 assert "lessonLibrary[course.year]" in html, "Le chargement des leçons par année est absent"
 assert "lessons-year2.js" in html and "lessons-year3.js" in html, "Scripts des années 2 et 3 non chargés"
 
+
+lesson2 = (ROOT / "lessons-year2.js").read_text(encoding="utf-8")
+assert 'course:"Anesthésiologie et surveillance"' in lesson2, "Module détaillé d'anesthésiologie absent"
+assert lesson2.count('{title:"') >= 22, "Leçons de deuxième année incomplètes"
+course_source = (ROOT / "courses.js").read_text(encoding="utf-8")
+course_titles = re.findall(r'\{year:\\d+,domain:"[^"]+",title:"([^"]+)"', course_source)
+quiz_titles = re.findall(r'\{year:\\d+,domain:"[^"]+",title:"([^"]+)"[^\n]*quiz:\\[', course_source)
+assert len(course_titles) == 19, f"Nombre de matières inattendu : {len(course_titles)}"
+assert set(course_titles) == set(quiz_titles), "Chaque matière doit disposer d'un QCM"
+assert "Offre de formation BTS" in (ROOT / "SOURCES-PEDAGOGIQUES.md").read_text(encoding="utf-8"), "Référence MINESUP absente"
+
 print("STUDYPRO smoke tests: OK")
