@@ -102,6 +102,22 @@ body.theme-light .lesson-visual figcaption{color:#40516e}
 body.theme-light .empty{background:#edf2fa;color:#17233e}
 @media(max-width:700px){.user-settings{padding:15px}.settings-grid{grid-template-columns:1fr}}
 
+
+/* Assistant avatar personnalisable */
+.avatar-settings{margin-top:18px;background:linear-gradient(145deg,#1b2850,#121b39);border:1px solid #3c568b;border-radius:16px;padding:20px}
+.avatar-dock{position:fixed;right:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px}
+.avatar-launch{width:76px;height:76px;border:3px solid var(--user-accent);border-radius:50%;background:#172344;box-shadow:0 8px 28px #0008;cursor:pointer;padding:3px;overflow:hidden}
+.avatar-launch svg{width:100%;height:100%;display:block}
+.avatar-hint{background:#101a37;color:#fff;border:1px solid #425b8c;border-radius:12px;padding:8px 12px;font-size:.86rem;box-shadow:0 5px 18px #0005}
+.avatar-chat{position:fixed;right:18px;bottom:108px;z-index:31;width:min(340px,calc(100vw - 30px));padding:16px;border-radius:16px;background:#111b38;color:#eef5ff;border:1px solid #496397;box-shadow:0 15px 45px #0009;display:none}
+.avatar-chat.open{display:block}.avatar-chat-head{display:flex;align-items:center;gap:10px}.avatar-chat-head svg{width:54px;height:54px;flex:none}
+.avatar-chat p{margin:8px 0;color:#c8d7f3}.avatar-chat button{padding:9px 12px;border-radius:9px;border:1px solid #5472a7;background:#1e3158;color:white;cursor:pointer}
+body.theme-light .avatar-settings{background:#fff;color:#17233e;border-color:#d8e0ef}
+body.theme-light .avatar-settings .setting-field label{color:#17233e}
+body.theme-light .avatar-hint{background:#fff;color:#17233e;border-color:#d8e0ef}
+body.theme-light .avatar-chat{background:#fff;color:#17233e;border-color:#d8e0ef}
+body.theme-light .avatar-chat p{color:#40516e}
+@media(max-width:700px){.avatar-dock{right:12px;bottom:12px}.avatar-launch{width:66px;height:66px}.avatar-hint{font-size:.78rem}.avatar-chat{right:12px;bottom:88px}}
 </style>
 </head>
 <body>
@@ -123,6 +139,17 @@ body.theme-light .empty{background:#edf2fa;color:#17233e}
  </div>
 </section>
 
+ <div class="avatar-settings" id="avatar-personnalisation">
+  <h2>🧑🏾‍⚕️ Mon assistant STUDYPRO</h2>
+  <p class="intro">Personnalise l’apparence de ton compagnon d’apprentissage. Tes choix sont conservés sur cet appareil.</p>
+  <div class="settings-grid">
+   <div class="setting-field"><label for="avatarSex">Apparence de l’avatar</label><select id="avatarSex"><option value="homme">Étudiant</option><option value="femme">Étudiante</option></select></div>
+   <div class="setting-field"><label for="avatarAge">Tranche d’âge</label><select id="avatarAge"><option value="18-24">18–24 ans</option><option value="25-34">25–34 ans</option><option value="35-44">35–44 ans</option><option value="45+">45 ans et plus</option></select></div>
+  </div>
+  <p class="setting-help" id="avatarStatus" role="status" aria-live="polite">L’avatar porte sa blouse blanche et s’adapte à tes choix.</p>
+ </div>
+
+
 <section id="programme"><h2>Parcours Infirmier Diplômé d'État (IDE)</h2><p class="intro">Un parcours de révision organisé en trois années. Les domaines couvrent les sciences fondamentales, les soins cliniques, la santé publique, la déontologie et le management.</p><div class="stats"><div class="stat"><strong>3 ans</strong>Parcours IDE</div><div class="stat"><strong id="courseCount">—</strong>Fiches de cours</div><div class="stat"><strong>QCM</strong>Entraînement intégré</div></div><div class="reward-panel" id="rewards"><strong>🏆 Ton espace récompenses</strong><div class="reward-points"><span id="rewardPoints">0</span> pts</div><div class="progress-track"><div class="progress-fill" id="rewardProgress"></div></div><p id="rewardLevel" class="note">Niveau 1 · Débutant — 50 points pour le prochain niveau</p><div class="badge-list" id="rewardBadges"><span class="reward-badge">🌱 Première révision à débloquer</span></div><p class="note">+10 points par leçon terminée · +5 points par bonne réponse au QCM. Tes points restent enregistrés sur cet appareil.</p></div><p class="note">La progression et les intitulés exacts peuvent varier selon le référentiel de l'établissement et les mises à jour du MINSANTE. Les supports ci-dessous sont une base pédagogique de révision, pas une reproduction certifiée du programme officiel complet.</p></section>
 <section id="cours"><h2>Bibliothèque de cours</h2><p class="intro">Choisis ton année ou recherche directement une matière. Ouvre une fiche pour consulter les chapitres et les objectifs.</p>
 <div class="filters"><input id="search" type="search" placeholder="Rechercher un cours, un thème…"><select id="year"><option value="all">Toutes les années</option><option value="1">1re année</option><option value="2">2e année</option><option value="3">3e année</option></select><select id="domain"><option value="all">Tous les domaines</option></select></div>
@@ -130,9 +157,41 @@ body.theme-light .empty{background:#edf2fa;color:#17233e}
 <section id="videos"><h2>🎥 Vidéos explicatives sur YouTube</h2><p class="intro">Accède directement aux recherches vidéo liées à tes matières et à chaque leçon. Privilégie les contenus de facultés, écoles de santé, organismes de santé reconnus et formateurs qualifiés. Vérifie toujours les protocoles camerounais en vigueur.</p><div class="grid"><article class="course"><h3>🩺 Soins infirmiers</h3><p>Techniques de soins, surveillance et démarche infirmière.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=cours+soins+infirmiers+techniques+de+soins">Voir les vidéos</a></article><article class="course"><h3>🧬 Anatomie et physiologie</h3><p>Comprendre les organes, les appareils et leurs fonctions.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=cours+anatomie+physiologie+humaine">Voir les vidéos</a></article><article class="course"><h3>🦠 Microbiologie et hygiène</h3><p>Micro-organismes, infections et prévention.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=microbiologie+hygi%C3%A8ne+hospitali%C3%A8re+cours">Voir les vidéos</a></article><article class="course"><h3>💊 Pharmacologie</h3><p>Principes des médicaments et sécurité du circuit.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=pharmacologie+g%C3%A9n%C3%A9rale+cours+infirmier">Voir les vidéos</a></article><article class="course"><h3>🚑 Premiers secours</h3><p>Gestes de secours et reconnaissance des urgences.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=premiers+secours+formation+gestes+urgence">Voir les vidéos</a></article><article class="course"><h3>🤰 Santé maternelle et infantile</h3><p>Suivi de grossesse, nouveau-né et santé de l’enfant.</p><a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=sant%C3%A9+maternelle+infantile+cours+infirmier">Voir les vidéos</a></article></div></section><section id="evaluation"><h2>Mini-QCM de révision</h2><div class="panel"><p class="note">Banque de questions de révision réparties dans les matières des trois années. Les QCM servent à l'autoévaluation et ne remplacent pas les évaluations officielles.</p><div id="quiz"><p class="quiz-q" id="question"></p><div class="answers" id="answers"></div><p class="feedback" id="feedback" aria-live="polite"></p><button class="btn" id="next" style="display:none;border:0;cursor:pointer">Question suivante</button></div></div></section>
 <section id="sources" class="sources"><h2>Références et méthode</h2><p>Les grands domaines de révision sont notamment recoupés avec les matières infirmières publiées par les autorités camerounaises pour les concours professionnels : pathologie médicale et chirurgicale, santé de la reproduction, santé publique, morale professionnelle, anesthésiologie, santé mentale et management.</p><ul><li><a href="https://minesup.gov.cm/DAUQ/Offre%20de%20formation%20BTS-Vol%206.pdf" target="_blank" rel="noopener">MINESUP — Offre de formation BTS, volume 6 : Sciences infirmières</a></li><li><a href="https://www.minfopra.gov.cm/images/2019/concours-pro/SANTE_PUBLIQUE_INFIRMIERS_2019.pdf" target="_blank" rel="noopener">MINFOPRA — Programme du concours professionnel des infirmiers (2019)</a></li><li><a href="https://www.minfopra.gov.cm/images/pdf/concours/ouvertures2017/SANTE_PUBLIQUE_INFIRMIERS_2017.pdf" target="_blank" rel="noopener">MINFOPRA — Matières des concours professionnels infirmiers (2017)</a></li><li><a href="https://www.minfopra.gov.cm/" target="_blank" rel="noopener">MINFOPRA — portail officiel</a></li></ul><p class="note">Les calendriers vaccinaux, protocoles thérapeutiques, posologies et conduites à tenir doivent toujours être vérifiés dans les documents nationaux les plus récents et auprès des encadreurs cliniques. Un support de révision ne remplace ni une prescription, ni un protocole validé, ni la supervision d'un professionnel habilité.</p></section>
 <dialog id="lessonZoomDialog" class="lesson-zoom" aria-label="Illustration agrandie"><button type="button" id="closeLessonZoom">Fermer ✕</button><div id="lessonZoomBody"></div></dialog>
+
+<div class="avatar-dock"><span class="avatar-hint">Ton assistant</span><button class="avatar-launch" id="avatarLaunch" type="button" aria-label="Ouvrir l’assistant STUDYPRO"></button></div>
+<aside class="avatar-chat" id="avatarChat" aria-live="polite">
+ <div class="avatar-chat-head"><div id="avatarChatPortrait"></div><div><strong>Assistant STUDYPRO</strong><div class="note" id="avatarChatMeta">Étudiant · 18–24 ans</div></div></div>
+ <p>Bonjour ! Je suis ton compagnon de révision. Choisis une leçon dans la bibliothèque pour commencer.</p>
+ <p class="note">L’interface de l’assistant est prête. Les réponses IA personnalisées seront activées après la connexion sécurisée d’un service IA.</p>
+ <button type="button" id="avatarClose">Fermer</button> <a class="btn" href="#cours">Voir les cours</a>
+</aside>
+
 <footer>© 2026 STUDYPRO CAMEROUN · Apprendre • Réviser • Réussir</footer>
 <script src="courses.js"></script><script src="lessons-year1.js"></script><script src="lessons-year2.js"></script><script src="lessons-year3.js"></script><script src="dashboard-v2.js"></script>
 <script>
+
+
+/* Profil visuel de l'avatar : choix conservés localement */
+(function(){
+ const sex=document.getElementById('avatarSex'),age=document.getElementById('avatarAge');
+ if(!sex||!age)return;
+ const portrait=(female,older)=>'<svg viewBox="0 0 120 140" role="img" aria-label="Avatar étudiant africain en blouse blanche"><defs><linearGradient id="coat" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#cbd8eb"/></linearGradient></defs><rect width="120" height="140" rx="18" fill="#16264a"/><path d="M14 140 Q18 91 43 86 L60 99 77 86 Q102 91 106 140" fill="url(#coat)" stroke="#9eb3d2" stroke-width="2"/><path d="M44 88 L60 111 76 88 70 140 50 140Z" fill="#e8f0fb"/><path d="M43 38 Q40 10 61 10 Q87 10 81 46 L77 62 45 62Z" fill="#17131a"/>'+(female?'<path d="M39 40 Q23 53 31 92 L43 88 45 54 M80 39 Q98 56 89 92 L77 88 76 53" fill="#17131a"/>':'<path d="M43 48 Q47 29 60 29 Q75 29 80 48 L77 57 44 57Z" fill="#17131a"/>')+'<ellipse cx="60" cy="52" rx="21" ry="27" fill="#8b573c"/><path d="M48 49h7 M66 49h7" stroke="#211b1b" stroke-width="3" stroke-linecap="round"/><path d="M56 65 Q60 69 65 65" fill="none" stroke="#542d29" stroke-width="2" stroke-linecap="round"/>'+(older?'<path d="M44 57 Q60 61 76 57" stroke="#704331" stroke-width="1" opacity=".6" fill="none"/>':'')+'<path d="M48 88 L60 103 72 88" fill="none" stroke="#c5d4e9" stroke-width="2"/><path d="M82 97l9 5-9 5" fill="none" stroke="#1d4778" stroke-width="3"/><circle cx="89" cy="107" r="4" fill="#1d4778"/></svg>';
+ function render(){
+  const female=sex.value==='femme',older=age.value==='35-44'||age.value==='45+';
+  const svg=portrait(female,older);
+  document.getElementById('avatarLaunch').innerHTML=svg;
+  document.getElementById('avatarChatPortrait').innerHTML=svg;
+  const label=(female?'Étudiante':'Étudiant')+' · '+age.options[age.selectedIndex].text;
+  document.getElementById('avatarChatMeta').textContent=label;
+  try{localStorage.setItem('studyproAvatar',JSON.stringify({sex:sex.value,age:age.value}))}catch(e){}
+  document.getElementById('avatarStatus').textContent='✓ Avatar personnalisé : '+label+'. Préférence enregistrée sur cet appareil.';
+ }
+ try{const saved=JSON.parse(localStorage.getItem('studyproAvatar')||'{}');if(['homme','femme'].includes(saved.sex))sex.value=saved.sex;if([...age.options].some(o=>o.value===saved.age))age.value=saved.age}catch(e){}
+ sex.addEventListener('change',render);age.addEventListener('change',render);render();
+ const chat=document.getElementById('avatarChat');
+ document.getElementById('avatarLaunch').addEventListener('click',()=>chat.classList.toggle('open'));
+ document.getElementById('avatarClose').addEventListener('click',()=>chat.classList.remove('open'));
+})();
 
 /* Préférences personnelles : couleurs, apparence, police et taille */
 (function(){
