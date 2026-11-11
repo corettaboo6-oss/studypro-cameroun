@@ -98,3 +98,15 @@ language sql stable security definer set search_path=public as $$
 $$;
 revoke all on function public.studypro_get_my_subscription() from public, anon;
 grant execute on function public.studypro_get_my_subscription() to authenticated;
+
+-- Contenus Premium : conservés côté serveur et servis uniquement après contrôle d'abonnement.
+create table if not exists public.studypro_premium_content (
+  content_key text primary key,
+  title text not null,
+  required_plan text not null check (required_plan in ('premium','premium_plus')),
+  body jsonb not null,
+  published boolean not null default false,
+  updated_at timestamptz not null default now()
+);
+alter table public.studypro_premium_content enable row level security;
+revoke all on public.studypro_premium_content from anon, authenticated;
