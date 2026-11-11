@@ -136,6 +136,17 @@ body.theme-light .ai-chat-log{background:#edf2fa}
 body.theme-light .ai-msg.assistant{background:#e5edf9;color:#17233e}
 body.theme-light .ai-sources,body.theme-light .ai-status{color:#40516e}
 @media(max-width:700px){.avatar-chat{max-height:76vh;right:10px;bottom:86px;padding:12px}.ai-chat-log{max-height:240px}}
+
+/* Classement hebdomadaire et avatars fictifs */
+.weekly-board{margin-top:18px;padding:18px;border:1px solid #5872a5;border-radius:15px;background:linear-gradient(145deg,#182b50,#111a37)}
+.weekly-board h3{margin:0 0 6px;color:#ffcf70}.weekly-meta{font-size:.85rem;color:#b9cbea;margin:0 0 12px}
+.leaderboard{width:100%;border-collapse:collapse;font-size:.9rem}.leaderboard th,.leaderboard td{padding:9px 7px;text-align:left;border-bottom:1px solid #ffffff20}
+.leaderboard th{color:#8debe4;font-size:.78rem}.leaderboard tr.me{background:#087f8230;font-weight:800}
+.student-chip{display:flex;align-items:center;gap:8px}.student-avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#4b6cb7,#182848);font-size:1.15rem;flex:none}
+.fiction-note{font-size:.78rem;color:#b9cbea;margin:12px 0 0}
+@media(max-width:520px){.leaderboard{font-size:.8rem}.leaderboard th,.leaderboard td{padding:8px 4px}.student-chip{gap:5px}.student-avatar{width:29px;height:29px}}
+body.theme-light .weekly-board{background:#f5f8ff;border-color:#d8e0ef;color:#17233e}.theme-light .weekly-meta,.theme-light .fiction-note{color:#586982}.theme-light .leaderboard th{color:#2454a6}
+
 </style>
 </head>
 <body>
@@ -168,7 +179,13 @@ body.theme-light .ai-sources,body.theme-light .ai-status{color:#40516e}
  </div>
 
 
-<section id="programme"><h2>Parcours Infirmier Diplômé d'État (IDE)</h2><p class="intro">Un parcours de révision organisé en trois années. Les domaines couvrent les sciences fondamentales, les soins cliniques, la santé publique, la déontologie et le management.</p><div class="stats"><div class="stat"><strong>3 ans</strong>Parcours IDE</div><div class="stat"><strong id="courseCount">—</strong>Fiches de cours</div><div class="stat"><strong>QCM</strong>Entraînement intégré</div></div><div class="reward-panel" id="rewards"><strong>🏆 Ton espace récompenses</strong><div class="reward-points"><span id="rewardPoints">0</span> pts</div><div class="progress-track"><div class="progress-fill" id="rewardProgress"></div></div><p id="rewardLevel" class="note">Niveau 1 · Débutant — 50 points pour le prochain niveau</p><div class="badge-list" id="rewardBadges"><span class="reward-badge">🌱 Première révision à débloquer</span></div><p class="note">+10 points par leçon terminée · +5 points par bonne réponse au QCM. Tes points restent enregistrés sur cet appareil.</p></div><p class="note">La progression et les intitulés exacts peuvent varier selon le référentiel de l'établissement et les mises à jour du MINSANTE. Les supports ci-dessous sont une base pédagogique de révision, pas une reproduction certifiée du programme officiel complet.</p></section>
+<section id="programme"><h2>Parcours Infirmier Diplômé d'État (IDE)</h2><p class="intro">Un parcours de révision organisé en trois années. Les domaines couvrent les sciences fondamentales, les soins cliniques, la santé publique, la déontologie et le management.</p><div class="stats"><div class="stat"><strong>3 ans</strong>Parcours IDE</div><div class="stat"><strong id="courseCount">—</strong>Fiches de cours</div><div class="stat"><strong>QCM</strong>Entraînement intégré</div></div><div class="reward-panel" id="rewards"><strong>🏆 Ton espace récompenses</strong><div class="reward-points"><span id="rewardPoints">0</span> pts</div><div class="progress-track"><div class="progress-fill" id="rewardProgress"></div></div><p id="rewardLevel" class="note">Niveau 1 · Débutant — 50 points pour le prochain niveau</p><div class="badge-list" id="rewardBadges"><span class="reward-badge">🌱 Première révision à débloquer</span></div><p class="note">+10 points par leçon terminée · +5 points par bonne réponse au QCM. Tes points restent enregistrés sur cet appareil.</p>
+<div class="weekly-board" id="weeklyBoard">
+ <h3>🏅 Classement de la semaine</h3>
+ <p class="weekly-meta" id="weeklyPeriod">Scores QCM de la semaine · classement local</p>
+ <div style="overflow-x:auto"><table class="leaderboard" aria-label="Classement hebdomadaire"><thead><tr><th>Rang</th><th>Étudiant</th><th>Score</th><th>Meilleur chrono</th></tr></thead><tbody id="leaderboardRows"></tbody></table></div>
+ <p class="fiction-note">Les profils illustrés sont fictifs et servent à donner vie à l’espace récompenses. Ton score réel est enregistré uniquement sur cet appareil ; ce classement n’est pas encore partagé entre étudiants.</p>
+</div></div><p class="note">La progression et les intitulés exacts peuvent varier selon le référentiel de l'établissement et les mises à jour du MINSANTE. Les supports ci-dessous sont une base pédagogique de révision, pas une reproduction certifiée du programme officiel complet.</p></section>
 <section id="cours"><h2>Bibliothèque de cours</h2><p class="intro">Choisis ton année ou recherche directement une matière. Ouvre une fiche pour consulter les chapitres et les objectifs.</p>
 <div class="filters"><input id="search" type="search" placeholder="Rechercher un cours, un thème…"><select id="year"><option value="all">Toutes les années</option><option value="1">1re année</option><option value="2">2e année</option><option value="3">3e année</option></select><select id="domain"><option value="all">Tous les domaines</option></select></div>
 <div id="courseGrid" class="grid" aria-live="polite"></div><div id="lessonReader" class="panel" style="display:none;margin-top:22px"><button id="closeLesson" type="button">← Retour aux cours</button><div id="lessonContent"></div></div></section>
@@ -336,13 +353,50 @@ document.getElementById('closeLessonZoom').onclick=()=>document.getElementById('
 document.getElementById('lessonZoomDialog').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.close()});
 document.getElementById('closeLesson').onclick=()=>{document.getElementById('lessonReader').style.display='none';document.getElementById('cours').scrollIntoView({behavior:'smooth'})};
 
+
+function currentWeekKey(date=new Date()){
+ const d=new Date(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate()));
+ const day=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-day);
+ const year=d.getUTCFullYear(),start=new Date(Date.UTC(year,0,1));
+ const week=Math.ceil((((d-start)/86400000)+1)/7);
+ return year+"-S"+String(week).padStart(2,"0");
+}
+function getWeeklyData(){
+ const key=currentWeekKey();
+ try{const raw=JSON.parse(localStorage.getItem("studyproWeekly")||"{}");return raw.week===key?{week:key,score:Math.max(0,Number(raw.score)||0),bestTime:Number.isFinite(Number(raw.bestTime))&&Number(raw.bestTime)>0?Number(raw.bestTime):null,answers:Math.max(0,Number(raw.answers)||0)}:{week:key,score:0,bestTime:null,answers:0}}
+ catch(e){return {week:key,score:0,bestTime:null,answers:0}}
+}
+function recordWeeklyAnswer(correct,seconds){
+ if(!correct)return;
+ const d=getWeeklyData();d.score+=5;d.answers+=1;
+ if(d.bestTime===null||seconds<d.bestTime)d.bestTime=seconds;
+ try{localStorage.setItem("studyproWeekly",JSON.stringify(d))}catch(e){}
+ renderWeeklyBoard();
+}
+function renderWeeklyBoard(){
+ const d=getWeeklyData(),names=[
+  {name:"Aïcha Mvondo",emoji:"👩🏾‍⚕️",score:95,time:8.4},
+  {name:"Junior Tchoumi",emoji:"👨🏿‍⚕️",score:80,time:9.7},
+  {name:"Grâce Nguemo",emoji:"👩🏿‍🎓",score:65,time:7.9},
+  {name:"Samuel Etoa",emoji:"👨🏾‍🎓",score:50,time:12.2},
+  {name:"Mireille Fopa",emoji:"👩🏽‍⚕️",score:35,time:10.5}
+ ];
+ const entries=names.map(x=>({...x,fake:true}));
+ entries.push({name:"Moi",emoji:"🌟",score:d.score,time:d.bestTime,fake:false});
+ entries.sort((a,b)=>b.score-a.score||(a.time??Infinity)-(b.time??Infinity));
+ const week=document.getElementById("weeklyPeriod");
+ if(week)week.textContent="Semaine "+d.week.replace("-S"," · semaine ")+" · "+d.answers+" bonne(s) réponse(s) enregistrée(s) sur cet appareil";
+ const rows=document.getElementById("leaderboardRows");
+ if(rows)rows.innerHTML=entries.map((x,i)=>'<tr class="'+(x.fake?"":"me")+'"><td>'+(i+1===1?"🥇":i+1===2?"🥈":i+1===3?"🥉":i+1)+'</td><td><span class="student-chip"><span class="student-avatar" aria-hidden="true">'+x.emoji+'</span>'+x.name+(x.fake?'':' (toi)')+'</span></td><td>'+x.score+' pts</td><td>'+(x.time===null||x.time===undefined?"—":x.time.toFixed(1)+" s")+'</td></tr>').join("");
+}
+
 function getRewardData(){const fallback={points:0,completed:[],quizDone:[]};try{const raw=JSON.parse(localStorage.getItem('studyproRewards')||'{}');return {points:Number.isFinite(Number(raw.points))?Math.max(0,Number(raw.points)):0,completed:Array.isArray(raw.completed)?raw.completed.filter(x=>typeof x==='string'):[],quizDone:Array.isArray(raw.quizDone)?raw.quizDone.filter(x=>Number.isInteger(x)&&x>=0):[]}}catch(e){return fallback}}
 function saveRewardData(d){try{localStorage.setItem('studyproRewards',JSON.stringify(d));renderRewards();window.dispatchEvent(new CustomEvent('studypro:rewards-updated'));return true}catch(e){const feedback=document.getElementById('feedback');if(feedback)feedback.textContent='Progression non enregistrée : le stockage du navigateur est indisponible ou saturé.';return false}}
 function renderRewards(){const d=getRewardData(),level=Math.floor(d.points/50)+1,rem=d.points%50;document.getElementById('rewardPoints').textContent=d.points;document.getElementById('rewardProgress').style.width=(rem/50*100)+'%';document.getElementById('rewardLevel').textContent='Niveau '+level+' · '+(level===1?'Débutant':level===2?'Apprenti':level===3?'Persévérant':level===4?'Expert':'Champion')+' — '+(50-rem)+' points pour le prochain niveau';const b=[];if(d.points>=10)b.push('🌱 Première révision');if(d.points>=50)b.push('🥉 50 points');if(d.points>=100)b.push('🥈 100 points');if(d.points>=200)b.push('🥇 200 points');if(d.points>=500)b.push('🏆 Champion');document.getElementById('rewardBadges').innerHTML=b.length?b.map(x=>'<span class="reward-badge">'+x+'</span>').join(''):'<span class="reward-badge">🌱 Première révision à débloquer</span>'}
 function awardReview(id){const d=getRewardData();if(d.completed.includes(id))return;d.completed.push(id);d.points+=10;saveRewardData(d)}
-renderRewards();
-const questions=COURSES.flatMap(c=>(c.quiz||[]).map(q=>({text:q[0],choices:q[1],answer:q[2],course:c.title})));let qi=0,locked=false;
-function showQ(){locked=false;const q=questions[qi%questions.length];document.getElementById('question').textContent=q.text;document.getElementById('feedback').textContent='';document.getElementById('next').style.display='none';const box=document.getElementById('answers');box.innerHTML='';q.choices.forEach((choice,i)=>{const b=document.createElement('button');b.textContent=choice;b.onclick=()=>{if(locked)return;locked=true;const ok=i===q.answer;document.getElementById('feedback').textContent=ok?'Bonne réponse ! 🎉 +5 points':'Pas tout à fait. Relis la fiche « '+q.course+' » puis réessaie.';if(ok){const d=getRewardData(),qid=qi%questions.length;if(!d.quizDone.includes(qid)){d.quizDone.push(qid);d.points+=5;saveRewardData(d)}}b.style.borderColor=ok?'#26845b':'#b44';box.querySelectorAll('button').forEach(x=>x.disabled=true);document.getElementById('next').style.display='inline-block'};box.appendChild(b)})}
+renderRewards();renderWeeklyBoard();
+const questions=COURSES.flatMap(c=>(c.quiz||[]).map(q=>({text:q[0],choices:q[1],answer:q[2],course:c.title})));let qi=0,locked=false,questionStartedAt=Date.now();
+function showQ(){locked=false;questionStartedAt=Date.now();const q=questions[qi%questions.length];document.getElementById('question').textContent=q.text;document.getElementById('feedback').textContent='';document.getElementById('next').style.display='none';const box=document.getElementById('answers');box.innerHTML='';q.choices.forEach((choice,i)=>{const b=document.createElement('button');b.textContent=choice;b.onclick=()=>{if(locked)return;locked=true;const ok=i===q.answer;document.getElementById('feedback').textContent=ok?'Bonne réponse ! 🎉 +5 points':'Pas tout à fait. Relis la fiche « '+q.course+' » puis réessaie.';if(ok){recordWeeklyAnswer(true,(Date.now()-questionStartedAt)/1000);const d=getRewardData(),qid=qi%questions.length;if(!d.quizDone.includes(qid)){d.quizDone.push(qid);d.points+=5;saveRewardData(d)}}b.style.borderColor=ok?'#26845b':'#b44';box.querySelectorAll('button').forEach(x=>x.disabled=true);document.getElementById('next').style.display='inline-block'};box.appendChild(b)})}
 document.getElementById('next').onclick=()=>{qi++;showQ()};showQ();
 </script>
 </body></html>
