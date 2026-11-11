@@ -38,11 +38,11 @@ Définir `STUDYPRO_ADMIN_EMAILS` dans Vercel avec une liste séparée par des vi
 
 ## Sécurité et limites
 - Les plans, prix, utilisateur, devise et référence sont déterminés/vérifiés côté serveur.
-- Les notifications doivent porter le notify token stocké à l'initialisation. Le serveur vérifie ensuite le statut auprès de CinetPay avant activation.
+- Les notifications doivent porter le notify token stocké à l'initialisation. Le serveur vérifie ensuite directement la réponse brute de CinetPay : statut SUCCESS, identifiants marchand et fournisseur, montant exact et devise XAF. Le SDK `cinetpay-js` 0.1.1 ne transmet pas montant/devise dans son type `PaymentStatus`; l'API brute est donc interrogée côté serveur après authentification.
 - L'activation SQL est transactionnelle et idempotente : un webhook rejoué ne prolonge pas deux fois un abonnement.
 - La clé service-role n'est jamais envoyée au navigateur.
 - Le tableau de bord des revenus vérifie l'adresse administrateur côté serveur.
-- La table `studypro_premium_content` est initialement vide : les contenus Premium devront être insérés côté administrateur dans Supabase avant d’être proposés aux abonnés. Les ressources pédagogiques actuellement publiées dans `courses.js` et `lessons-year*.js` restent publiques car elles sont livrées par le site statique. Ce premier lot ne prétend donc pas verrouiller ces fichiers. Pour une protection réelle des futurs cours Premium, il faudra déplacer leur contenu dans une table privée ou un stockage privé Supabase et ne les servir qu'après contrôle de l'abonnement côté serveur.
+- La table `studypro_premium_content` est initialement vide : les contenus Premium devront être insérés côté administrateur dans Supabase avant d’être proposés aux abonnés. Les ressources pédagogiques actuellement publiées dans `courses.js` et `lessons-year*.js` restent publiques car elles sont livrées par le site statique. Ce premier lot ne prétend donc pas verrouiller ces fichiers. La protection réelle des leçons déjà livrées dans ces fichiers n'est pas encore terminée. Tant que leur contenu n'a pas été migré vers `studypro_premium_content` et que les références statiques ne sont pas retirées du site, ces leçons restent publiques. Ne pas considérer cette PR comme prête à fusionner avant cette migration.
 - L'abonnement est à renouvellement manuel : aucun prélèvement automatique récurrent n'est activé.
 - Les paiements réels ne sont pas activés tant que les identifiants CinetPay, la migration Supabase et le domaine Vercel ne sont pas configurés et testés.
 
