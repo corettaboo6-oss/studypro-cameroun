@@ -4,8 +4,8 @@ Cette version ajoute une base technique de paiement et d'abonnement via CinetPay
 
 ## Offres prévues
 - Gratuit : accès aux ressources publiques.
-- Premium : 2 000 FCFA / 30 jours.
-- Premium Plus : 3 500 FCFA / 30 jours.
+- Premium : 1 500 FCFA / 30 jours.
+- Premium Plus : 3 000 FCFA / 30 jours.
 
 Les montants sont fixés côté serveur dans `api/payments.js`. Le navigateur ne peut pas choisir ni modifier le montant. Le backend utilise le SDK officiel `cinetpay-js` (version publiée 0.1.1).
 
