@@ -46,6 +46,17 @@ Définir `STUDYPRO_ADMIN_EMAILS` dans Vercel avec une liste séparée par des vi
 - L'abonnement est à renouvellement manuel : aucun prélèvement automatique récurrent n'est activé.
 - Les paiements réels ne sont pas activés tant que les identifiants CinetPay, la migration Supabase et le domaine Vercel ne sont pas configurés et testés.
 
+
+### Importer les contenus pédagogiques privés
+
+Après avoir exécuté les deux scripts SQL ci-dessus et avant de retirer les fichiers pédagogiques de la zone publique :
+1. Depuis une copie locale de cette branche, définir temporairement `SUPABASE_URL` et `SUPABASE_SERVICE_ROLE_KEY` dans l'environnement du terminal (ne jamais les commiter).
+2. Exécuter `node scripts/import-private-content.mjs --apply`. Le script transforme les bibliothèques IDE des trois années en lignes `required_plan=premium` et les importe par clé stable dans `studypro_premium_content`.
+3. Pour les examens blancs, créer localement `private-content-source/mock-exams.json` (tableau JSON avec `title` et `questions`) ; ils seront importés en `premium_plus`. Ce dossier est ignoré par Git.
+4. Vérifier dans Supabase le nombre de contenus, les années, les clés et les droits avant de supprimer les anciens fichiers source de la publication statique.
+
+L'importeur refuse de s'exécuter sans le drapeau explicite `--apply`. Il effectue un upsert idempotent. **La PR ne doit pas être fusionnée ni publiée tant que l'import n'a pas été exécuté et vérifié et que les fichiers source publics n'ont pas été retirés du déploiement.** Les secrets Supabase ne doivent jamais être transmis dans une conversation ni ajoutés à Git.
+
 ## Vérifications après configuration
 1. Tester les deux opérateurs en sandbox.
 2. Vérifier les cas paiement réussi, refusé, expiré, webhook rejoué, mauvais montant et mauvais utilisateur.
