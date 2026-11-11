@@ -32,7 +32,7 @@ for filename in ("courses.js", "lessons-year1.js", "dashboard-v2.js"):
     subprocess.run(["node", "--check", str(ROOT / filename)], check=True)
 
 # Vérifie aussi la syntaxe du JavaScript embarqué dans la page.
-inline_scripts = re.findall(r"<script(?:\\s[^>]*)?>(.*?)</script>", html, flags=re.I | re.S)
+inline_scripts = re.findall(r"<script(?:\s[^>]*)?>(.*?)</script>", html, flags=re.I | re.S)
 assert inline_scripts, "Aucun script JavaScript embarqué trouvé"
 for script in inline_scripts:
     if not script.strip():
@@ -42,7 +42,7 @@ for script in inline_scripts:
         tmp.flush()
         subprocess.run(["node", "--check", tmp.name], check=True)
 
-years = {int(y) for y in re.findall(r"\\{year:(\\d+),", (ROOT / "courses.js").read_text(encoding="utf-8"))}
+years = {int(y) for y in re.findall(r"\{year:(\d+),", (ROOT / "courses.js").read_text(encoding="utf-8"))}
 assert years == {1, 2, 3}, f"Années IDE attendues 1, 2 et 3, trouvées : {years}"
 assert "studypro:rewards-updated" in html, "Événement de mise à jour des récompenses absent"
 assert "dashboard-v2-title" in (ROOT / "dashboard-v2.js").read_text(encoding="utf-8")
