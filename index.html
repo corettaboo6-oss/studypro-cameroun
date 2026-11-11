@@ -38,7 +38,36 @@ footer{background:#080d22;color:#dce9ff;text-align:center;padding:24px;border-to
 .lesson-zoom::backdrop{background:#020617e8}
 .lesson-zoom svg{display:block;width:100%;height:auto;max-height:78vh}
 .lesson-zoom button{float:right;padding:9px 14px;margin-bottom:8px;border:1px solid #5b76aa;border-radius:9px;background:#1b2b50;color:#fff;font:inherit}
-@media(max-width:600px){.lesson-visual svg{max-height:none}.lesson-visual button{padding:8px}.lesson-visual figcaption{font-size:.82rem}.lesson-zoom{padding:8px}}
+/* Adaptation renforcée pour téléphones et petits écrans */
+@media(max-width:700px){
+  header{padding:14px 5%;align-items:flex-start}
+  header>div{width:100%}
+  header>div:last-child{font-size:.88rem}
+  nav{position:relative;top:auto;gap:7px;padding:9px 4%;justify-content:stretch}
+  nav a{flex:1 1 28%;min-width:0;text-align:center;padding:9px 4px;font-size:.82rem;line-height:1.25;border:1px solid #354779;border-radius:8px}
+  .hero{padding:40px 5%}
+  section{padding:28px 5%}
+  .filters{display:flex;flex-direction:column;gap:9px}
+  .filters input,.filters select{width:100%;min-width:0;max-width:100%;flex:none}
+  .grid{grid-template-columns:minmax(0,1fr);gap:12px}
+  .course,.panel{min-width:0;padding:15px}
+  .course h3{overflow-wrap:anywhere}
+  .lesson-visual{max-width:100%;min-width:0}
+  .lesson-visual button{padding:8px;overflow-x:auto;overscroll-behavior-inline:contain}
+  .lesson-visual svg{width:640px;max-width:none;max-height:none}
+  .lesson-visual figcaption{font-size:.82rem}
+  .lesson-zoom{width:96vw;max-width:96vw;max-height:92dvh;padding:8px;overflow:auto}
+  .lesson-zoom svg{width:100%;max-width:100%;height:auto;max-height:70dvh}
+  .lesson-zoom button,.reward-action,#closeLesson,.course button{min-height:44px}
+  .btn{max-width:100%;white-space:normal;text-align:center}
+}
+@media(max-width:380px){
+  header h2{font-size:1.12rem}
+  nav a{flex-basis:44%;font-size:.78rem}
+  .hero h1{font-size:1.85rem}
+  .stats{grid-template-columns:1fr}
+}
+:focus-visible{outline:3px solid #ffbf47;outline-offset:3px}
 </style>
 </head>
 <body>
