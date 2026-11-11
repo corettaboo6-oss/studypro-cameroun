@@ -68,12 +68,61 @@ footer{background:#080d22;color:#dce9ff;text-align:center;padding:24px;border-to
   .stats{grid-template-columns:1fr}
 }
 :focus-visible{outline:3px solid #ffbf47;outline-offset:3px}
+
+/* Préférences d'affichage personnalisables */
+:root{--user-accent:#00d4c7;--user-accent-soft:#244c68}
+body{font-family:var(--user-font,Inter,Arial,sans-serif);font-size:var(--user-text-size,16px)}
+h2,.course h3,nav a:hover,header h2{color:var(--user-accent)}
+.btn,.reward-action{background:linear-gradient(110deg,var(--user-accent),#377bff);border-color:var(--user-accent)}
+.stat strong,.tag{color:var(--user-accent)}
+.user-settings{background:linear-gradient(145deg,#1b2850,#121b39);border:1px solid #3c568b;border-radius:16px;padding:20px;margin:18px 0}
+.user-settings h2{margin-bottom:6px}
+.settings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-top:14px}
+.setting-field{display:grid;gap:6px}
+.setting-field label{font-weight:700;color:#eaf2ff}
+.setting-field select{width:100%;padding:11px;border-radius:9px;border:1px solid #526995;background:#111b38;color:#fff;font:inherit}
+.setting-help{color:#b9cbea;font-size:.88rem;margin:8px 0 0}
+body.theme-light{background:#f3f6fc;color:#17233e;background-attachment:scroll}
+body.theme-light header,body.theme-light nav,body.theme-light footer{background:#fff;color:#17233e;border-color:#d8e0ef}
+body.theme-light header p,body.theme-light nav a,body.theme-light footer{color:#334466}
+body.theme-light .hero{background:linear-gradient(125deg,#e7efff,#eee9ff 55%,#e1f7f5);border-color:#d4deef}
+body.theme-light .hero h1{color:#17233e;text-shadow:none}
+body.theme-light .hero p,body.theme-light .intro{color:#40516e}
+body.theme-light .stat,body.theme-light .course,body.theme-light .panel,body.theme-light .user-settings,body.theme-light .hero-tip,body.theme-light .reward-panel{background:#fff;color:#17233e;border-color:#d8e0ef;box-shadow:0 8px 24px #20345a12}
+body.theme-light .course h3,body.theme-light h2{color:#2454a6}
+body.theme-light .course summary,body.theme-light .course li,body.theme-light .quiz-q{color:#17233e}
+body.theme-light .objective{background:#fff8e8;color:#493b1c}
+body.theme-light .filters input,body.theme-light .filters select,body.theme-light .setting-field select{background:#fff;color:#17233e;border-color:#c5d0e3}
+body.theme-light .filters input::placeholder{color:#71809a}
+body.theme-light .answers button{background:#f4f7fc;color:#17233e;border-color:#c5d0e3}
+body.theme-light .note,body.theme-light .setting-help{color:#586982}
+body.theme-light .reward-badge{background:#fff8e8;color:#624914}
+body.theme-light .lesson-visual{background:#eef3fc;border-color:#cbd7eb}
+body.theme-light .lesson-visual figcaption{color:#40516e}
+body.theme-light .empty{background:#edf2fa;color:#17233e}
+@media(max-width:700px){.user-settings{padding:15px}.settings-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
 <header><div><h2>📘 STUDYPRO CAMEROUN</h2><p>Apprendre • Réviser • Réussir</p></div><div>La réussite commence par une bonne préparation.</div></header>
-<nav><a href="#programme">Programme</a><a href="#dashboard-v2">Mon espace</a><a href="#cours">Cours</a><a href="#videos">Vidéos YouTube</a><a href="#evaluation">S'entraîner</a><a href="#sources">Références</a></nav>
+<nav><a href="#personnalisation">Personnaliser</a><a href="#programme">Programme</a><a href="#dashboard-v2">Mon espace</a><a href="#cours">Cours</a><a href="#videos">Vidéos YouTube</a><a href="#evaluation">S'entraîner</a><a href="#sources">Références</a></nav>
 <div class="hero"><h1>Ta bibliothèque de soins infirmiers</h1><p>Des cours structurés, des objectifs d'apprentissage et des exercices pour progresser tout au long de la formation IDE au Cameroun.</p><a class="btn" href="#cours">Explorer les cours</a></div>
+
+<section id="personnalisation">
+ <div class="user-settings">
+  <h2>🎨 Personnaliser mon STUDYPRO</h2>
+  <p class="intro">Choisis les couleurs, le mode d’affichage et le confort de lecture qui te conviennent. Tes préférences sont enregistrées sur cet appareil.</p>
+  <div class="settings-grid">
+   <div class="setting-field"><label for="themeColor">Couleur principale</label><select id="themeColor"><option value="#00d4c7">Turquoise</option><option value="#8b5cf6">Violet</option><option value="#3b82f6">Bleu</option><option value="#16a34a">Vert</option><option value="#ec4899">Rose</option><option value="#f97316">Orange</option><option value="#d4a017">Doré</option><option value="#ef4444">Rouge</option></select></div>
+   <div class="setting-field"><label for="themeMode">Apparence</label><select id="themeMode"><option value="dark">Sombre</option><option value="light">Clair</option><option value="auto">Automatique (selon l’appareil)</option></select></div>
+   <div class="setting-field"><label for="themeFont">Police d’écriture</label><select id="themeFont"><option value="Inter,Arial,sans-serif">Moderne (sans-serif)</option><option value="Verdana,Arial,sans-serif">Verdana</option><option value="Trebuchet MS,Arial,sans-serif">Trebuchet</option><option value="Georgia,serif">Georgia (classique)</option><option value="Arial,sans-serif">Arial</option></select></div>
+   <div class="setting-field"><label for="themeSize">Taille du texte</label><select id="themeSize"><option value="15px">Petite</option><option value="16px">Normale</option><option value="18px">Grande</option><option value="20px">Très grande</option></select></div>
+  </div>
+  <p class="setting-help" id="settingsStatus" role="status" aria-live="polite">Les réglages s’appliquent immédiatement.</p>
+ </div>
+</section>
+
 <section id="programme"><h2>Parcours Infirmier Diplômé d'État (IDE)</h2><p class="intro">Un parcours de révision organisé en trois années. Les domaines couvrent les sciences fondamentales, les soins cliniques, la santé publique, la déontologie et le management.</p><div class="stats"><div class="stat"><strong>3 ans</strong>Parcours IDE</div><div class="stat"><strong id="courseCount">—</strong>Fiches de cours</div><div class="stat"><strong>QCM</strong>Entraînement intégré</div></div><div class="reward-panel" id="rewards"><strong>🏆 Ton espace récompenses</strong><div class="reward-points"><span id="rewardPoints">0</span> pts</div><div class="progress-track"><div class="progress-fill" id="rewardProgress"></div></div><p id="rewardLevel" class="note">Niveau 1 · Débutant — 50 points pour le prochain niveau</p><div class="badge-list" id="rewardBadges"><span class="reward-badge">🌱 Première révision à débloquer</span></div><p class="note">+10 points par leçon terminée · +5 points par bonne réponse au QCM. Tes points restent enregistrés sur cet appareil.</p></div><p class="note">La progression et les intitulés exacts peuvent varier selon le référentiel de l'établissement et les mises à jour du MINSANTE. Les supports ci-dessous sont une base pédagogique de révision, pas une reproduction certifiée du programme officiel complet.</p></section>
 <section id="cours"><h2>Bibliothèque de cours</h2><p class="intro">Choisis ton année ou recherche directement une matière. Ouvre une fiche pour consulter les chapitres et les objectifs.</p>
 <div class="filters"><input id="search" type="search" placeholder="Rechercher un cours, un thème…"><select id="year"><option value="all">Toutes les années</option><option value="1">1re année</option><option value="2">2e année</option><option value="3">3e année</option></select><select id="domain"><option value="all">Tous les domaines</option></select></div>
@@ -84,6 +133,26 @@ footer{background:#080d22;color:#dce9ff;text-align:center;padding:24px;border-to
 <footer>© 2026 STUDYPRO CAMEROUN · Apprendre • Réviser • Réussir</footer>
 <script src="courses.js"></script><script src="lessons-year1.js"></script><script src="lessons-year2.js"></script><script src="lessons-year3.js"></script><script src="dashboard-v2.js"></script>
 <script>
+
+/* Préférences personnelles : couleurs, apparence, police et taille */
+(function(){
+ const keys={color:'themeColor',mode:'themeMode',font:'themeFont',size:'themeSize'};
+ const defaults={color:'#00d4c7',mode:'dark',font:'Inter,Arial,sans-serif',size:'16px'};
+ const controls=Object.fromEntries(Object.entries(keys).map(([k,id])=>[k,document.getElementById(id)]));
+ function apply(p){
+  document.documentElement.style.setProperty('--user-accent',p.color);
+  document.documentElement.style.setProperty('--user-font',p.font);
+  document.documentElement.style.setProperty('--user-text-size',p.size);
+  document.body.classList.toggle('theme-light',p.mode==='light'||(p.mode==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches));
+  Object.entries(controls).forEach(([k,el])=>{if(el)el.value=p[k]});
+ }
+ function read(){try{return {...defaults,...JSON.parse(localStorage.getItem('studyproPreferences')||'{}')}}catch(e){return {...defaults}}}
+ function save(){const p=Object.fromEntries(Object.entries(controls).map(([k,el])=>[k,el.value]));apply(p);try{localStorage.setItem('studyproPreferences',JSON.stringify(p));document.getElementById('settingsStatus').textContent='✓ Tes préférences ont été enregistrées sur cet appareil.'}catch(e){document.getElementById('settingsStatus').textContent='Réglages appliqués, mais le navigateur ne permet pas leur sauvegarde.'}}
+ Object.values(controls).forEach(el=>el&&el.addEventListener('change',save));
+ apply(read());
+ if(window.matchMedia){window.matchMedia('(prefers-color-scheme: light)').addEventListener?.('change',()=>{const p=read();if(p.mode==='auto')apply(p)})}
+})();
+
 const grid=document.getElementById('courseGrid'),search=document.getElementById('search'),year=document.getElementById('year'),domain=document.getElementById('domain');
 const domains=[...new Set(COURSES.map(c=>c.domain))];domains.forEach(d=>{const o=document.createElement('option');o.value=d;o.textContent=d;domain.appendChild(o)});
 document.getElementById('courseCount').textContent=COURSES.length;
