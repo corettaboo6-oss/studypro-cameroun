@@ -24,6 +24,7 @@ Les montants sont fixés côté serveur dans `api/payments.js`. Le navigateur ne
    - Définir `STUDYPRO_ALLOWED_ORIGIN` comme l’origine HTTPS exacte du site, par exemple `https://votre-domaine.vercel.app`, sans chemin ni barre oblique finale.
 2. Ajouter `SUPABASE_SERVICE_ROLE_KEY` dans les variables d'environnement Vercel uniquement. Ne jamais l'ajouter au navigateur ou à Git.
 3. Dans Supabase SQL Editor, exécuter d'abord `supabase/schema.sql`, puis `supabase/monetization.sql`.
+   - Ne pas exécuter l'ancienne migration `supabase/migrations/202611110001_billing.sql` pour CinetPay; elle est conservée à titre historique et n'est plus utilisée.
 4. Vérifier que les tables `studypro_payment_orders` et `studypro_subscriptions` et les fonctions RPC sont créées.
 
 ### Administrateur
