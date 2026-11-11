@@ -219,40 +219,54 @@ body.theme-light .weekly-board{background:#f5f8ff;border-color:#d8e0ef;color:#17
   const mature=ageGroup==='35-44'||senior;
   const hair=female
    ? (senior
-      ? '<path d="M65 118 Q52 36 91 25 Q119 4 151 24 Q190 42 175 119 L168 166 Q158 178 151 145 L153 88 Q143 62 120 61 Q94 61 86 91 L88 150 Q77 179 66 162Z" fill="url(#av-hair)"/><path d="M75 66 Q91 22 120 20 Q151 19 166 65" fill="none" stroke="#b9b9bd" stroke-width="6"/>'
-      : '<path d="M64 119 Q51 38 89 25 Q119 3 151 24 Q190 42 176 119 L169 164 Q158 179 151 145 L153 88 Q143 62 120 61 Q94 61 86 91 L88 150 Q77 179 66 162Z" fill="url(#av-hair)"/>')
-   : '<path d="M78 105 Q69 39 103 26 Q124 16 145 27 Q173 43 163 105 L151 119 88 119Z" fill="url(#av-hair)"/>';
-  const curls=female?'<g fill="#17131a"><circle cx="76" cy="65" r="13"/><circle cx="91" cy="39" r="13"/><circle cx="111" cy="27" r="12"/><circle cx="133" cy="28" r="13"/><circle cx="153" cy="41" r="13"/><circle cx="168" cy="66" r="13"/></g>':'';
-  const ageDetails=senior?'<path d="M91 135 Q99 138 106 135 M134 135 Q141 138 149 135 M96 151 Q120 155 144 151" fill="none" stroke="#80513d" stroke-width="1.2" opacity=".5"/>':mature?'<path d="M92 135 Q99 138 106 135 M134 135 Q141 138 148 135" fill="none" stroke="#80513d" stroke-width="1" opacity=".3"/>':'';
-  const beard=!female&&mature?'<path d="M83 130 Q87 165 120 171 Q153 165 157 130 Q151 151 140 151 Q120 163 100 151 Q89 150 83 130Z" fill="#241d1b" opacity=".88"/>':'';
+      ? '<path d="M63 126 Q48 48 91 25 Q121 2 153 24 Q194 48 177 132 L169 170 Q157 184 151 145 L154 86 Q143 62 120 61 Q94 62 86 91 L89 151 Q77 181 66 165Z" fill="url(#av-hair)"/><path d="M72 61 Q94 14 126 20 Q153 18 169 63" fill="none" stroke="#b9b9bd" stroke-width="5" opacity=".8"/>'
+      : '<path d="M62 126 Q48 48 91 25 Q121 2 153 24 Q194 48 178 132 L169 170 Q157 184 151 145 L154 86 Q143 62 120 61 Q94 62 86 91 L89 151 Q77 181 66 165Z" fill="url(#av-hair)"/>')
+   : '<path d="M75 112 Q67 42 103 25 Q128 12 151 29 Q178 49 165 116 L151 125 87 125Z" fill="url(#av-hair)"/>';
+  const curls=female
+   ? '<g fill="#21171b" stroke="#49302a" stroke-width="1.2"><circle cx="70" cy="69" r="14"/><circle cx="84" cy="43" r="15"/><circle cx="106" cy="27" r="14"/><circle cx="129" cy="25" r="15"/><circle cx="151" cy="39" r="15"/><circle cx="169" cy="66" r="14"/><circle cx="77" cy="94" r="12"/><circle cx="163" cy="94" r="12"/></g>'
+   : '<g fill="#20171a" stroke="#49302a" stroke-width="1"><circle cx="83" cy="49" r="10"/><circle cx="99" cy="31" r="11"/><circle cx="118" cy="25" r="11"/><circle cx="139" cy="29" r="11"/><circle cx="155" cy="48" r="10"/><circle cx="73" cy="75" r="9"/><circle cx="165" cy="75" r="9"/></g>';
+  const ageDetails=senior
+   ? '<path d="M91 136 Q101 139 109 136 M132 136 Q141 139 149 136 M96 153 Q120 158 144 153" fill="none" stroke="#704332" stroke-width="1.2" opacity=".48"/><path d="M90 118 Q94 121 98 118 M142 118 Q146 121 150 118" fill="none" stroke="#704332" stroke-width="1" opacity=".35"/>'
+   : mature?'<path d="M92 137 Q100 139 107 137 M134 137 Q141 139 148 137" fill="none" stroke="#704332" stroke-width="1" opacity=".25"/>':'';
+  const beard=!female&&mature?'<path d="M81 128 Q84 166 120 173 Q156 166 159 128 Q151 154 140 155 Q120 166 100 155 Q89 153 81 128Z" fill="#241b1a" opacity=".9"/>':'';
   return `<svg viewBox="0 0 240 260" role="img" aria-label="${female?'Étudiante':'Étudiant'} africain, ${ageGroup}, en blouse blanche" xmlns="http://www.w3.org/2000/svg">
  <defs>
-  <linearGradient id="av-bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#314b78"/><stop offset="1" stop-color="#17243e"/></linearGradient>
-  <radialGradient id="av-skin" cx=".38" cy=".27" r=".85"><stop stop-color="#c98c68"/><stop offset=".58" stop-color="#a76545"/><stop offset="1" stop-color="#70402f"/></radialGradient>
-  <linearGradient id="av-coat" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".6" stop-color="#f0f5fb"/><stop offset="1" stop-color="#c5d4e6"/></linearGradient>
-  <linearGradient id="av-hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#34242a"/><stop offset=".55" stop-color="#100e16"/><stop offset="1" stop-color="#50352e"/></linearGradient>
+  <linearGradient id="av-bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#49658f"/><stop offset=".48" stop-color="#263c64"/><stop offset="1" stop-color="#101b34"/></linearGradient>
+  <radialGradient id="av-skin" cx=".34" cy=".22" r=".9"><stop stop-color="#e0ad85"/><stop offset=".28" stop-color="#c98b65"/><stop offset=".68" stop-color="#995b40"/><stop offset="1" stop-color="#603727"/></radialGradient>
+  <linearGradient id="av-face-light" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#603727" stop-opacity=".35"/><stop offset=".35" stop-color="#fff" stop-opacity=".08"/><stop offset=".7" stop-color="#fff" stop-opacity=".02"/><stop offset="1" stop-color="#3a211c" stop-opacity=".35"/></linearGradient>
+  <linearGradient id="av-coat" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".48" stop-color="#f7faff"/><stop offset="1" stop-color="#b9cbe0"/></linearGradient>
+  <linearGradient id="av-hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#554039"/><stop offset=".35" stop-color="#21171a"/><stop offset=".8" stop-color="#100e14"/><stop offset="1" stop-color="#49302a"/></linearGradient>
+  <linearGradient id="av-lips" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#a95e58"/><stop offset="1" stop-color="#713b3b"/></linearGradient>
   <filter id="av-shadow" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur stdDeviation="5"/></filter>
+  <filter id="av-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter>
  </defs>
- <rect width="240" height="260" rx="28" fill="url(#av-bg)"/><circle cx="120" cy="99" r="82" fill="#8ce6df" opacity=".08"/>
- <ellipse cx="120" cy="251" rx="78" ry="9" fill="#050b1b" opacity=".35" filter="url(#av-shadow)"/>
- <path d="M25 260 Q32 179 78 166 L120 190 162 166 Q208 179 215 260Z" fill="url(#av-coat)" stroke="#d4e0ee" stroke-width="2"/>
- <path d="M78 166 L120 204 162 166 151 260 89 260Z" fill="#fff"/><path d="M101 177 L120 199 139 177 131 260 109 260Z" fill="#dce8f5"/>
- <path d="M78 169 L120 207 162 169" fill="none" stroke="#c7d7e9" stroke-width="3"/>
- <path d="M92 179 L72 199 86 213 103 187 M148 179 L168 199 154 213 137 187" fill="#fff" stroke="#d1ddeb" stroke-width="2"/>
- <path d="M150 190 l12 5 -8 7 10 5 -12 5 -8 -8Z" fill="#315b87"/><circle cx="157" cy="201" r="3" fill="#e8c56e"/>
- <path d="M101 153 Q101 177 120 181 Q139 177 139 153 L139 139 101 139Z" fill="url(#av-skin)"/>
+ <rect width="240" height="260" rx="28" fill="url(#av-bg)"/>
+ <circle cx="120" cy="103" r="82" fill="#8ce6df" opacity=".10" filter="url(#av-glow)"/>
+ <ellipse cx="120" cy="251" rx="78" ry="9" fill="#050b1b" opacity=".4" filter="url(#av-shadow)"/>
+ <path d="M18 260 Q27 183 75 166 L120 190 165 166 Q213 183 222 260Z" fill="url(#av-coat)" stroke="#dce7f3" stroke-width="2"/>
+ <path d="M75 168 L120 207 165 168 153 260 87 260Z" fill="#fff"/>
+ <path d="M99 178 L120 202 141 178 132 260 108 260Z" fill="#dce7f5"/>
+ <path d="M75 169 L120 209 165 169" fill="none" stroke="#c5d5e8" stroke-width="3"/>
+ <path d="M91 180 L69 204 85 220 105 189 M149 180 L171 204 155 220 135 189" fill="#fff" stroke="#c8d8e9" stroke-width="2"/>
+ <path d="M151 190 l13 5 -8 8 10 5 -13 6 -8 -9Z" fill="#28578a"/><circle cx="158" cy="202" r="3" fill="#e8c56e"/>
+ <path d="M101 151 Q101 177 120 184 Q139 177 139 151 L139 137 101 137Z" fill="url(#av-skin)"/>
  ${hair}${curls}
- <ellipse cx="120" cy="105" rx="43" ry="54" fill="url(#av-skin)"/>
- <ellipse cx="77" cy="111" rx="6" ry="11" fill="#a96849"/><ellipse cx="163" cy="111" rx="6" ry="11" fill="#a96849"/>
- ${female?'<circle cx="73" cy="126" r="3.5" fill="#e6c16e"/><circle cx="167" cy="126" r="3.5" fill="#e6c16e"/>':''}
- <path d="M88 96 Q100 88 111 96 M129 96 Q140 88 152 96" fill="none" stroke="#38231f" stroke-width="3.5" stroke-linecap="round"/>
- <path d="M89 108 Q100 100 112 108 Q101 117 89 108Z M128 108 Q140 100 151 108 Q140 117 128 108Z" fill="#fff"/>
- <ellipse cx="101" cy="108" rx="4.3" ry="5.5" fill="#34221e"/><ellipse cx="139" cy="108" rx="4.3" ry="5.5" fill="#34221e"/>
- <circle cx="102.5" cy="106.5" r="1.5" fill="#fff"/><circle cx="140.5" cy="106.5" r="1.5" fill="#fff"/>
- <path d="M120 108 Q116 124 111 129 Q120 134 129 129" fill="none" stroke="#80503a" stroke-width="2" stroke-linecap="round"/>
- <path d="M108 143 Q120 137 132 143 Q120 154 108 143Z" fill="#713b3a"/><path d="M111 143 Q120 145 129 143" fill="none" stroke="#f0b2a0" stroke-width="1.5" stroke-linecap="round"/>
+ <path d="M77 111 Q75 69 92 53 Q104 43 120 43 Q139 43 151 54 Q166 70 163 112 Q160 151 143 165 Q132 174 120 174 Q108 174 97 165 Q80 151 77 111Z" fill="url(#av-skin)"/>
+ <path d="M77 111 Q75 69 92 53 Q104 43 120 43 Q139 43 151 54 Q166 70 163 112 Q160 151 143 165 Q132 174 120 174 Q108 174 97 165 Q80 151 77 111Z" fill="url(#av-face-light)"/>
+ <ellipse cx="76" cy="112" rx="7" ry="12" fill="#a96849"/><ellipse cx="164" cy="112" rx="7" ry="12" fill="#a96849"/>
+ ${female?'<circle cx="72" cy="127" r="4" fill="#e8c36c"/><circle cx="168" cy="127" r="4" fill="#e8c36c"/>':''}
+ <path d="M88 96 Q100 87 112 95 M128 95 Q141 87 153 96" fill="none" stroke="#38231f" stroke-width="4.5" stroke-linecap="round"/>
+ <path d="M88 108 Q100 99 113 108 Q101 118 88 108Z M127 108 Q140 99 153 108 Q140 118 127 108Z" fill="#fff9f1"/>
+ <ellipse cx="101" cy="108" rx="4.6" ry="5.6" fill="#30201c"/><ellipse cx="140" cy="108" rx="4.6" ry="5.6" fill="#30201c"/>
+ <circle cx="102.5" cy="106.5" r="1.7" fill="#fff"/><circle cx="141.5" cy="106.5" r="1.7" fill="#fff"/>
+ <path d="M85 105 Q100 97 114 105 M126 105 Q141 97 156 105" fill="none" stroke="#6d4537" stroke-width="1" opacity=".3"/>
+ <path d="M120 111 Q116 124 111 132 Q120 137 129 132" fill="none" stroke="#744632" stroke-width="2.3" stroke-linecap="round"/>
+ <path d="M111 132 Q120 135 129 132" fill="none" stroke="#e6b08c" stroke-width="1.5" stroke-linecap="round"/>
+ <ellipse cx="96" cy="132" rx="8" ry="4" fill="#d68f70" opacity=".16"/><ellipse cx="144" cy="132" rx="8" ry="4" fill="#d68f70" opacity=".16"/>
+ <path d="M106 146 Q120 138 134 146 Q120 159 106 146Z" fill="url(#av-lips)"/><path d="M110 145 Q120 147 130 145" fill="none" stroke="#f1b6a4" stroke-width="1.5" stroke-linecap="round"/>
  ${ageDetails}${beard}
- <path d="M84 260 Q88 218 99 197 L112 208 120 260Z" fill="#fff" opacity=".55"/><path d="M156 260 Q152 218 141 197 L128 208 120 260Z" fill="#d8e4f4" opacity=".5"/>
+ <path d="M84 260 Q88 218 99 197 L112 208 120 260Z" fill="#fff" opacity=".48"/><path d="M156 260 Q152 218 141 197 L128 208 120 260Z" fill="#b8cbe0" opacity=".48"/>
+ <path d="M29 246 Q36 211 54 194" fill="none" stroke="#fff" stroke-width="2" opacity=".35"/>
  </svg>`;
  };
  function render(){
