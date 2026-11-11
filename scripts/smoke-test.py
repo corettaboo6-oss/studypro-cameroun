@@ -36,7 +36,7 @@ for src in page.scripts:
 for required_file in ("collective.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js", "api/cinetpay-verification.js", "supabase/schema.sql", "supabase/monetization.sql", "README-CLASSEMENT.md", "README-MONETISATION.md", "package.json"):
     assert (ROOT / required_file).is_file(), f"Fichier du classement collectif absent : {required_file}"
 
-for filename in ("courses.js", "lessons-year1.js", "lessons-year2.js", "lessons-year3.js", "dashboard-v2.js", "billing-auth.js", "collective.js", "api/chat.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js", "api/cinetpay-verification.js"):
+for filename in ("courses.js", "premium-content-client.js", "lessons-year1.js", "lessons-year2.js", "lessons-year3.js", "dashboard-v2.js", "billing-auth.js", "collective.js", "api/chat.js", "api/leaderboard.js", "api/payments.js", "api/payment-webhook.js", "api/premium-content.js", "api/cinetpay-verification.js"):
     subprocess.run(["node", "--check", str(ROOT / filename)], check=True)
 
 # Vérifie aussi la syntaxe du JavaScript embarqué dans la page.
@@ -60,7 +60,7 @@ for year in (1, 2, 3):
     lesson_source = (ROOT / f"lessons-year{year}.js").read_text(encoding="utf-8")
     assert f"window.LESSONS_Y{year}" in lesson_source, f"Leçons de l’année {year} absentes"
 assert "lessonLibrary[course.year]" in html, "Le chargement des leçons par année est absent"
-assert "lessons-year2.js" in html and "lessons-year3.js" in html, "Scripts des années 2 et 3 non chargés"
+assert "premium-content-client.js" in html, "Client de contenus privés non chargé"
 assert "data-buy-plan" in html and "premium_plus" in html, "Offres Premium absentes"
 assert "getAccessToken" in (ROOT / "billing-auth.js").read_text(encoding="utf-8"), "Session Supabase non partagée avec le paiement"
 assert "studypro_subscriptions" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Lecture serveur des abonnements absente"
