@@ -265,7 +265,7 @@ body.theme-light .ai-sources,body.theme-light .ai-status{color:#40516e}
  }
  form.addEventListener('submit',e=>{e.preventDefault();ask(question.value)});
  document.querySelectorAll('[data-ai-prompt]').forEach(b=>b.addEventListener('click',()=>ask(b.getAttribute('data-ai-prompt'))));
- status.textContent='Tuteur prêt : les leçons STUDYPRO sont indexées dans ton navigateur.';
+ status.textContent=location.hostname.endsWith('github.io')?'Interface prête. Le moteur IA nécessite le déploiement Vercel décrit dans README-IA.md.':'Tuteur prêt : les leçons STUDYPRO sont indexées dans ton navigateur.';
 })();
 
 /* Préférences personnelles : couleurs, apparence, police et taille */
