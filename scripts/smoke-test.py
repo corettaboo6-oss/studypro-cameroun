@@ -60,6 +60,8 @@ for year in (1, 2, 3):
 assert "lessonLibrary[course.year]" in html, "Le chargement des leçons par année est absent"
 assert "lessons-year2.js" in html and "lessons-year3.js" in html, "Scripts des années 2 et 3 non chargés"
 assert "data-buy-plan" in html and "premium_plus" in html, "Offres Premium absentes"
+assert "1 500 FCFA" in html and "3 000 FCFA" in html, "Tarifs Premium attendus absents"
+assert "2 000 FCFA" not in html and "3 500 FCFA" not in html, "Anciens tarifs encore présents"
 assert "CINETPAY_API_KEY_CM" in (ROOT / "api/payments.js").read_text(encoding="utf-8"), "Configuration CinetPay côté serveur absente"
 assert "verifyNotification" in (ROOT / "api/payment-webhook.js").read_text(encoding="utf-8"), "Vérification du webhook CinetPay absente"
 assert "studypro_activate_subscription" in (ROOT / "supabase/monetization.sql").read_text(encoding="utf-8"), "Activation idempotente des abonnements absente"
