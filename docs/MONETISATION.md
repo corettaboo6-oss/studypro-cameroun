@@ -76,3 +76,22 @@ Ne pas committer de fichier `.env`. Utiliser les variables d'environnement de l'
 
 ## Prochaine étape requise
 Obtenir les accès marchands/KYC et documents API MTN MoMo Cameroun et Orange Money Cameroun, puis connecter le projet à Supabase Auth/DB et déployer les fonctions serveur. Tant que ces accès ne sont pas fournis et testés, les paiements restent désactivés.
+
+## Connexion Supabase — état du code
+Le frontend contient maintenant :
+- `supabase-config.js` : emplacement réservé à l'URL du projet et à la clé publique anon/publishable.
+- `billing-auth.js` : création de compte, connexion e-mail/mot de passe, déconnexion et lecture de l'abonnement actif avec la session Supabase.
+- `index.html` : formulaire de compte intégré à la page des offres.
+
+Le frontend ne peut lire que les abonnements de l'utilisateur connecté grâce à RLS. Il ne peut ni créer un paiement, ni modifier un abonnement, ni attribuer un plan Premium. La migration SQL donne uniquement des droits de lecture au navigateur.
+
+### Mise en service à effectuer dans le projet Supabase
+1. Créer/ouvrir le projet Supabase et confirmer la région/hébergement.
+2. Dans SQL Editor, exécuter `supabase/migrations/202611110001_billing.sql`.
+3. Dans Authentication > URL Configuration, ajouter l'URL publique STUDYPRO comme Site URL et URL de redirection autorisée.
+4. Dans Authentication > Providers, activer Email et définir la confirmation d'adresse selon la politique choisie.
+5. Copier Project URL et la clé publique anon/publishable dans `supabase-config.js`. Ces deux valeurs sont destinées au client; ne jamais y mettre `service_role`.
+6. Tester inscription, confirmation d'e-mail, connexion, déconnexion et lecture d'un abonnement vide. L'offre reste Gratuit tant qu'aucun abonnement actif n'a été confirmé côté serveur.
+
+### Limite de déploiement
+Le site actuellement publié sur GitHub Pages est statique. Le fichier de configuration public doit être renseigné puis publié. Les fonctions serveur Netlify/Supabase Edge Functions pour paiements et administration ne sont pas encore déployées. Les paiements demeurent désactivés.
