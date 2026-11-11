@@ -110,3 +110,22 @@ create table if not exists public.studypro_premium_content (
 );
 alter table public.studypro_premium_content enable row level security;
 revoke all on public.studypro_premium_content from anon, authenticated;
+
+-- Agrégats complets du tableau de bord administrateur (pas de limite arbitraire de 1 000 lignes).
+create or replace function public.studypro_admin_revenue_summary()
+returns jsonb language sql stable security definer set search_path=public as $$
+  select jsonb_build_object(
+    'total_xaf', coalesce(sum(amount) filter (where status='succeeded'),0),
+    'successful_payments', count(*) filter (where status='succeeded'),
+    'pending_payments', count(*) filter (where status='pending'),
+    'by_plan', coalesce((
+      select jsonb_object_agg(plan, n) from (
+        select plan, count(*) as n from public.studypro_payment_orders
+        where status='succeeded' group by plan
+      ) grouped
+    ), '{}'::jsonb)
+  )
+  from public.studypro_payment_orders;
+$$;
+revoke all on function public.studypro_admin_revenue_summary() from public, anon, authenticated;
+grant execute on function public.studypro_admin_revenue_summary() to service_role;
