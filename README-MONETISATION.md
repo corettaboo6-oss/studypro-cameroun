@@ -21,6 +21,7 @@ Les montants sont fixés côté serveur dans `api/payments.js`. Le navigateur ne
 
 ### Supabase
 1. Conserver les variables existantes `SUPABASE_URL`, `SUPABASE_ANON_KEY` et `STUDYPRO_ALLOWED_ORIGIN`.
+   - Définir `STUDYPRO_ALLOWED_ORIGIN` comme l’origine HTTPS exacte du site, par exemple `https://votre-domaine.vercel.app`, sans chemin ni barre oblique finale.
 2. Ajouter `SUPABASE_SERVICE_ROLE_KEY` dans les variables d'environnement Vercel uniquement. Ne jamais l'ajouter au navigateur ou à Git.
 3. Dans Supabase SQL Editor, exécuter d'abord `supabase/schema.sql`, puis `supabase/monetization.sql`.
 4. Vérifier que les tables `studypro_payment_orders` et `studypro_subscriptions` et les fonctions RPC sont créées.
