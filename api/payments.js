@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
-import { CinetPayClient, verifyNotification, parseNotification } from "cinetpay-js";
+import { CinetPayClient } from "cinetpay-js";
+import { verifyCinetPayPayment } from "./cinetpay-verification.js";
 
 const PLANS = {
   premium: { name: "Premium", amount: 1500, days: 30 },
@@ -47,10 +48,19 @@ async function orderByReference(reference) {
     encodeURIComponent(reference) + "&limit=1");
   return rows[0] || null;
 }
-async function activateVerifiedOrder(order, providerStatus) {
-  if (!order || providerStatus.status !== "SUCCESS" ||
-      providerStatus.merchantTransactionId !== order.merchant_transaction_id ||
-      providerStatus.transactionId !== order.provider_transaction_id) return false;
+async function activateVerifiedOrder(order) {
+  if (!order || !order.provider_transaction_id) return false;
+  const apiKey = env("CINETPAY_API_KEY_CM") || env("CINETPAY_API_KEY");
+  const apiPassword = env("CINETPAY_API_PASSWORD_CM") || env("CINETPAY_API_PASSWORD");
+  const verification = await verifyCinetPayPayment({
+    transactionId: order.provider_transaction_id,
+    merchantTransactionId: order.merchant_transaction_id,
+    amount: Number(order.amount),
+    currency: order.currency,
+    apiKey,
+    apiPassword
+  });
+  if (!verification.ok) return false;
   await db("/rest/v1/rpc/studypro_activate_subscription", {
     method: "POST",
     body: JSON.stringify({
@@ -143,13 +153,12 @@ async function handleStatus(req, res, user) {
   if (!order || order.user_id !== user.id) return json(res, 404, { error: "Paiement introuvable." });
   if (order.status === "succeeded") return json(res, 200, { status: "SUCCESS", plan: order.plan });
   if (!order.provider_transaction_id) return json(res, 200, { status: order.status.toUpperCase() });
-  const status = await cinetpay().payment.getStatus(order.provider_transaction_id, "CM");
-  if (status.status === "SUCCESS") {
-    const activated = await activateVerifiedOrder(order, status);
+  const activated = await activateVerifiedOrder(order);
+  if (activated) {
     if (!activated) return json(res, 409, { error: "La vérification CinetPay ne correspond pas à cette commande." });
     return json(res, 200, { status: "SUCCESS", plan: order.plan });
   }
-  return json(res, 200, { status: status.status || "PENDING" });
+  return json(res, 200, { status: "PENDING" });
 }
 async function handleSubscription(res, user) {
   const rows = await db("/rest/v1/studypro_subscriptions?select=plan,status,current_period_start,current_period_end&user_id=eq." +
