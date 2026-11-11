@@ -118,6 +118,24 @@ body.theme-light .avatar-hint{background:#fff;color:#17233e;border-color:#d8e0ef
 body.theme-light .avatar-chat{background:#fff;color:#17233e;border-color:#d8e0ef}
 body.theme-light .avatar-chat p{color:#40516e}
 @media(max-width:700px){.avatar-dock{right:12px;bottom:12px}.avatar-launch{width:66px;height:66px}.avatar-hint{font-size:.78rem}.avatar-chat{right:12px;bottom:88px}}
+
+/* Tuteur IA Studypro */
+.avatar-chat{width:min(410px,calc(100vw - 24px));max-height:min(78vh,720px);overflow:auto}
+.ai-chat-intro{font-size:.9rem;line-height:1.45}.ai-chat-log{display:flex;flex-direction:column;gap:9px;max-height:300px;overflow:auto;margin:12px 0;padding:8px;background:#0b1530;border-radius:12px}
+.ai-msg{max-width:94%;padding:10px 12px;border-radius:12px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.9rem;line-height:1.5}
+.ai-msg.assistant{align-self:flex-start;background:#20365f;color:#f2f7ff}
+.ai-msg.user{align-self:flex-end;background:#087f82;color:white}
+.ai-sources{font-size:.76rem;color:#b6c9e9;margin-top:5px}
+.ai-chat-form{display:flex;gap:7px;margin-top:9px}
+.ai-chat-form input{min-width:0;flex:1;padding:11px;border-radius:9px;border:1px solid #61769c;background:#f7f9ff;color:#15213a}
+.ai-chat-form button{white-space:nowrap}
+.ai-quick-prompts{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.ai-quick-prompts button{font-size:.76rem;padding:7px 9px}
+.ai-status{font-size:.78rem;min-height:1.3em;color:#b9cbea}
+body.theme-light .ai-chat-log{background:#edf2fa}
+body.theme-light .ai-msg.assistant{background:#e5edf9;color:#17233e}
+body.theme-light .ai-sources,body.theme-light .ai-status{color:#40516e}
+@media(max-width:700px){.avatar-chat{max-height:76vh;right:10px;bottom:86px;padding:12px}.ai-chat-log{max-height:240px}}
 </style>
 </head>
 <body>
@@ -161,8 +179,11 @@ body.theme-light .avatar-chat p{color:#40516e}
 <div class="avatar-dock"><span class="avatar-hint">Ton assistant</span><button class="avatar-launch" id="avatarLaunch" type="button" aria-label="Ouvrir l’assistant STUDYPRO"></button></div>
 <aside class="avatar-chat" id="avatarChat" aria-live="polite">
  <div class="avatar-chat-head"><div id="avatarChatPortrait"></div><div><strong>Assistant STUDYPRO</strong><div class="note" id="avatarChatMeta">Étudiant · 18–24 ans</div></div></div>
- <p>Bonjour ! Je suis ton compagnon de révision. Choisis une leçon dans la bibliothèque pour commencer.</p>
- <p class="note">L’interface de l’assistant est prête. Les réponses IA personnalisées seront activées après la connexion sécurisée d’un service IA.</p>
+ <p class="ai-chat-intro">Pose-moi une question sur tes cours de soins infirmiers. Je m’appuie sur les fiches et leçons STUDYPRO disponibles.</p>
+ <div class="ai-quick-prompts"><button type="button" data-ai-prompt="Explique-moi simplement les notions essentielles du cours actuellement affiché.">Expliquer</button><button type="button" data-ai-prompt="Prépare 5 QCM corrigés à partir des leçons STUDYPRO pertinentes.">Créer 5 QCM</button><button type="button" data-ai-prompt="Fais une fiche de révision courte avec les points essentiels.">Résumer</button></div>
+ <div class="ai-chat-log" id="aiChatLog" role="log" aria-live="polite"><div class="ai-msg assistant">Bonjour ! Je suis ton tuteur STUDYPRO. Je peux expliquer les leçons, faire des résumés et créer des QCM. Que souhaites-tu apprendre aujourd’hui ?</div></div>
+ <p class="ai-status" id="aiStatus" role="status">Connexion au tuteur IA en attente de configuration du serveur.</p>
+ <form class="ai-chat-form" id="aiChatForm"><input id="aiQuestion" maxlength="1500" autocomplete="off" placeholder="Écris ta question…" aria-label="Ta question" required><button type="submit" id="aiSend">Envoyer</button></form>
  <button type="button" id="avatarClose">Fermer</button> <a class="btn" href="#cours">Voir les cours</a>
 </aside>
 
@@ -191,6 +212,60 @@ body.theme-light .avatar-chat p{color:#40516e}
  const chat=document.getElementById('avatarChat');
  document.getElementById('avatarLaunch').addEventListener('click',()=>chat.classList.toggle('open'));
  document.getElementById('avatarClose').addEventListener('click',()=>chat.classList.remove('open'));
+})();
+
+
+/* Tuteur IA : recherche des passages pédagogiques locaux puis appel du backend sécurisé */
+(function(){
+ const form=document.getElementById('aiChatForm'),question=document.getElementById('aiQuestion'),log=document.getElementById('aiChatLog'),status=document.getElementById('aiStatus'),send=document.getElementById('aiSend');
+ if(!form||!window.COURSES)return;
+ const history=[];
+ const norm=s=>String(s||'').toLocaleLowerCase('fr').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+ function retrieve(q){
+  const terms=[...new Set(norm(q).split(/[^a-z0-9]+/).filter(x=>x.length>2))];
+  const entries=[];
+  const libs={1:window.LESSONS_Y1||[],2:window.LESSONS_Y2||[],3:window.LESSONS_Y3||[]};
+  (window.COURSES||[]).forEach(course=>{
+   const library=libs[course.year]||[],detail=library.find(x=>x.course===course.title);
+   if(detail&&Array.isArray(detail.lessons))detail.lessons.forEach(lesson=>{
+    const body=[course.title,course.domain,course.topics.join(' '),lesson.title,lesson.goal,(lesson.content||[]).join(' '),lesson.key,lesson.question].join(' ');
+    const n=norm(body);let score=0;terms.forEach(t=>{if(n.includes(t))score+=n.split(t).length-1});
+    if(score>0)entries.push({score,text:'Cours : '+course.title+' (année '+course.year+')\nLeçon : '+lesson.title+'\nObjectif : '+lesson.goal+'\nContenu : '+(lesson.content||[]).join(' ')+'\nÀ retenir : '+lesson.key+'\nQuestion de révision : '+lesson.question,source:course.title+' — '+lesson.title});
+   });
+   const summary=[course.title,course.domain,(course.topics||[]).join(' '),course.objectives].join(' ');
+   const n=norm(summary);let score=0;terms.forEach(t=>{if(n.includes(t))score+=n.split(t).length-1});
+   if(score>0)entries.push({score:score*.65,text:'Fiche de cours : '+course.title+' (année '+course.year+', '+course.domain+')\nChapitres : '+course.topics.join('; ')+'\nObjectif : '+course.objectives,source:course.title+' — fiche de cours'});
+  });
+  entries.sort((a,b)=>b.score-a.score);
+  return entries.slice(0,5);
+ }
+ function addMessage(text,role,sources){
+  const wrap=document.createElement('div');wrap.className='ai-msg '+role;wrap.textContent=text;
+  if(sources&&sources.length){const small=document.createElement('div');small.className='ai-sources';small.textContent='Sources STUDYPRO : '+sources.join(' · ');wrap.appendChild(small)}
+  log.appendChild(wrap);log.scrollTop=log.scrollHeight;
+ }
+ async function ask(raw){
+  const q=String(raw||'').trim();if(!q||send.disabled)return;
+  addMessage(q,'user');question.value='';send.disabled=true;status.textContent='Recherche dans les cours et préparation de la réponse…';
+  const found=retrieve(q);
+  if(!found.length){addMessage("Je n’ai pas trouvé de passage suffisamment pertinent dans les cours actuellement chargés. Essaie avec le nom d’une matière ou d’un chapitre précis.",'assistant');status.textContent='Aucune source de cours pertinente trouvée.';send.disabled=false;return}
+  const context=found.map(x=>x.text).join('\n\n---\n\n').slice(0,10000),sources=[...new Set(found.map(x=>x.source))];
+  try{
+   const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q,context,sources,history:history.slice(-6)})});
+   const data=await res.json().catch(()=>({}));
+   if(!res.ok)throw new Error(data.error||'Le service IA est momentanément indisponible.');
+   const answer=String(data.answer||'').trim();if(!answer)throw new Error('Le tuteur n’a pas renvoyé de réponse.');
+   addMessage(answer,'assistant',data.sources||sources);
+   history.push({role:'user',content:q},{role:'assistant',content:answer});while(history.length>8)history.shift();
+   status.textContent='Réponse générée à partir des ressources de cours trouvées.';
+  }catch(err){
+   addMessage('Je ne peux pas joindre le moteur IA pour le moment. '+err.message+' Vérifie que le site est déployé avec le serveur Vercel et que sa clé API est configurée.','assistant');
+   status.textContent='Connexion IA indisponible.';
+  }finally{send.disabled=false;question.focus()}
+ }
+ form.addEventListener('submit',e=>{e.preventDefault();ask(question.value)});
+ document.querySelectorAll('[data-ai-prompt]').forEach(b=>b.addEventListener('click',()=>ask(b.getAttribute('data-ai-prompt'))));
+ status.textContent=location.hostname.endsWith('github.io')?'Interface prête. Le moteur IA nécessite le déploiement Vercel décrit dans README-IA.md.':'Tuteur prêt : les leçons STUDYPRO sont indexées dans ton navigateur.';
 })();
 
 /* Préférences personnelles : couleurs, apparence, police et taille */
