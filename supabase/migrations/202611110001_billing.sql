@@ -1,3 +1,6 @@
+-- LEGACY: ancien schéma direct MTN MoMo / Orange Money.
+-- Ne pas exécuter pour le flux CinetPay actuel : utiliser supabase/schema.sql puis supabase/monetization.sql.
+-- Conservé uniquement pour référence historique; aucune fonctionnalité active ne lit ces tables.
 -- STUDYPRO billing schema — Supabase PostgreSQL
 -- Run only after enabling Supabase Auth and reviewing policies for your project.
 create extension if not exists pgcrypto;
