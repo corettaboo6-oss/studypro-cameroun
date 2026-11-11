@@ -368,13 +368,17 @@ function getWeeklyData(){
 }
 function recordWeeklyAnswer(correct,seconds,questionId){
  if(!correct)return;
- const d=getWeeklyData();if(d.answered.includes(questionId))return;d.answered.push(questionId);d.score+=5;d.answers+=1;
+ // Le classement serveur applique son propre anti-doublon par compte et par semaine.
+ // Ne pas laisser le cache local empêcher un nouvel étudiant connecté de synchroniser sa réponse.
+ if(window.studyproCollective&&window.studyproCollective.connected)window.studyproCollective.record(questionId,Math.round(seconds*1000));
+ const d=getWeeklyData();if(d.answered.includes(questionId)){renderWeeklyBoard();return;}d.answered.push(questionId);d.score+=5;d.answers+=1;
  if(d.bestTime===null||seconds<d.bestTime)d.bestTime=seconds;
  try{localStorage.setItem("studyproWeekly",JSON.stringify(d))}catch(e){}
  renderWeeklyBoard();
- if(window.studyproCollective&&window.studyproCollective.connected)window.studyproCollective.record(questionId,Math.round(seconds*1000));
 }
 function renderWeeklyBoard(){
+ // Une fois connecté, le tableau collectif est la source de vérité : ne pas l'écraser par la démo locale.
+ if(window.studyproCollective&&window.studyproCollective.connected)return;
  const d=getWeeklyData(),names=[
   {name:"Aïcha Mvondo",emoji:"👩🏾‍⚕️",score:95,time:8.4},
   {name:"Junior Tchoumi",emoji:"👨🏿‍⚕️",score:80,time:9.7},
