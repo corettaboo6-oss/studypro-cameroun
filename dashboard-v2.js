@@ -107,6 +107,7 @@
     const fill = el('span');
     progress.append(fill);
     const goalText = el('p', 'dash-muted', '');
+    goalText.id = 'studypro-goal-text';
     goalInput.addEventListener('change', () => {
       const next = Math.min(5000, Math.max(10, Number(goalInput.value) || 100));
       goalInput.value = String(next);
@@ -165,7 +166,7 @@
     section.querySelector('.dash-progress').setAttribute('aria-valuemin', '0');
     section.querySelector('.dash-progress').setAttribute('aria-valuemax', String(goal));
     section.querySelector('.dash-progress').setAttribute('aria-valuenow', String(Math.min(points, goal)));
-    section.querySelector('.dash-card + .dash-card + .dash-card + .dash-card p').textContent =
+    section.querySelector('#studypro-goal-text').textContent =
       points + ' / ' + goal + ' points · ' + percent + ' % de ton objectif';
   }
 
