@@ -28,7 +28,7 @@ assert not missing, f"Sections/éléments manquants : {sorted(missing)}"
 for src in page.scripts:
     assert (ROOT / src).is_file(), f"Script référencé introuvable : {src}"
 
-for filename in ("courses.js", "lessons-year1.js", "dashboard-v2.js"):
+for filename in ("courses.js", "lessons-year1.js", "lessons-year2.js", "lessons-year3.js", "dashboard-v2.js"):
     subprocess.run(["node", "--check", str(ROOT / filename)], check=True)
 
 # Vérifie aussi la syntaxe du JavaScript embarqué dans la page.
@@ -46,5 +46,10 @@ years = {int(y) for y in re.findall(r"\{year:(\d+),", (ROOT / "courses.js").read
 assert years == {1, 2, 3}, f"Années IDE attendues 1, 2 et 3, trouvées : {years}"
 assert "studypro:rewards-updated" in html, "Événement de mise à jour des récompenses absent"
 assert "dashboard-v2-title" in (ROOT / "dashboard-v2.js").read_text(encoding="utf-8")
+for year in (1, 2, 3):
+    lesson_source = (ROOT / f"lessons-year{year}.js").read_text(encoding="utf-8")
+    assert f"window.LESSONS_Y{year}" in lesson_source, f"Leçons de l’année {year} absentes"
+assert "lessonLibrary[course.year]" in html, "Le chargement des leçons par année est absent"
+assert "lessons-year2.js" in html and "lessons-year3.js" in html, "Scripts des années 2 et 3 non chargés"
 
 print("STUDYPRO smoke tests: OK")
