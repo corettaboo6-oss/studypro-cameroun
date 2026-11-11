@@ -100,7 +100,9 @@ function openLesson(course){
  });
  reader.style.display='block';reader.scrollIntoView({behavior:'smooth',block:'start'});
 }
-document.getElementById('closeLessonZoom').onclick=()=>document.getElementById('lessonZoomDialog').close();\ndocument.getElementById('lessonZoomDialog').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.close()});\ndocument.getElementById('closeLesson').onclick=()=>{document.getElementById('lessonReader').style.display='none';document.getElementById('cours').scrollIntoView({behavior:'smooth'})};
+document.getElementById('closeLessonZoom').onclick=()=>document.getElementById('lessonZoomDialog').close();
+document.getElementById('lessonZoomDialog').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.close()});
+document.getElementById('closeLesson').onclick=()=>{document.getElementById('lessonReader').style.display='none';document.getElementById('cours').scrollIntoView({behavior:'smooth'})};
 
 function getRewardData(){const fallback={points:0,completed:[],quizDone:[]};try{const raw=JSON.parse(localStorage.getItem('studyproRewards')||'{}');return {points:Number.isFinite(Number(raw.points))?Math.max(0,Number(raw.points)):0,completed:Array.isArray(raw.completed)?raw.completed.filter(x=>typeof x==='string'):[],quizDone:Array.isArray(raw.quizDone)?raw.quizDone.filter(x=>Number.isInteger(x)&&x>=0):[]}}catch(e){return fallback}}
 function saveRewardData(d){try{localStorage.setItem('studyproRewards',JSON.stringify(d));renderRewards();window.dispatchEvent(new CustomEvent('studypro:rewards-updated'));return true}catch(e){const feedback=document.getElementById('feedback');if(feedback)feedback.textContent='Progression non enregistrée : le stockage du navigateur est indisponible ou saturé.';return false}}
