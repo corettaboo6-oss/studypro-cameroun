@@ -1,4 +1,5 @@
-import { CinetPayClient, verifyNotification, parseNotification } from "cinetpay-js";
+import { verifyNotification, parseNotification } from "cinetpay-js";
+import { verifyCinetPayPayment } from "./cinetpay-verification.js";
 
 const env = name => String(process.env[name] || "").trim();
 const base = () => env("SUPABASE_URL").replace(/\/$/, "");
@@ -13,12 +14,6 @@ async function db(path, options = {}) {
   if (!response.ok) throw new Error(data.message || "Database error");
   return data;
 }
-function client() {
-  const apiKey = env("CINETPAY_API_KEY_CM") || env("CINETPAY_API_KEY");
-  const apiPassword = env("CINETPAY_API_PASSWORD_CM") || env("CINETPAY_API_PASSWORD");
-  if (!apiKey || !apiPassword) throw new Error("CinetPay credentials missing.");
-  return new CinetPayClient({ credentials: { CM: { apiKey, apiPassword } }, timeout: 20000 });
-}
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
   if (req.method !== "POST") return res.status(405).send("Method not allowed");
@@ -32,9 +27,18 @@ export default async function handler(req, res) {
     }
     if (order.status === "succeeded") return res.status(200).send("Already processed");
     if (order.provider_transaction_id !== notification.transactionId) return res.status(409).send("Transaction mismatch");
-    const status = await client().payment.getStatus(notification.transactionId, "CM");
-    if (status.status !== "SUCCESS") {
-      if (["FAILED", "EXPIRED", "INSUFFICIENT_BALANCE"].includes(status.status)) {
+    const apiKey = env("CINETPAY_API_KEY_CM") || env("CINETPAY_API_KEY");
+    const apiPassword = env("CINETPAY_API_PASSWORD_CM") || env("CINETPAY_API_PASSWORD");
+    const verification = await verifyCinetPayPayment({
+      transactionId: order.provider_transaction_id,
+      merchantTransactionId: order.merchant_transaction_id,
+      amount: Number(order.amount),
+      currency: order.currency,
+      apiKey,
+      apiPassword
+    });
+    if (!verification.ok) {
+      if (["FAILED", "EXPIRED", "INSUFFICIENT_BALANCE"].includes(verification.status)) {
         await db("/rest/v1/studypro_payment_orders?merchant_transaction_id=eq." + encodeURIComponent(order.merchant_transaction_id), {
           method: "PATCH", headers: { Prefer: "return=minimal" },
           body: JSON.stringify({ status: "failed" })
@@ -42,8 +46,7 @@ export default async function handler(req, res) {
       }
       return res.status(200).send("Payment not successful");
     }
-    if (status.merchantTransactionId !== order.merchant_transaction_id ||
-        status.transactionId !== order.provider_transaction_id) return res.status(409).send("Provider verification mismatch");
+    if (!verification.ok) return res.status(409).send("Provider amount, currency or transaction verification mismatch");
     await db("/rest/v1/rpc/studypro_activate_subscription", {
       method: "POST",
       body: JSON.stringify({
