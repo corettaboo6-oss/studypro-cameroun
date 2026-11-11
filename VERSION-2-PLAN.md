@@ -59,3 +59,12 @@
 - Ajout de vérifications automatiques pour les scripts pédagogiques des trois années.
 - Ajout de `SOURCES-PEDAGOGIQUES.md` pour distinguer références institutionnelles, repères professionnels et synthèses pédagogiques internes.
 - Réserve importante : le communiqué MINSANTÉ du 15 juin 2023 confirme l'harmonisation et la révision des curricula, mais ne constitue pas à lui seul le référentiel détaillé des unités IDE. Une validation pédagogique par une école/formateur reste nécessaire.
+
+
+## Compléments pédagogiques — novembre 2026
+
+- Ajout d'un module détaillé de deuxième année « Anesthésiologie et surveillance » : évaluation préanesthésique, techniques anesthésiques, surveillance respiratoire et cardiovasculaire, salle de réveil, douleur/complications et sécurité au bloc.
+- Ajout de deux questions d'autoévaluation dans chacune des 19 matières du parcours.
+- Référence de structuration ajoutée : MINESUP, Offre de formation BTS, volume 6, spécialité Sciences infirmières. Les intitulés semestriels de ce BTS ne sont pas assimilés à une répartition officielle en trois années IDE.
+- Références MINFOPRA conservées comme repères de concours professionnels, distincts du curriculum initial.
+- Les nouveaux tests contrôlent la présence du module d'anesthésiologie et la couverture QCM de toutes les matières.
